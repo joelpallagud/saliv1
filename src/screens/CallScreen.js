@@ -8,6 +8,7 @@ import Overlay from '../components/Overlay';
 //import { loadAudio } from '../helpers/audio';
 import Geocoder from 'react-native-geocoder';
 import { getCity } from '../helpers/geocoder';
+import { Location, Permissions } from 'expo';
 
 
 class CallScreen extends Component {
@@ -48,14 +49,14 @@ class CallScreen extends Component {
     {
 	super(props);
 	this.state = {
-	    city: null,
-	    error: null,
+	    location: null,
+	    errorMessage: null,
 	}
     }
 
-    componentDidMount()
+    componentWillMount()
     {
-	//this.setState({city: getCity(Geocoder)})
+	this._getLocationAsync();
     }
 
     componentWillUnmount()
@@ -63,58 +64,79 @@ class CallScreen extends Component {
 	this.audio.unloadAsync();
     }
 
-    render() {
-        const { containerStyle, overlayStyle } = styles;
-        const { call } = this.props.text;
+    _getLocationAsync = async () => {
+	let { status } = await Permissions.askAsync(Permissions.LOCATION);
+	if (status !== 'granted') {
+	    this.setState({
+		errorMessage: 'Permission to access location was denied',
+	    });
+	}
+	let pos = await Location.getCurrentPositionAsync({});
+	let coords = { latitude: this.state.pos.coords.latitude,
+		    longitude: this.state.pos.coords.longitude}
+	let location = await Location.reverseGeocodeAsync(coords);
+	this.setState({location});
+    };
 
-        return (
-            <View style={ containerStyle }>
+    render() {
+	const { containerStyle, overlayStyle } = styles;
+	const { call } = this.props.text;
+	let text = 'Waiting..';
+	if (this.state.errorMessage) {
+	    text = this.state.errorMessage;
+	} else if (this.state.city) 
+	{
+	    text = JSON.stringify(this.state.location[0].city);
+	}
+
+	return (
+	    <View style={ containerStyle }>
 		<Image
 		    style={{
-		      backgroundColor: '#fff',
-		      flex: 1,
-		      resizeMode: 'cover',
-		      position: 'absolute',
-		      width: '100%',
-		      height: '100%',
-		      justifyContent: 'center',
+			backgroundColor: '#fff',
+			flex: 1,
+			resizeMode: 'cover',
+			position: 'absolute',
+			width: '100%',
+			height: '100%',
+			justifyContent: 'center',
 		    }}
 		    source={ require('../img/asset3.png') }
-		  >
+		>
 		</Image>
-	    
-                <View style={ overlayStyle } pointerEvents='none'>
+		<Text> {text} </Text>
+    		<View style={ overlayStyle } pointerEvents='none'>
 		    {/*}<Overlay title = "Call for help" /> {*/}
-                </View>
-                <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
-		    <Text> { this.state.city } </Text>
-                    <NumberList />
-                </View>
-                <View style={{ flex: 20 }}>
-                    <Controller 
-                        backOnPress={ this.backClick }  
-                        nextOnPress={ this.nextClick } 
-                        question={ call }
-                    />
-                </View>
-            </View>
-        )
+		</View>
+		<View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
+		    <Text> { this.state.text } </Text>
+		    <NumberList />
+		</View>
+		<View style={{ flex: 20 }}>
+		    <Controller 
+			backOnPress={ this.backClick }  
+			nextOnPress={ this.nextClick } 
+			question={ call }
+		    />
+		</View>
+	    </View>
+	)
     }
 }
 
 const styles = {
     containerStyle: {
-        flex: 1,
-        backgroundColor: 'white',
-        marginTop: 20
+	flex: 1,
+	backgroundColor: 'white',
+	marginTop: 20
     },
     overlayStyle: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 2
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	zIndex: 2
     }
 }
 

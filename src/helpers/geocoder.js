@@ -1,31 +1,16 @@
-export function getCity(Geocoder)
+import { Location, Permissions } from 'expo';
+
+export async function getCity()
 {
-    var data;
-    navigator.geolocation.getCurrentPosition( (position) => {
-	    data = {
-		lat: position.coords.latitude,
-		lng: position.coords.longitude
-	    }
-	},
-	(error) => {
-	    console.log(error);
-	    data = {
-		lat: null,
-		lng: null,
-	    }
-	},
-	{ enableHighAccuracy: true, timeout: 20000},
-    );
-    Geocoder.geocodePosition(data.lat, data.lng).then( res=> {
-	if(res.locality == null)
-	{
-	    return "Metro Manila"
+	let { status } = await Permissions.askAsync(Permissions.LOCATION);
+	if (status !== 'granted') {
+	    return null;
 	}
-	else
-	{
-	    return res.locality 
-	}
-    })
-    .catch(err => console.log(err))
+
+	let location = await Location.getCurrentPositionAsync({});
+	let loc = { latitude: location.coords.latitude,
+		    longitude: location.coords.longitude}
+	let city = await Location.reverseGeocodeAsync(loc);
+	return "test";
 
 }
