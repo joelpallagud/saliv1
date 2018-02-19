@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Text, FlatList } from 'react-native';
+import { View, TouchableHighlight, Text, FlatList, Alert } from 'react-native';
 import NumberListItem from './NumberListItem';
+import { Location, Permissions } from 'expo';
 
 class NumberList extends Component {
+    constructor(props)
+    {
+	super(props);
+	this.state = {
+	    location: null,
+	    errorMessage: null,
+	}
+    }
     data = [
         {
             place: 'Medical City',
@@ -22,6 +31,20 @@ class NumberList extends Component {
         }
     ];
 
+    _getLocationAsync = async () => {
+	let { status } = await Permissions.askAsync(Permissions.LOCATION);
+	if (status !== 'granted') {
+	    this.setState({
+		errorMessage: 'Permission to access location was denied',
+	    });
+	}
+	let pos = await Location.getCurrentPositionAsync({});
+	let coords = { latitude: pos.coords.latitude,
+		    longitude: pos.coords.longitude}
+	let location = await Location.reverseGeocodeAsync(coords);
+	this.setState({location});
+    };
+
     renderItem = ({ item }) => (
         <NumberListItem
             item={ item }
@@ -29,8 +52,28 @@ class NumberList extends Component {
         />
     );
 
+    componentWillMount()
+    {
+	this._getLocationAsync();
+    }
+
     render() {
         const { containerStyle, titleStyle, listContainerStyle, placeStyle, listStyle } = styles;
+	let text = 'Getting location..';
+	if (this.state.errorMessage) {
+	    text = this.state.errorMessage;
+	    Alert.alert(
+		'Error getting location',
+		this.state.errorMessage,
+		[
+		    {text: 'Ok', style: 'default'}
+		]
+	    )
+	    text = "Metro Manila";
+	} else if (this.state.location) 
+	{
+	    text = this.state.location[0].city;
+	}
 
         return (
             <View style={ containerStyle }>
@@ -39,7 +82,7 @@ class NumberList extends Component {
                 </Text>
                <View style={ listContainerStyle }>
                     <Text style={ placeStyle }>
-                        Manila
+			{text}
                     </Text>
                     <FlatList
                         data={this.data}

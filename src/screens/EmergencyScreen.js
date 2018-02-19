@@ -43,7 +43,6 @@ class EmergencyScreen extends Component {
     render() {
         const { emergencyHeader } = this.props.text;
 	const { viewed, error}  = this.props.tutorial;
-
         return (
 	    <View style = {{ flex:1, backgroundColor: 'transparent' }}>
 		{
@@ -54,7 +53,6 @@ class EmergencyScreen extends Component {
 		    source={ require('../img/asset3.png') }
 		  >
 		</Image>
-		 { !viewed && <Text> false </Text>} 
 		<ScrollView style={ styles.containerStyle }>
 		    <Text style={ styles.headerStyle } >
 			{ emergencyHeader }

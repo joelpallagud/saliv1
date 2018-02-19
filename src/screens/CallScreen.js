@@ -8,7 +8,6 @@ import Overlay from '../components/Overlay';
 //import { loadAudio } from '../helpers/audio';
 import Geocoder from 'react-native-geocoder';
 import { getCity } from '../helpers/geocoder';
-import { Location, Permissions } from 'expo';
 
 
 class CallScreen extends Component {
@@ -48,46 +47,17 @@ class CallScreen extends Component {
     constructor(props)
     {
 	super(props);
-	this.state = {
-	    location: null,
-	    errorMessage: null,
-	}
-    }
-
-    componentWillMount()
-    {
-	this._getLocationAsync();
     }
 
     componentWillUnmount()
     {
-	this.audio.unloadAsync();
+	//this.audio.unloadAsync();
     }
 
-    _getLocationAsync = async () => {
-	let { status } = await Permissions.askAsync(Permissions.LOCATION);
-	if (status !== 'granted') {
-	    this.setState({
-		errorMessage: 'Permission to access location was denied',
-	    });
-	}
-	let pos = await Location.getCurrentPositionAsync({});
-	let coords = { latitude: this.state.pos.coords.latitude,
-		    longitude: this.state.pos.coords.longitude}
-	let location = await Location.reverseGeocodeAsync(coords);
-	this.setState({location});
-    };
 
     render() {
 	const { containerStyle, overlayStyle } = styles;
 	const { call } = this.props.text;
-	let text = 'Waiting..';
-	if (this.state.errorMessage) {
-	    text = this.state.errorMessage;
-	} else if (this.state.city) 
-	{
-	    text = JSON.stringify(this.state.location[0].city);
-	}
 
 	return (
 	    <View style={ containerStyle }>
@@ -104,12 +74,10 @@ class CallScreen extends Component {
 		    source={ require('../img/asset3.png') }
 		>
 		</Image>
-		<Text> {text} </Text>
     		<View style={ overlayStyle } pointerEvents='none'>
 		    {/*}<Overlay title = "Call for help" /> {*/}
 		</View>
 		<View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
-		    <Text> { this.state.text } </Text>
 		    <NumberList />
 		</View>
 		<View style={{ flex: 20 }}>
