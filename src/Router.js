@@ -12,6 +12,7 @@ import NameScreen from './screens/Auth/NameScreen';
 import BirthdayScreen from './screens/Auth/BirthdayScreen';
 import PhoneScreen from './screens/Auth/PhoneScreen';
 import EmailScreen from './screens/Auth/EmailScreen';
+import SignupScreen from './screens/Auth/SignupScreen';
 import AddressScreen from './screens/Auth/AddressScreen';
 import PostRegistrationScreen from './screens/Auth/PostRegistrationScreen';
 import EmergencyScreen from './screens/EmergencyScreen';
@@ -30,6 +31,7 @@ const RegistrationStack = StackNavigator(
         Language: { screen: LanguageScreen },
         Greetings: { screen: GreetingsScreen },
         Login: { screen: LoginScreen },
+	Signup: {screen: SignupScreen},
         Name: { screen: NameScreen,},
         Birthday: { screen: BirthdayScreen },
         Phone: { screen: PhoneScreen },

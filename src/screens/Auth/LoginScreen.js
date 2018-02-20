@@ -7,7 +7,7 @@ import { LOGO } from '../../img';
 
 class LoginScreen extends Component {
     handleClick = () => {
-        this.props.navigation.navigate('Name');
+        this.props.navigation.navigate('Signup');
     }
 
     fbClick = () => {

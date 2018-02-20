@@ -56,21 +56,13 @@ class CallScreen extends Component {
 
 
     render() {
-	const { containerStyle, overlayStyle } = styles;
+	const { containerStyle, overlayStyle, backgroundStyle } = styles;
 	const { call } = this.props.text;
 
 	return (
 	    <View style={ containerStyle }>
 		<Image
-		    style={{
-			backgroundColor: '#fff',
-			flex: 1,
-			resizeMode: 'cover',
-			position: 'absolute',
-			width: '100%',
-			height: '100%',
-			justifyContent: 'center',
-		    }}
+		    style={backgroundStyle}
 		    source={ require('../img/asset3.png') }
 		>
 		</Image>
@@ -105,6 +97,15 @@ const styles = {
 	width: '100%',
 	height: '100%',
 	zIndex: 2
+    },
+    backgroundStyle: {
+	backgroundColor: '#fff',
+	flex: 1,
+	resizeMode: 'cover',
+	position: 'absolute',
+	width: '100%',
+	height: '100%',
+	justifyContent: 'center',
     }
 }
 

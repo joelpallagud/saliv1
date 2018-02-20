@@ -1,6 +1,7 @@
 import {
     REGISTER_USER,
     CHOOSE_LANGUAGE
+    SIGNUP
 } from '../actions/types';
 
 const INITIAL_STATE = {
