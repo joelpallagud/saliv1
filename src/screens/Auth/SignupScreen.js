@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
 import { LOGO } from '../../img';
+import { signUp, doPasswordsMatch } from "../../helpers/firebase";
 
 class SignupScreen extends Component {
     backClick = () => {
@@ -11,7 +12,40 @@ class SignupScreen extends Component {
     }
 
     submit = () => {
-
+	if(doPasswordsMatch(this.state.password, this.state.confirmPassword))
+	{
+	    let attempt = signUp(this.state.email, this.state.password);
+	    if(attempt == true)
+	    {
+		Alert.alert(
+		    "Successfully signed up" ,
+		    attempt,
+		    [
+			{text: "Ok", style: "default"}
+		    ]
+		)
+	    }
+	    else
+	    {
+		Alert.alert(
+		    "Error signing up" ,
+		    attempt,
+		    [
+			{text: "Ok", style: "default"}
+		    ]
+		)
+	    }
+	}
+	else
+	{
+		Alert.alert(
+		    "Error signing up" ,
+		    "Passwords don't match"
+		    [
+			{text: "Ok", style: "default"}
+		    ]
+		)
+	}
     }
 
     constructor(props)
