@@ -1,7 +1,8 @@
 import {
     REGISTER_USER,
     CHOOSE_LANGUAGE,
-    SIGNUP
+    SIGNUP,
+    GET_HOTLINE,
 } from './types';
 
 export const registerUser = ({ prop, value }) => {
@@ -23,4 +24,12 @@ export const signUp = (username, password, confirmPassword) => {
 	type: SIGNUP,
 	payload: username, password, confirmPassword
     }
+}
+
+export const getHotline = (location) => {
+    return {
+	type: GET_HOTLINE,
+	payload: location
+    }
+
 }
