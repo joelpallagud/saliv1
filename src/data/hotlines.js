@@ -1,5 +1,5 @@
 export default hotlines = {
-    quezon_city: { [
+    quezon_city:  [
 	{
 	    place: "QC1",
 	    number: "123-4567",
@@ -7,10 +7,10 @@ export default hotlines = {
 	{
 	    place: "QC2",
 	    number: "789-3123"
-	},
+	}
     ]
-    },
-    metro_manila: { [
+    ,
+    metro_manila:  [
 	{
 	    place: "Metro Manila1",
 	    number: "441-3124",
@@ -21,5 +21,5 @@ export default hotlines = {
 	}
     ]
 
-    }
+    
 };

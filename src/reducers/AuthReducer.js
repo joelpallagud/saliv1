@@ -1,6 +1,6 @@
 import {
     REGISTER_USER,
-    CHOOSE_LANGUAGE
+    CHOOSE_LANGUAGE,
     SIGNUP
 } from '../actions/types';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableHighlight, Text, FlatList, Alert } from 'react-native';
 import NumberListItem from './NumberListItem';
 import { Location, Permissions } from 'expo';
-import { showHotlines } from '../actions':
+import { showHotlines } from '../actions';
 import { connect } from 'react-redux';
 
 class NumberList extends Component {
@@ -17,8 +17,11 @@ class NumberList extends Component {
     }
 
     componentWillMount(){
+	this._getLocationAsync();
 	this.props.showHotlines(this.state.location);
+	console.log(this.props.hotlines);
     }
+
 
 
     _getLocationAsync = async () => {
@@ -42,10 +45,6 @@ class NumberList extends Component {
         />
     );
 
-    componentWillMount()
-    {
-	this._getLocationAsync();
-    }
 
     render() {
         const { containerStyle, titleStyle, listContainerStyle, placeStyle, listStyle } = styles;
@@ -74,8 +73,10 @@ class NumberList extends Component {
                     <Text style={ placeStyle }>
 			{text}
                     </Text>
+
+		    {this.WholeHotlines()}
                     <FlatList
-                        data={this.data}
+                        data={this.props.hotlines}
                         renderItem={this.renderItem}
 			keyExtractor={item => item.number}
                     />
@@ -107,8 +108,10 @@ const styles = {
     }
 }
 
-const mapStateToProps = { state } => {
-    const { location } = state.auth;
-    return { location }
+const mapStateToProps = ( state ) => {
+    return {
+	location: state.auth,
+	hotlines: state.hotlines,
+    }
 }
-export default connect( mapStateToProps, { showHotlines })()NumberList);
+export default connect( mapStateToProps, { showHotlines })(NumberList);

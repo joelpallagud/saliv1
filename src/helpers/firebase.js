@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+//import firebase from '../firebase';
 
 export function signUp(email, password)
 {
@@ -11,4 +11,12 @@ export function signUp(email, password)
 export function doPasswordsMatch(password, confirmPassword)
 {
     return (password == confirmPassword);
+}
+
+export function storeInfo(userId, birthday, phone)
+{
+    firebase.database().ref('users/' + userId).set({
+	birthday: birthday,
+	phone: phone
+    })
 }
