@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, TouchableHighlight, Text, FlatList, Alert } from 'react-native';
 import NumberListItem from './NumberListItem';
 import { Location, Permissions } from 'expo';
+import { showHotlines } from '../actions':
+import { connect } from 'react-redux';
 
 class NumberList extends Component {
     constructor(props)
@@ -10,26 +12,14 @@ class NumberList extends Component {
 	this.state = {
 	    location: null,
 	    errorMessage: null,
+	    data: [],
 	}
     }
-    data = [
-        {
-            place: 'Medical City',
-            number: '(02) 641-4567'
-        },
-        {
-            place: 'Medical City',
-            number: '(02) 641-4567'
-        },
-        {
-            place: 'Medical City',
-            number: '(02) 641-4567'
-        },
-        {
-            place: 'Medical City',
-            number: '(02) 641-4567'
-        }
-    ];
+
+    componentWillMount(){
+	this.props.showHotlines(this.state.location);
+    }
+
 
     _getLocationAsync = async () => {
 	let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -117,4 +107,8 @@ const styles = {
     }
 }
 
-export default NumberList;
+const mapStateToProps = { state } => {
+    const { location } = state.auth;
+    return { location }
+}
+export default connect( mapStateToProps, { showHotlines })()NumberList);

@@ -5,4 +5,6 @@ export const FETCH_TUTORIAL_SUCCESS = "tutorial_success";
 export const FETCH_TUTORIAL_ERROR = "tutorial_error";
 export const TUTORIAL_VIEWED = "tutorial_viewed";
 export const SIGNUP = "signup";
+export const SHOW_HOTLINES = "show_hotlines";
+export const GET_HOTLINE = "get_hotline";
 
