@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet} from 'react-native';
+import { View, Text, Image, StyleSheet, Alert, ActivityIndicator} from 'react-native';
 import Input from "../../components/Input";
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
@@ -11,22 +11,26 @@ class SignupScreen extends Component {
 	this.props.navigation.navigate("Home");
     }
 
-    submit = () => {
-	if(doPasswordsMatch(this.state.password, this.state.confirmPassword))
+    submit = async () => {
+	this.setState({ loading: true });
+	if(this.state.password ===this.state.confirmPassword)
 	{
-	    let attempt = signUp(this.state.email, this.state.password);
+	    let attempt = await signUp(this.state.email, this.state.password);
 	    if(attempt == true)
 	    {
+		this.setState({ loading: false })
 		Alert.alert(
-		    "Successfully signed up" ,
-		    attempt,
+		    "Successfully signed up",
+		    "You will now be redirected",
 		    [
 			{text: "Ok", style: "default"}
 		    ]
 		)
+
 	    }
 	    else
 	    {
+		this.setState({ loading: false })
 		Alert.alert(
 		    "Error signing up" ,
 		    attempt,
@@ -36,11 +40,12 @@ class SignupScreen extends Component {
 		)
 	    }
 	}
-	else
+	else if(this.state.password != this.state.confirmPassword)
 	{
+		this.setState({ loading: false })
 		Alert.alert(
 		    "Error signing up" ,
-		    "Passwords don't match"
+		    "Passwords don't match",
 		    [
 			{text: "Ok", style: "default"}
 		    ]
@@ -54,7 +59,8 @@ class SignupScreen extends Component {
 	this.state = {
 	    email: null,
 	    password: null,
-	    confirmPassword: null
+	    confirmPassword: null,
+	    loading: false,
 	}
     }
 
@@ -79,23 +85,29 @@ class SignupScreen extends Component {
                     source={ LOGO }
                 />
 		<View>
+		    <ActivityIndicator size="small" color="#00ff00" animating = {this.state.loading} />
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Email"
-			    value = {this.props.email}
 			    onChangeText = { (email) => this.setState({ email}) }
+			    keyboardType = "email-address"
 			/>
 		    </View>
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Password"
+			    autoCapitalize ={"none"}
+			    secureTextEntry = {true }
+			    
 			    onChangeText = { (password) => this.setState({ password}) }
 			/>
 		    </View>
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Confirm Password"
-			    onChangeText = { (confirmPasssword) => this.setState({ confirmPassword }) }
+			    autoCapitalize ={"none"}
+			    secureTextEntry = {true }
+			    onChangeText = { (confirmPassword) => this.setState({ confirmPassword}) }
 			/>
 		    </View>
 		    <View style = {styles.input}>

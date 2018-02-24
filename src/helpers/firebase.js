@@ -1,8 +1,8 @@
-//import firebase from '../firebase';
+import firebase from '../firebase';
 
-export function signUp(email, password)
+export async function signUp(email, password)
 {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+    await firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
 	return error.message;
     })
     return true;
@@ -10,7 +10,7 @@ export function signUp(email, password)
 
 export function doPasswordsMatch(password, confirmPassword)
 {
-    return (password == confirmPassword);
+    return (password === confirmPassword);
 }
 
 export function storeInfo(userId, birthday, phone)
