@@ -4,6 +4,7 @@ import TextReducer from './TextReducer';
 import NavReducer from './NavReducer';
 import HotlineReducer from './HotlineReducer';
 import TutorialReducer from './TutorialReducer';
+import SubtitleReducer from './SubtitleReducer';
 import {firebaseStateReducer as firebase} from 'react-redux-firebase';
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
     tutorial: TutorialReducer,
     firebase,
     hotlines: HotlineReducer,
+    subtitles: SubtitleReducer,
 });
