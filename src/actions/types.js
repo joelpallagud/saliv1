@@ -7,4 +7,6 @@ export const TUTORIAL_VIEWED = "tutorial_viewed";
 export const SIGNUP = "signup";
 export const SHOW_HOTLINES = "show_hotlines";
 export const GET_HOTLINE = "get_hotline";
+export const CHOOSE_SUBTITLES = "choose_subtitles";
+export const SHOW_SUBTITLES = "show_subtitles";
 
