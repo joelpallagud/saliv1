@@ -20,3 +20,10 @@ export function storeInfo(userId, birthday, phone)
 	phone: phone
     })
 }
+export async function signIn(email, password)
+{
+    await firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
+	return error.message;
+    })
+    return true;
+}

@@ -18,7 +18,6 @@ class NumberList extends Component {
 
     componentWillMount(){
 	this._getLocationAsync();
-	console.log(this.props.hotlines);
     }
 
 
@@ -36,6 +35,7 @@ class NumberList extends Component {
 	let location = await Location.reverseGeocodeAsync(coords);
 	this.setState({location});
 	this.props.showHotlines(this.state.location[0].city);
+	console.log(this.props.hotlines);
     };
 
     renderItem = ({ item }) => (

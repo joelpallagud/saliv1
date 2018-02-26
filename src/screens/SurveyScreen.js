@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, Image, StyleSheet } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import React, { Component } from 'react'; import { View, Text, TouchableWithoutFeedback, Image, StyleSheet } from 'react-native'; import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import Video from '../components/Video';
 import Controller from '../components/Controller';
@@ -9,6 +7,7 @@ import { SURVEY_VID } from '../data';
 import { loadAudio} from '../helpers/audio';
 import Subtitle from "../components/Subtitle";
 import { Audio } from 'expo';
+import { showSubtitles } from '../actions';
 
 class SurveyScreen extends Component {
     backClick = () => {
@@ -33,7 +32,6 @@ class SurveyScreen extends Component {
     
     playAudio = async () => {
 	this.audio = new Expo.Audio.Sound();
-	//this.audio = loadAudio('survey.mp3', Audio);
 	await this.audio.loadAsync(require("../data/audio/survey.m4a"));
 	await this.audio.playAsync();
 	if(this.audio != null)
@@ -50,6 +48,12 @@ class SurveyScreen extends Component {
     componentDidMount()
     {
 	this.playAudio()
+    }
+
+    componentWillMount()
+    {
+	this.props.showSubtitles("Survey", "English");
+	console.log(this.props.subtitles)
     }
 
     componentWillUnmount()
@@ -77,7 +81,9 @@ class SurveyScreen extends Component {
 		  >
 		</Image>
                 <View style={styles.overlay} pointerEvents='none'>
-                    <Overlay title='Survey the Area' subtitles= {["TEst", "test"]} length= {[1000, 1000]} />
+		    {/*}
+		    <Overlay title='Survey the Area' subtitles = {this.props.subtitles.overlay} />
+		    {*/}
                 </View>
                 <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
                     <Video 
@@ -85,7 +91,9 @@ class SurveyScreen extends Component {
                     />
                 </View>
 		<View style = {{flex:10}}>
-		    <Subtitle subtitles= {["TEst", "test"]} length= {[1000, 1000]}></Subtitle>
+		    {/*}
+		    <Subtitle subtitles= {this.props.subtitles.repeat}></Subtitle>
+		    {*/}
 		</View>
                 <View style={{ flex: 20 }}>
                     <Controller 
@@ -116,9 +124,10 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-    const { text } = state;
-
-    return { text };
+    return {
+	text: state,
+	subtitles: state.subtitles,
+    }
 }
 
-export default connect( mapStateToProps )( SurveyScreen );
+export default connect( mapStateToProps, {showSubtitles} )( SurveyScreen );

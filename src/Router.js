@@ -22,6 +22,7 @@ import SurveyScreen from './screens/SurveyScreen';
 import CallScreen from './screens/CallScreen';
 import CompressScreen from './screens/CompressScreen';
 import CheckScreen from './screens/CheckScreen';
+import SigninScreen from './screens/auth/SigninScreen';
 
 import { addListener } from '../src/utils/redux';
 
@@ -74,6 +75,7 @@ const HomeTab = TabNavigator(
     {
         Profile: { screen: ProfileScreen },
         Home: { screen: EmergencyScreen },
+	Signin: {screen: SigninScreen},
         About: { screen: AboutScreen }, 
     },
     {

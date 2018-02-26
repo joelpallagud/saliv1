@@ -13,17 +13,17 @@ class Overlay extends Component {
 	}
     }
     getNewLine = () => {
-	return this.props.subtitles[this.state.count]
+	return this.props.subtitles[0]
     }
     getNewLength =() =>{
-	return this.props.length[this.state.count]
+	return 1000
     }
 
     getTotalLength = () =>{
 	var tot = 0;
-	for(i = 0; i < this.props.length.length; i++)
+	for(i = 0; i < 100; i++)
 	{
-	    tot = tot + this.props.length[i]
+	    tot = tot + 1000;
 	}
 	return tot
     }
@@ -33,7 +33,7 @@ class Overlay extends Component {
     }
 
     repeatSubs = () =>{
-	if(this.props.subtitles.length > this.state.count)
+	if(100 > this.state.count)
 	{
 	    this.setState({
 		line: this.getNewLine(),
@@ -119,5 +119,6 @@ const styles = {
 	color: 'white',
     }
 };
+
 
 export default Overlay;

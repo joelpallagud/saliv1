@@ -7,26 +7,39 @@ import subtitles from '../data/subs/subtitles';
 export const showSubtitles= (page, language) => {
     return (dispatch) => {
 	switch(language){
-	    case "english":
+	    case 'English':
 		switch (page) {
 		    case 'Call':
-			
 			dispatch ({
 			    type: SHOW_SUBTITLES,
 			    payload: subtitles.english.call,
 			});
 			break;
+		    case 'Survey':
+			dispatch ({
+			    type: SHOW_SUBTITLES,
+			    payload: subtitles.english.survey,
+			});
+			break;
 		    default:
 			dispatch ({
-			    type: SHOW_HOTLINES,
+			    type: SHOW_SUBTITLES,
 			    payload: subtitles.english, 
 			});
 			break;
 		    break;
-	    case "filipino":
+		    }
+	    case 'Tagalog':
+		switch(page){
+			default: 
+			    dispatch ({
+				type: SHOW_SUBTITLES,
+				payload: subtitles.english, 
+			    });
+			break;
+		    }
 		break;
 		
-	    }
 	}
     }
     

@@ -12,10 +12,10 @@ class SubtitleComponent extends Component {
     }
 
     getNewLine = () => {
-	return this.props.subtitles[this.state.count]
+	return this.props.subtitles[this.state.count].text
     }
     getNewLength =() =>{
-	return this.props.length[this.state.count]
+	return this.props.subtitles[this.state.count].duration
     }
 
     incrementCount = () =>{

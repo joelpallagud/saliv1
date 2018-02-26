@@ -14,12 +14,40 @@ class ProfileScreen extends Component {
 	  />
     ),
     };
+
+    redirectLogin = () => {
+	this.props.navigation.navigate("Signin")
+    }
+
+    constuctor(props)
+    {
+	super(props);
+	this.state = {
+	    user: null,
+	}
+    }
+    componentWillMount()
+    {
+	firebase.auth().onAuthStateChanged((user) => {
+	  if (user != null) {
+	      this.setState({user})
+	  }
+    }
+
+  // Do other things
+});
     render() {
         return (
             <View style={ styles.containerStyle }>
                 <Text style={ styles.headerStyle } >
                     My Profile
                 </Text>
+		{ !this.state.user &&
+			<Button 
+			    title = { login }
+			    onPress = {this.redirectLogin}
+			/>
+		}
             </View>
         )
     }
