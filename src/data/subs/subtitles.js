@@ -1,5 +1,36 @@
 export default subtitles = {
     english : {
+	call: [
+	    {
+		text: "Call for help",
+		duration: 163
+	    },
+	    {
+		text: "I have located the nearest ambulance hotlines",
+		duration: 343
+	    },
+	    {
+		text: "Just chooce the ambulance service you want",
+		duration: 415
+	    },
+	    {
+		text: "and call them right away.",
+		duration: 211
+	    },
+	    {
+		text: "If you knoe the person",
+		duration: 260
+	    },
+	    {
+		text: "Make sure to tell the abulace the person's diseases",
+		duration: 316,
+	    },
+	    {
+		text: "medications, and how the emergency happened",
+		duration: 332
+	    }
+
+	],
 	survey:{
 	    overlay: [
 		{
