@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
+import {connect} from 'react-redux';
 import { LOGO } from '../../img';
+import firebase from '../../firebase';
 
 
 class ProfileScreen extends Component {
@@ -13,30 +15,31 @@ class ProfileScreen extends Component {
 	      style = {{resizeMode: 'contain', width: 26, height: 26}}
 	  />
     ),
-    };
+    }
+    
 
     redirectLogin = () => {
-	this.props.navigation.navigate("Signin")
+	//this.props.navigation.navigate("Signin")
     }
 
-    constuctor(props)
-    {
-	super(props);
+    constructor(props) {
+	super(props)
 	this.state = {
 	    user: null,
 	}
     }
     componentWillMount()
     {
+	/*
 	firebase.auth().onAuthStateChanged((user) => {
 	  if (user != null) {
 	      this.setState({user})
 	  }
+    });
+    */
     }
-
-  // Do other things
-});
     render() {
+	const  { title } = this.props.text;
         return (
             <View style={ styles.containerStyle }>
                 <Text style={ styles.headerStyle } >
@@ -66,4 +69,7 @@ const styles = {
     }
 }
 
-export default ProfileScreen;
+const mapStateToProps = (state) => {
+    const { text } = state;
+}
+export default connect(mapStateToProps)(ProfileScreen);

@@ -45,6 +45,14 @@ class SurveyScreen extends Component {
 
     }
 
+    constructor(props){
+	super(props);
+	this.state= {
+	    subtitles: null,
+	    isLoaded: false,
+	}
+    }
+
     componentDidMount()
     {
 	this.playAudio()
@@ -52,8 +60,16 @@ class SurveyScreen extends Component {
 
     componentWillMount()
     {
-	this.props.showSubtitles("Survey", "English");
-	console.log(this.props.subtitles)
+	this._getSubtitles();
+    }
+
+    _getSubtitles = async () => {
+	await this.props.showSubtitles('Survey', 'English');
+	console.log(this.props.subtitles.survey.overlay);
+	this.setState({
+	    isLoaded: true,
+	})
+	
     }
 
     componentWillUnmount()
@@ -81,9 +97,9 @@ class SurveyScreen extends Component {
 		  >
 		</Image>
                 <View style={styles.overlay} pointerEvents='none'>
-		    {/*}
-		    <Overlay title='Survey the Area' subtitles = {this.props.subtitles.overlay} />
-		    {*/}
+		    { this.state.isLoaded &&
+		    <Overlay title='Survey the Area' subtitles = {this.props.subtitles.survey.overlay} />
+		    }
                 </View>
                 <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
                     <Video 
@@ -91,9 +107,10 @@ class SurveyScreen extends Component {
                     />
                 </View>
 		<View style = {{flex:10}}>
-		    {/*}
-		    <Subtitle subtitles= {this.props.subtitles.repeat}></Subtitle>
-		    {*/}
+
+		    { this.state.isLoaded &&
+		    <Subtitle subtitles= {this.props.subtitles.survey.repeat}></Subtitle>
+		    }
 		</View>
                 <View style={{ flex: 20 }}>
                     <Controller 

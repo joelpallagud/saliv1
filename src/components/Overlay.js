@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Animated, Easing } from 'react-native';
+import {showSubtitles} from '../actions';
 
 class Overlay extends Component {
     constructor() {
@@ -13,17 +14,17 @@ class Overlay extends Component {
 	}
     }
     getNewLine = () => {
-	return this.props.subtitles[0]
+	return this.props.subtitles[this.state.count].text
     }
     getNewLength =() =>{
-	return 1000
+	return this.props.subtitles[this.state.count].duration
     }
 
     getTotalLength = () =>{
 	var tot = 0;
-	for(i = 0; i < 100; i++)
+	for(i = 0; i < this.props.subtitles.length; i++)
 	{
-	    tot = tot + 1000;
+	    tot = tot + this.props.subtitles[i].duration
 	}
 	return tot
     }
@@ -33,7 +34,7 @@ class Overlay extends Component {
     }
 
     repeatSubs = () =>{
-	if(100 > this.state.count)
+	if(this.props.subtitles.length > this.state.count)
 	{
 	    this.setState({
 		line: this.getNewLine(),
@@ -119,6 +120,5 @@ const styles = {
 	color: 'white',
     }
 };
-
 
 export default Overlay;

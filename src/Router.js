@@ -16,13 +16,13 @@ import SignupScreen from './screens/Auth/SignupScreen';
 import AddressScreen from './screens/Auth/AddressScreen';
 import PostRegistrationScreen from './screens/Auth/PostRegistrationScreen';
 import EmergencyScreen from './screens/EmergencyScreen';
-import ProfileScreen from './screens/static/ProfileScreen';
+//import ProfileScreen from './screens/static/ProfileScreen';
 import AboutScreen from './screens/static/AboutScreen';
 import SurveyScreen from './screens/SurveyScreen';
 import CallScreen from './screens/CallScreen';
 import CompressScreen from './screens/CompressScreen';
 import CheckScreen from './screens/CheckScreen';
-import SigninScreen from './screens/auth/SigninScreen';
+//import SigninScreen from './screens/Auth/SigninScreen';
 
 import { addListener } from '../src/utils/redux';
 
@@ -73,9 +73,8 @@ const DrowningStack = StackNavigator(
 
 const HomeTab = TabNavigator(
     {
-        Profile: { screen: ProfileScreen },
+	//Profile: { screen: ProfileScreen },
         Home: { screen: EmergencyScreen },
-	Signin: {screen: SigninScreen},
         About: { screen: AboutScreen }, 
     },
     {
@@ -100,6 +99,7 @@ export const Router = StackNavigator(
         Home: { screen: HomeTab },
         CardiacArrest: { screen: CardiacArrestStack },
         Drowning: { screen: DrowningStack },
+	//Signin: {screen: SigninScreen},
     },   
     {
         headerMode: 'none',

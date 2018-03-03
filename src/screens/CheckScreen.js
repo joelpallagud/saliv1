@@ -74,7 +74,9 @@ class CheckScreen extends Component {
 		  >
 		</Image>
                 <View style={ overlayStyle } pointerEvents='none'>
+		    {/*}
                     <Overlay title='Check the victim' subtitles= {["TEst", "test"]} length= {[1000, 1000]} />
+		    {*/}
                 </View>
                 <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
                     <Video 

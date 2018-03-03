@@ -27,6 +27,7 @@ const AppWithNav = connect( mapStateToProps )( AppWithoutNav );
 
 export default class App extends Component {
 
+    /*
     componentDidMount() {
 	this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
 	    this.setState({
@@ -38,6 +39,7 @@ export default class App extends Component {
     componentWillUnmount() {
 	this.authSubscription();
     }
+    */
 
     render() {
 	const store = createStore( reducers, {}, applyMiddleware( reduxThunk ));

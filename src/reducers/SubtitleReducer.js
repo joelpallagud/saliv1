@@ -5,11 +5,13 @@ import {
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action)
+    console.log(action.payload)
     switch(action.type){
 	case SHOW_SUBTITLES:
-	    return action.payload;
+	    return  action.payload;
+	    break;
 	default:
 	    return state;
+	    break;
     }
 }

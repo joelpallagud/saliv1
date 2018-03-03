@@ -22,6 +22,7 @@ export const showSubtitles= (page, language) => {
 			});
 			break;
 		    default:
+			console.log("default")
 			dispatch ({
 			    type: SHOW_SUBTITLES,
 			    payload: subtitles.english, 
@@ -39,7 +40,12 @@ export const showSubtitles= (page, language) => {
 			break;
 		    }
 		break;
-		
+	    default: 
+		dispatch ({
+		    type: SHOW_SUBTITLES,
+		    payload: subtitles
+		})
+		break;
 	}
     }
     

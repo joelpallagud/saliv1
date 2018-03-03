@@ -15,4 +15,5 @@ export default combineReducers({
     firebase,
     hotlines: HotlineReducer,
     subtitles: SubtitleReducer,
+    user: null,
 });
