@@ -26,14 +26,6 @@ export const chooseLanguage = (language) => {
     };
 };
 
-export const getHotline = (location) => {
-    return {
-	type: GET_HOTLINE,
-	payload: location
-    };
-
-};
-
 export const loginUser = ( email, password ) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
