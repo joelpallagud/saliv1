@@ -102,6 +102,161 @@ export default subtitles = {
 		    }
 		],
 	    },
+	check: {
+	    overlay: [
+		{
+		    text: "Check for consciousness",
+		    duration :159
+		},
+		{
+		    text: "Try waking up the person",
+		    duration: 299
+		},
+		{
+		    text: "By tapping him on his shoulders as hard as you can.",
+		    duration: 395
+		},
+		{
+		    text: "If the person does not respond",
+		    duration: 270
+		},
+		{
+		    text: "he may already be having a sudden cardiac arrest",
+		    duration: 392
+		},
+		{
+		    text: "repeatedly shout his name",
+		    duration: 323
+		},
+		{
+		    text: 'or ask "Hey, are you okay?"',
+		    duration: 395
+		}
+	    ],
+
+	    repeat: [
+		{
+		    text: "Check for consciousness",
+		    duration :159
+		},
+		{
+		    text: "Try waking up the person",
+		    duration: 299
+		},
+		{
+		    text: "By tapping him on his shoulders as hard as you can.",
+		    duration: 395
+		},
+		{
+		    text: "If the person does not respond",
+		    duration: 270
+		},
+		{
+		    text: "he may already be having a sudden cardiac arrest",
+		    duration: 392
+		},
+		{
+		    text: "repeatedly shout his name",
+		    duration: 323
+		},
+		{
+		    text: 'or ask "Hey, are you okay?"',
+		    duration: 395
+		}
+	    ]
+
+	},
+	compressions: {
+	    overlay: [
+		{
+		    text: "Start chest compressions",
+		    duration: 192
+		},
+		{
+		    text: "First locate the center of the chest",
+		    duration: 231
+		},
+		{
+		    text: "With one hand on top of the other",
+		    duration: 279
+		},
+		{
+		    text: "lace your fingers",
+		    duration: 217
+		},
+		{
+		    text: "Using the bottom part of your palm",
+		    duration: 267
+		},
+		{
+		    text: "push as hard as you can",
+		    duration: 205
+		},
+		{
+		    text: " and follow the beat of the sound",
+		    duration: 245
+		},
+		{
+		    text: "Push hard without tiring yourself",
+		    duration: 307
+		},
+		{
+		    text: "Never push using your arms",
+		    duration: 261
+		},
+		{
+		    text: "or you will tire easily",
+		    duration: 196
+		},
+		{
+		    text: "To prevent that, straighten your elbows",
+		    duration: 331
+		},
+		{
+		    text: "And push down with your hips",
+		    duration: 238
+		},
+		{
+		    text: "Just like you are bowing again and again",
+		    duration: 305
+		},
+		{
+		    text: "Stop only when the person wakes up",
+		    duration: 365
+		},
+		{
+		    text: "or when the ambulance arrives",
+		    duration: 223
+		}
+	    ],
+
+	    repeat: [
+		{
+		    text: "Follow the beat",
+		    duration: 194
+		},
+		{
+		    text: "Push hard and fast",
+		    duration: 262
+		},
+		{
+		    text: "Push through your hips",
+		    duration: 264
+		},
+		{
+		    text: "Just like you are bowing", 
+		    duration: 259
+		},
+		{
+		    text: "Stop only when the person wakes up",
+		    duration: 365
+		},
+		{
+		    text: "or when the ambulance arrives",
+		    duration: 223
+		}
+	    ]
+	}
 
     }
 

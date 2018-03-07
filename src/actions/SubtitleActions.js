@@ -21,6 +21,18 @@ export const showSubtitles= (page, language) => {
 			    payload: subtitles.english.survey,
 			});
 			break;
+		    case 'Check':
+			dispatch ({
+			    type: SHOW_SUBTITLES,
+			    payload: subtitles.english.check,
+			});
+			break;
+		    case 'Compress':
+			dispatch ({
+			    type: SHOW_SUBTITLES,
+			    payload: subtitles.english.compressions,
+			});
+			break;
 		    default:
 			console.log("default")
 			dispatch ({

@@ -5,11 +5,19 @@ import { connect } from 'react-redux';
 import Video from '../components/Video';
 import Controller from '../components/Controller';
 import Overlay from '../components/Overlay';
+import Subtitle from "../components/Subtitle";
 import { CHECK_VID } from '../data';
 import { CheckBox } from 'react-native-elements';
+import { showSubtitles } from '../actions';
 //import { loadAudio } from '../helpers/audio';
 
 class CheckScreen extends Component {
+    constructor(props){
+	super(props);
+	this.state= {
+	    isLoaded: false,
+	}
+    }
     backClick = () => {
 	const resetAction = NavigationActions.reset({
 	    index: 0,
@@ -49,10 +57,24 @@ class CheckScreen extends Component {
 	this.playAudio()
     }
 
+    componentWillMount()
+    {
+	this._getSubtitles();
+    }
     componentWillUnmount()
     {
 	this.audio.unloadAsync();
+
     }   
+
+    _getSubtitles = async () => {
+	await this.props.showSubtitles('Check', 'English');
+	console.log(this.props.subtitles);
+	this.setState({
+	    isLoaded: true,
+	})
+	
+    }
 
     render() {
         const { containerStyle, overlayStyle } = styles;
@@ -74,15 +96,21 @@ class CheckScreen extends Component {
 		  >
 		</Image>
                 <View style={ overlayStyle } pointerEvents='none'>
-		    {/*}
-                    <Overlay title='Check the victim' subtitles= {["TEst", "test"]} length= {[1000, 1000]} />
-		    {*/}
+		    { this.state.isLoaded &&
+		    <Overlay title='Check the victim' subtitles= {this.props.subtitles.check.overlay} />
+		    }
                 </View>
                 <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
                     <Video 
                         source={ CHECK_VID }
                     />
                 </View>
+		<View style = {{flex:10}}>
+
+		    { this.state.isLoaded &&
+		    <Subtitle subtitles= {this.props.subtitles.check.repeat}></Subtitle>
+		    }
+		</View>
                 <View style={{ flex: 20 }}>
                     <Controller 
                         backOnPress={ this.backClick }  
@@ -112,9 +140,10 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-    const { text } = state;
-
-    return { text };
+    return {
+	text: state,
+	subtitles: state.subtitles,
+    }
 }
 
-export default connect( mapStateToProps )( CheckScreen );
+export default connect( mapStateToProps, {showSubtitles} )( CheckScreen );

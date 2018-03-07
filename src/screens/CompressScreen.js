@@ -7,8 +7,16 @@ import Controller from '../components/Controller';
 import Overlay from '../components/Overlay';
 import { COMPRESS_VID } from '../data';
 //import { loadAudio } from '../helpers/audio'
+import { showSubtitles } from '../actions';
+import Subtitle from "../components/Subtitle";
 
 class CompressScreen extends Component {
+    constructor(props){
+	super(props);
+	this.state= {
+	    isLoaded: false,
+	}
+    }
     backClick = () => {
         const resetAction = NavigationActions.reset({
             index: 0,
@@ -52,6 +60,20 @@ class CompressScreen extends Component {
 	this.audio.unloadAsync();
     }
 
+    componentWillMount()
+    {
+	this._getSubtitles();
+    }
+
+    _getSubtitles = async () => {
+	await this.props.showSubtitles('Compress', 'English');
+	console.log(this.props.subtitles.compressions.overlay);
+	this.setState({
+	    isLoaded: true,
+	})
+	
+    }
+
     render() {
         const { containerStyle, overlayStyle } = styles;
         const { compress } = this.props.text;
@@ -72,13 +94,19 @@ class CompressScreen extends Component {
 		  >
 		</Image>
                 <View style={ overlayStyle } pointerEvents='none'>
-                    <Overlay title='Compress the Chest' subtitles= {["TEst", "test"]} length= {[1000, 1000]} />
+		    <Overlay title='Compress the Chest' subtitles= {this.props.subtitles.compressions.overlay}  />
                 </View>
                 <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
                     <Video 
                         source={ COMPRESS_VID }
                     />
                 </View>
+		<View style = {{flex:10}}>
+
+		    { this.state.isLoaded &&
+		    <Subtitle subtitles= {this.props.subtitles.compressions.repeat}></Subtitle>
+		    }
+		</View>
                 <View style={{ flex: 20 }}>
                     <Controller 
                         backOnPress={ this.backClick }  
@@ -108,10 +136,11 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-    const { text } = state;
-
-    return { text };
+    return {
+	text: state,
+	subtitles: state.subtitles,
+    }
 }
 
-export default connect( mapStateToProps )( CompressScreen );
+export default connect( mapStateToProps , {showSubtitles})( CompressScreen );
 
