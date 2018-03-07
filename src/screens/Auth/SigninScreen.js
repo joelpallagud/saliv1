@@ -4,7 +4,6 @@ import Input from "../../components/Input";
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
 import { LOGO } from '../../img';
-import {signIn} from '../../helpers/firebase';
 import { loginUser } from '../../actions';
 
 class SigninScreen extends Component {
@@ -23,6 +22,14 @@ class SigninScreen extends Component {
 
     submit= () => {
 	this.props.loginUser(this.state.email, this.state.password);
+    }
+
+    showErrors = () => {
+	if(this.props.error != null)
+	    return (
+		<Text> {this.props.error.message} </Text>
+	    )
+	return;
     }
 
     render() {
@@ -52,7 +59,9 @@ class SigninScreen extends Component {
 			renderItem = {}
 			keyExtractor = {item => item.number}
 		    /> 
+
 		    {*/}
+		    { this.showErrors() }
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Email"

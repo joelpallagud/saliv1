@@ -4,7 +4,8 @@ import Input from "../../components/Input";
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
 import { LOGO } from '../../img';
-import { signUp, doPasswordsMatch } from "../../helpers/firebase";
+//import { signUp, doPasswordsMatch } from "../../helpers/firebase";
+import { signUp } from '../../actions';
 
 class SignupScreen extends Component {
     backClick = () => {
@@ -15,7 +16,8 @@ class SignupScreen extends Component {
 	this.setState({ loading: true });
 	if(this.state.password ===this.state.confirmPassword)
 	{
-	    let attempt = await signUp(this.state.email, this.state.password);
+	    this.props.signUp(this.state.email, this.state.password);
+	    /*
 	    if(attempt == true)
 	    {
 		this.setState({ loading: false })
@@ -39,6 +41,7 @@ class SignupScreen extends Component {
 		    ]
 		)
 	    }
+	    */
 	}
 	else if(this.state.password != this.state.confirmPassword)
 	{
@@ -154,4 +157,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(SignupScreen);
+export default connect(mapStateToProps, {signUp})(SignupScreen);

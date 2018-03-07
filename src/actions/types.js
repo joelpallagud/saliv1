@@ -18,6 +18,8 @@ export const USER_CREATE = "user_create";
 export const USER_UPDATE = "user_update";
 export const USER_DELETE = "user_delete";
 export const USER_EDIT = "user_edit";
-export const USER_FETCH_SUCCESS = "user_fetch_success":
+export const USER_FETCH_SUCCESS = "user_fetch_success";
 export const USER_FETCH_FAILURE = "user_fetch_failure";
+export const SIGNUP_FAIL = "signup_fail";
+export const SIGNUP_SUCCESS = "signup_success";
 

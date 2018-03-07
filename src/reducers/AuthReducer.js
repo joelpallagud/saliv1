@@ -2,6 +2,8 @@ import {
     REGISTER_USER,
     CHOOSE_LANGUAGE,
     SIGNUP,
+    SIGNUP_FAIL,
+    SIGNUP_SUCCESS,
     EMAIL_CHANGED, 
     PASSWORD_CHANGED, 
     LOGIN_USER_SUCCESS,
@@ -38,7 +40,13 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER_SUCCESS:
             return { ...state, ...INITIAL_STATE, user: action.payload };
         case LOGIN_USER_FAIL:
-            return { ...state, error: 'Authentication Failed.', password: '', loading: false };
+            return { ...state, error: action.payload, password: '', loading: false };
+	case SIGNUP: 
+	    return { ...state, loading: true, error: '' };
+	case SIGNUP_FAIL: 
+	    return { ...state, error: 'Signup failed', password: '', loading: false };
+	case SIGNUP_SUCCESS:
+	    return INITIAL_STATE;
         default:
             return state;
     }

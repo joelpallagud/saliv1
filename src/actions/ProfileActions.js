@@ -21,8 +21,9 @@ export const userFetch = () => {
     return (dispatch) => {
 	firebase.database().ref('/users/$(currentUser.uid)')
 	    .on('value', snapshot => {
-		dispatch({ type: USER_FETCH_SUCCESS, payload: snapshot.val() });
-	    });
+		dispatch({ type: USER_FETCH_SUCCESS, 
+		    payload: snapshot.val() });
+	    })
 	    .catch((err) => {
 		dispatch({ type: USER_FETCH_FAILURE  })
 	    } )
