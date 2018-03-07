@@ -1,5 +1,6 @@
 import {
-    SHOW_HOTLINES
+    SHOW_HOTLINES,
+    GET_HOTLINE
 } from './types';
 import hotlines from '../data/hotlines';
 
@@ -22,4 +23,12 @@ export const showHotlines= (location) => {
         }
     }
     
+};
+
+export const getHotline = (location) => {
+    return {
+	type: GET_HOTLINE,
+	payload: location
+    }
+
 };
