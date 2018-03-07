@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import { View, Text, Image, StyleSheet, Alert, ActivityIndicator, FlatList} from 'react-native';
 import Input from "../../components/Input";
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
 import { LOGO } from '../../img';
 import {signIn} from '../../helpers/firebase';
+import { loginUser } from '../../actions';
 
 class SigninScreen extends Component {
     backClick = () => {
@@ -17,8 +18,11 @@ class SigninScreen extends Component {
 	this.state - {
 	    email: null,
 	    password: null, 
-	    loading:false,
 	}
+    }
+
+    submit= () => {
+	this.props.loginUser(this.state.email, this.state.password);
     }
 
     render() {
@@ -41,7 +45,14 @@ class SigninScreen extends Component {
                     source={ LOGO }
                 />
 		<View>
-		    <ActivityIndicator size="small" color="#00ff00" animating = {this.state.loading} />
+		    {/*}
+		    <ActivityIndicator size="small" color="#00ff00" animating = {this.props.loading} />
+		    <FlatList 
+			data= {this.props.error}
+			renderItem = {}
+			keyExtractor = {item => item.number}
+		    /> 
+		    {*/}
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Email"
@@ -96,8 +107,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
+	error: state.auth,
+	loading: state.auth,
 	text: state,
     }
 }
 
-export default connect(mapStateToProps)(SigninScreen);
+export default connect(mapStateToProps, {loginUser})(SigninScreen);

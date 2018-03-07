@@ -9,4 +9,8 @@ export const SHOW_HOTLINES = "show_hotlines";
 export const GET_HOTLINE = "get_hotline";
 export const CHOOSE_SUBTITLES = "choose_subtitles";
 export const SHOW_SUBTITLES = "show_subtitles";
-
+export const EMAIL_CHANGED = 'email_changed';
+export const PASSWORD_CHANGED = 'password_changed';
+export const LOGIN_USER_SUCCESS = 'login_user_success';
+export const LOGIN_USER_FAIL = 'login_user_fail';
+export const LOGIN_USER = 'login_user';

@@ -19,7 +19,7 @@ class ProfileScreen extends Component {
     
 
     redirectLogin = () => {
-	//this.props.navigation.navigate("Signin")
+	this.props.navigation.navigate("Signin")
     }
 
     constructor(props) {
@@ -39,7 +39,6 @@ class ProfileScreen extends Component {
     */
     }
     render() {
-	const  { title } = this.props.text;
         return (
             <View style={ styles.containerStyle }>
                 <Text style={ styles.headerStyle } >
@@ -47,7 +46,7 @@ class ProfileScreen extends Component {
                 </Text>
 		{ !this.state.user &&
 			<Button 
-			    title = { login }
+			    title = "Login"
 			    onPress = {this.redirectLogin}
 			/>
 		}
@@ -70,6 +69,8 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-    const { text } = state;
+    const { text } = state.auth;
+
+    return {text};
 }
 export default connect(mapStateToProps)(ProfileScreen);
