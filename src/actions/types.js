@@ -22,4 +22,7 @@ export const USER_FETCH_SUCCESS = "user_fetch_success";
 export const USER_FETCH_FAILURE = "user_fetch_failure";
 export const SIGNUP_FAIL = "signup_fail";
 export const SIGNUP_SUCCESS = "signup_success";
+export const LOGOUT = "logout";
+export const LOGOUT_SUCCESS = "logout_success";
+export const LOGOUT_FAIL = "logout_fail";
 

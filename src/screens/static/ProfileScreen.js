@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import {connect} from 'react-redux';
 import { LOGO } from '../../img';
 import firebase from '../../firebase';
+import { logout } from '../../actions';
 
 
 class ProfileScreen extends Component {
@@ -18,6 +19,21 @@ class ProfileScreen extends Component {
     }
     
 
+    
+    renderInfo = () => {
+	if(this.state.user){
+	    return(
+		<View>
+		    <Text> {this.state.user.email} </Text>
+
+		    <Button 
+			title= "Logout"
+			onPress = {this.props.logout}
+		    />
+		</View>
+	    )
+	}
+    }
     redirectLogin = () => {
 	this.props.navigation.navigate("Signin")
     }
@@ -30,13 +46,11 @@ class ProfileScreen extends Component {
     }
     componentWillMount()
     {
-	/*
 	firebase.auth().onAuthStateChanged((user) => {
 	  if (user != null) {
 	      this.setState({user})
 	  }
-    });
-    */
+	});
     }
     render() {
         return (
@@ -49,7 +63,8 @@ class ProfileScreen extends Component {
 			    title = "Login"
 			    onPress = {this.redirectLogin}
 			/>
-		}
+		}	
+		{ this.renderInfo() }
             </View>
         )
     }
@@ -69,8 +84,9 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-    const { text } = state.auth;
-
-    return {text};
+    return {
+	text: state.auth,
+	user: state.auth.user,
+    }
 }
-export default connect(mapStateToProps)(ProfileScreen);
+export default connect(mapStateToProps, {logout})(ProfileScreen);

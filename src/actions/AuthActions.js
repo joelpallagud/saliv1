@@ -8,7 +8,11 @@ import {
     PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER
+    LOGIN_USER,
+    LOGOUT,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL
+
 
 } from './types';
 import { NavigationActions } from 'react-navigation';
@@ -51,8 +55,8 @@ const loginUserSuccess = (dispatch, user) => {
     dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: user,
-	//NavigationActions.navigate({ routeName: 'Home' })
     });
+    dispatch(NavigationActions.navigate({ routeName: 'Home' }));
 };
 
 export const signUp = (email, password) => {
@@ -75,7 +79,31 @@ const signupFail= (dispatch, error) => {
 const signupSuccess = (dispatch, email,password) => {
     console.log("SignUp success");
     dispatch({ type: SIGNUP_SUCCESS });
-    loginUser(email,password);
+    dispatch(loginUser(email,password))
 
 }
 
+export const logout = () => {
+    return (dispatch) => {
+	dispatch ({ type: LOGOUT});
+	firebase.auth().signOut()
+	    .then(() =>  logoutSuccess(dispatch))
+	    .catch((err) => logoutFail(dispatch, error))
+    }
+}
+
+const logoutSuccess = (dispatch) => {
+    dispatch({ type: LOGOUT_SUCCESS });
+    dispatch(NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Home'})
+            ]})
+);
+}
+
+const logoutFail = (dispatch, error) => {
+    console.log("Logout failed");
+    console.log(error);
+    dispatch({ type: LOGOUT_FAIL, payload: error});
+}
