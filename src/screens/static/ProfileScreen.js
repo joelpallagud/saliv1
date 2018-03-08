@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import {connect} from 'react-redux';
 import { LOGO } from '../../img';
 import firebase from '../../firebase';
-import { logout } from '../../actions';
+import { logout, userFetch } from '../../actions';
 
 
 class ProfileScreen extends Component {
@@ -21,14 +21,20 @@ class ProfileScreen extends Component {
 
     
     renderInfo = () => {
+	console.log(this.props.profile)
 	if(this.state.user){
 	    return(
 		<View>
+		    <Text> {this.props.name} </Text>
 		    <Text> {this.state.user.email} </Text>
 
 		    <Button 
 			title= "Logout"
 			onPress = {this.props.logout}
+		    />
+		    <Button 
+			title = "Update info"
+			onPress = { this.redirectProfile }
 		    />
 		</View>
 	    )
@@ -37,6 +43,11 @@ class ProfileScreen extends Component {
     redirectLogin = () => {
 	this.props.navigation.navigate("Signin")
     }
+
+    redirectProfile = () => {
+	this.props.navigation.navigate("UserInfo")
+    }
+    
 
     constructor(props) {
 	super(props)
@@ -47,8 +58,9 @@ class ProfileScreen extends Component {
     componentWillMount()
     {
 	firebase.auth().onAuthStateChanged((user) => {
-	  if (user != null) {
-	      this.setState({user})
+	    if (user != null) {
+		this.setState({user})
+		//this.props.userFetch();
 	  }
 	});
     }
@@ -87,6 +99,7 @@ const mapStateToProps = (state) => {
     return {
 	text: state.auth,
 	user: state.auth.user,
+	name: state.profile.name,
     }
 }
-export default connect(mapStateToProps, {logout})(ProfileScreen);
+export default connect(mapStateToProps, {logout, userFetch})(ProfileScreen);

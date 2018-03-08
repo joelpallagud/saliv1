@@ -8,6 +8,8 @@ const INITIAL_STATE = {
     birthday: '',
     phone: '',
     address: '',
+    loading: false,
+    error: '',
 };
 
 export default (state = INITIAL_STATE, action) => {

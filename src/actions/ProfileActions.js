@@ -5,21 +5,27 @@ import {
     USER_FETCH_FAILURE
 } from './types';
 
-export const userCreate = ({name, birthday, phone, address}) => {
+export const userCreate = (name, birthday, phone, address) => {
+    var uid = firebase.auth().currentUser.uid;
+    var path = '/users/' + uid;
     return (dispatch) => {
-	firebase.database().ref('/users/$(currentUser.uid)')
+	firebase.database().ref(path)
 	    .push({name, birthday, phone, address})
 	    .then(() => {
 		dispatch({ type: USER_CREATE });
+	    })
+	    .catch((err) => {
+		createFail(dispatch);
 	    })
     };
 };
 
 export const userFetch = () => {
-    const { currentUser } = firebase.auth();
+    var uid = firebase.auth().currentUser.uid;
+    var path = '/users/' + uid;
 
     return (dispatch) => {
-	firebase.database().ref('/users/$(currentUser.uid)')
+	firebase.database().ref(path)
 	    .on('value', snapshot => {
 		dispatch({ type: USER_FETCH_SUCCESS, 
 		    payload: snapshot.val() });
@@ -28,4 +34,7 @@ export const userFetch = () => {
 		dispatch({ type: USER_FETCH_FAILURE  })
 	    } )
     }
+}
+
+const createFail = (dispatch) => {
 }

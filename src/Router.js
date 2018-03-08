@@ -23,6 +23,7 @@ import CallScreen from './screens/CallScreen';
 import CompressScreen from './screens/CompressScreen';
 import CheckScreen from './screens/CheckScreen';
 import SigninScreen from './screens/Auth/SigninScreen';
+import UserInfoScreen from './screens/Auth/UserInfoScreen';
 
 import { addListener } from '../src/utils/redux';
 
@@ -100,6 +101,7 @@ export const Router = StackNavigator(
         CardiacArrest: { screen: CardiacArrestStack },
         Drowning: { screen: DrowningStack },
 	Signin: {screen: SigninScreen},
+	UserInfo: { screen: UserInfoScreen },
     },   
     {
         headerMode: 'none',
