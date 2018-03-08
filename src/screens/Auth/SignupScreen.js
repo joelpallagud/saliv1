@@ -12,36 +12,10 @@ class SignupScreen extends Component {
 	this.props.navigation.navigate("Home");
     }
 
-    submit = async () => {
-	this.setState({ loading: true });
+    submit = () => {
 	if(this.state.password ===this.state.confirmPassword)
 	{
 	    this.props.signUp(this.state.email, this.state.password);
-	    /*
-	    if(attempt == true)
-	    {
-		this.setState({ loading: false })
-		Alert.alert(
-		    "Successfully signed up",
-		    "You will now be redirected",
-		    [
-			{text: "Ok", style: "default"}
-		    ]
-		)
-
-	    }
-	    else
-	    {
-		this.setState({ loading: false })
-		Alert.alert(
-		    "Error signing up" ,
-		    attempt,
-		    [
-			{text: "Ok", style: "default"}
-		    ]
-		)
-	    }
-	    */
 	}
 	else if(this.state.password != this.state.confirmPassword)
 	{
@@ -63,7 +37,6 @@ class SignupScreen extends Component {
 	    email: null,
 	    password: null,
 	    confirmPassword: null,
-	    loading: false,
 	}
     }
 
@@ -88,7 +61,8 @@ class SignupScreen extends Component {
                     source={ LOGO }
                 />
 		<View>
-		    <ActivityIndicator size="small" color="#00ff00" animating = {this.state.loading} />
+		    <Text> { this.props.error.message} </Text>
+		    <ActivityIndicator size="small" color="#00ff00" animating = {this.props.loading} />
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Email"
@@ -153,6 +127,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
 	email: state.auth,
+	error: state.auth.error,
+	loading: state.auth.loading,
 	text: state,
     }
 }

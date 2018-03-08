@@ -17,20 +17,16 @@ class SigninScreen extends Component {
 	this.state - {
 	    email: null,
 	    password: null, 
+	    error: '',
 	}
     }
 
     submit= () => {
 	this.props.loginUser(this.state.email, this.state.password);
+	console.log(this.props.error)
     }
 
-    showErrors = () => {
-	if(this.props.error != null)
-	    return (
-		<Text> {this.props.error.message} </Text>
-	    )
-	return;
-    }
+
 
     render() {
 	return (
@@ -52,16 +48,8 @@ class SigninScreen extends Component {
                     source={ LOGO }
                 />
 		<View>
-		    {/*}
 		    <ActivityIndicator size="small" color="#00ff00" animating = {this.props.loading} />
-		    <FlatList 
-			data= {this.props.error}
-			renderItem = {}
-			keyExtractor = {item => item.number}
-		    /> 
-
-		    {*/}
-		    { this.showErrors() }
+		    <Text> { this.props.error.message} </Text>
 		    <View style = {styles.input}>
 			<Input style = { styles.input}
 			    placeholder = "Email"
@@ -116,8 +104,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-	error: state.auth,
-	loading: state.auth,
+	email: state.auth,
+	error: state.auth.error,
+	loading: state.auth.loading,
 	text: state,
     }
 }
