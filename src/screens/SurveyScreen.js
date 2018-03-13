@@ -89,12 +89,13 @@ class SurveyScreen extends Component {
                     <Video 
                         source={ SURVEY_VID }
                     />
+                    <View style={ subtitleStyle }>
+                        { this.state.isLoaded &&
+                            <Subtitle subtitles= {this.props.subtitles.survey.repeat} />
+                        }
+                    </View>
                 </View>
-		<View style={ subtitleStyle }>
-		    { this.state.isLoaded &&
-		    <Subtitle subtitles= {this.props.subtitles.survey.repeat}></Subtitle>
-		    }
-		</View>
+		
                 <View style={ controllerStyle }>
                     <Controller 
                         backOnPress={ this.backClick }  
@@ -114,7 +115,7 @@ const styles = {
         marginTop: 20
     },
     controllerStyle: {
-        flex: 20
+        flex: 30
     },
     overlayStyle: {
         position: 'absolute',
@@ -125,10 +126,10 @@ const styles = {
         zIndex: 1
     },
     subtitleStyle: {
-        flex:10
+        height: '15%',
     },
     videoStyle: {
-        flex: 80, 
+        flex: 70, 
         paddingRight: 10, 
         paddingLeft:10
     }

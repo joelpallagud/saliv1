@@ -4,23 +4,29 @@ import Button from './Button';
 import { LOGO } from '../img';
 
 const Controller = ({ nextOnPress, backOnPress, question }) => {
-    const { containerStyle, questionStyle } = styles;
+    const { containerStyle, questionStyle, buttonStyle, questionContainerStyle, ButtonContainerStyle, buttonTextStyle } = styles;
 
     return (
             <View style={ containerStyle }>
-                <Button 
-                    title='Back'
-                    onPress={ backOnPress }
-                    style={{ width: 80 }}
-                />
-                <Text style={ questionStyle }>
-                    { question }
-                </Text>
-                <Button 
-                    title='Next'
-                    onPress={ nextOnPress }
-                    style={{ width: 80 }}
-                />
+                <View style={ questionContainerStyle }>
+                    <Text style={ questionStyle }>
+                        { question }
+                    </Text>
+                </View>
+                <View style={ ButtonContainerStyle }>
+                    <Button 
+                        title='NO'
+                        onPress={ backOnPress }
+                        style={ [buttonStyle, { borderColor: '#E05858', backgroundColor: '#E05858' }] }
+                        fontStyle={ buttonTextStyle }
+                    />
+                    <Button 
+                        title='YES'
+                        onPress={ nextOnPress }
+                        style={ [buttonStyle, { borderColor: '#5F968E', backgroundColor: '#5F968E' }] }
+                        fontStyle={ buttonTextStyle }
+                    />
+                </View>                
             </View>
     );
 };
@@ -28,15 +34,36 @@ const Controller = ({ nextOnPress, backOnPress, question }) => {
 const styles = {
     containerStyle: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0)'
     },
     questionStyle: {
         textAlign: 'center',
-        width: 120,
-	    fontSize: 25,
+        fontSize: 30,
+        fontFamily: 'quicksand'
+        
+    },
+    buttonStyle: {
+        width: 100,
+        borderColor: '#5F968E',
+        backgroundColor: '#5F968E',
+    },
+    ButtonContainerStyle: {
+        flex: 3,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'flex-start'
+    },
+    questionContainerStyle: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonTextStyle: {
+        color: 'white',
+        fontWeight: '700',
+        fontFamily: 'robotoslab',
+        fontSize: 30
     }
 };
 

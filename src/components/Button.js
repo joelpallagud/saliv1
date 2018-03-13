@@ -2,16 +2,17 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 
-const ButtonComponent = ({ title, onPress, style }) => {
-    const { buttonContainerStyle, buttonStyle } = styles;
+const ButtonComponent = ({ title, onPress, style, fontStyle }) => {
+    const { buttonContainerStyle, buttonStyle, textStyle } = styles;
 
     return (
         <View style={ buttonContainerStyle }>
             <Button
                 title={ title }
                 buttonStyle={ [buttonStyle, style] } 
-                color={ 'gray' }
+                color={ '#262626' }
                 onPress={ onPress }
+                textStyle={ [textStyle, fontStyle]}
             />
         </View>
     );
@@ -27,9 +28,17 @@ const styles = {
     buttonStyle: {
         borderRadius: 30,
         width: 250,
-        borderWidth: 1,
-        borderColor: 'gray',
-        backgroundColor: 'white'
+        borderWidth: 3,
+        borderColor: '#BFDCCF',
+        backgroundColor: 'white',
+        shadowColor: 'black',
+        shadowOpacity: 0.2,
+        shadowRadius: 30,
+        shadowOffset: { width: -1, height: 20 }
+    },
+    textStyle: {
+        fontSize: 24, 
+        fontFamily: 'comfortaa'
     }
 }
 

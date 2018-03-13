@@ -17,17 +17,18 @@ class LanguageScreen extends Component {
     }
 
     render() {
-        const { containerStyle, logoStyle, headerStyle, textContainerStyle } = styles;
-
+        const { containerStyle, logoStyle, headerStyle, textContainerStyle, imageContainerStyle } = styles;
         return (
             <View style={ containerStyle } >
 		        <Background
 		            source={ require('../img/asset3.png') }
 		        />
-                <Image
-                    style={ logoStyle }
-                    source={ LOGO }
-                />
+                 <View style={ imageContainerStyle }>
+                    <Image
+                        style={ logoStyle }
+                        source={ LOGO }
+                    />
+                </View>
                 <View style={ textContainerStyle }>
                     <Text style={ headerStyle } >
                         Select Language
@@ -54,18 +55,24 @@ const styles = {
         backgroundColor: 'white'
     },
     logoStyle: {
-        width: 50,
-        height: 50,
-        position: 'absolute',
-        top: 30
+        width: 100,
+        height: 100,
     },
     headerStyle: {
         textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+        color: '#5F968E',
+        fontSize: 30,
+        fontFamily: 'comfortaa',
+        marginBottom: 20
     },
     textContainerStyle: {
-        backgroundColor: 'rgba( 0, 0, 0, 0)'
+        backgroundColor: 'rgba( 0, 0, 0, 0)',
+        flex: 7,
+    },
+    imageContainerStyle: {
+        flex: 4,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }
 
