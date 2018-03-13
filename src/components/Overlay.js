@@ -5,58 +5,57 @@ import {showSubtitles} from '../actions';
 class Overlay extends Component {
     constructor() {
         super();
-	this.easingValue = new Animated.Value(0)
-	this.state = {
-	    line: "",
-	    length: 0,
-	    count: 0,
-	    totLen: 0,
-	}
+	    this.easingValue = new Animated.Value(0)
+	    this.state = {
+	        line: "",
+	        length: 0,
+	        count: 0,
+            totLen: 0,
+        }
     }
     getNewLine = () => {
-	return this.props.subtitles[this.state.count].text
+	    return this.props.subtitles[this.state.count].text
     }
     getNewLength =() =>{
-	return this.props.subtitles[this.state.count].duration
+	    return this.props.subtitles[this.state.count].duration
     }
 
-    getTotalLength = () =>{
-	var tot = 0;
-	for(i = 0; i < this.props.subtitles.length; i++)
-	{
-	    tot = tot + this.props.subtitles[i].duration
-	}
-	return tot
+    getTotalLength = () => {
+	    var tot = 0;
+	    for (i = 0; i < this.props.subtitles.length; i++) {
+            tot = tot + this.props.subtitles[i].duration
+        }
+	    return tot
     }
 
     incrementCount = () =>{
-	return this.state.count + 1
+	    return this.state.count + 1
     }
 
     repeatSubs = () =>{
-	if(this.props.subtitles.length > this.state.count)
-	{
+	    if(this.props.subtitles.length > this.state.count) {
+	        this.setState({
+		        line: this.getNewLine(),
+		        count: this.incrementCount(),
+                length: this.getNewLength(),
+            })
+	    }	
+    }
+
+    componentWillMount() {
 	    this.setState({
-		line: this.getNewLine(),
-		count: this.incrementCount(),
-		length: this.getNewLength(),
+	        line: this.getNewLine(),
+	        count: this.incrementCount(),
+	        totLen: this.getTotalLength(),
+	        length: this.getNewLength(),
 	    })
-	}	
     }
-    componentWillMount()
-    {
-	this.setState({
-	    line: this.getNewLine(),
-	    count: this.incrementCount(),
-	    totLen: this.getTotalLength(),
-	    length: this.getNewLength(),
-	})
-    }
+
     componentDidMount() {
         this.ease()
-	this.interval = setInterval(
-	    () => {this.repeatSubs()}, this.state.length)
+	    this.interval = setInterval( () => {this.repeatSubs()}, this.state.length)
     }
+
     ease() {
         Animated.timing (
             this.easingValue,
@@ -68,7 +67,7 @@ class Overlay extends Component {
     }
 
     componentWillUnmount(){
-	clearInterval(this.interval);
+	    clearInterval(this.interval);
     }
 
     render() {
@@ -111,13 +110,13 @@ const styles = {
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
     },
     subsStyle: {
-	fontSize: 30,
-	color: 'white',
+	    fontSize: 30,
+	    color: 'white',
 
     },
     titleStyle: {
         fontSize: 32,
-	color: 'white',
+	    color: 'white',
     }
 };
 

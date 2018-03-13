@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import { DEFAULT_BACKGROUND } from '../img';
 
-const Background = () => {
+const Background = ({ source }) => {
     const { backgroundStyle } = styles;
 
     return (
         <Image
 		    style={ backgroundStyle }
-		    source={ [ DEFAULT_BACKGROUND ] }
+		    source={ source }
 		  >
 		</Image>
     );

@@ -36,42 +36,35 @@ class CompressScreen extends Component {
     }
 
     playAudio = async () => {
-	this.audio = new Expo.Audio.Sound();
-	await this.audio.loadAsync(require("../data/audio/compression.m4a"));
-	await this.audio.playAsync();
-	if(this.audio != null)
-	{
-	    this.audio.playAsync();
-	}
-	else
-	{
-	    console.log("Error playing audio");
-	}
-
-    }
-
-    componentDidMount()
-    {
-	this.playAudio()
-    }
-
-    componentWillUnmount()
-    {
-	this.audio.unloadAsync();
-    }
-
-    componentWillMount()
-    {
-	this._getSubtitles();
+	    this.audio = new Expo.Audio.Sound();
+	    await this.audio.loadAsync(require("../data/audio/compression.m4a"));
+	    await this.audio.playAsync();
+	    if(this.audio != null) {
+	        this.audio.playAsync();
+	    }
+	    else {
+	        console.log("Error playing audio");
+	    }
     }
 
     _getSubtitles = async () => {
-	await this.props.showSubtitles('Compress', 'English');
-	console.log(this.props.subtitles.compressions.overlay);
-	this.setState({
-	    isLoaded: true,
-	})
-	
+	    await this.props.showSubtitles('Compress', 'English');
+	    console.log(this.props.subtitles.compressions.overlay);
+	    this.setState({
+	        isLoaded: true,
+	    })
+    }
+    
+    componentDidMount() {
+	    this.playAudio()
+    }
+
+    componentWillUnmount() {
+	    this.audio.unloadAsync();
+    }
+
+    componentWillMount() {
+	    this._getSubtitles();
     }
 
     render() {

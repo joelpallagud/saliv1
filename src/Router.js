@@ -33,7 +33,7 @@ const RegistrationStack = StackNavigator(
         Language: { screen: LanguageScreen },
         Greetings: { screen: GreetingsScreen },
         Login: { screen: LoginScreen },
-	Signup: {screen: SignupScreen},
+	    Signup: {screen: SignupScreen},
         Name: { screen: NameScreen,},
         Birthday: { screen: BirthdayScreen },
         Phone: { screen: PhoneScreen },
@@ -74,21 +74,23 @@ const DrowningStack = StackNavigator(
 
 const HomeTab = TabNavigator(
     {
-	Profile: { screen: ProfileScreen },
-        Home: { screen: EmergencyScreen },
+        Main: { screen: EmergencyScreen },
+        Profile: { screen: ProfileScreen },
         About: { screen: AboutScreen }, 
     },
     {
         headerMode: 'none',
-	tabBarOptions: {
-	    inactiveTintColor: '#adadad',
-	    activeTintColor: '#5F968E',
-	    showIcon: true,
-	    style: {
-		backgroundColor: 'white',
-	    }
-	},
-	tabBarPosition: "bottom",
+	    tabBarOptions: {
+	        inactiveTintColor: '#adadad',
+	        activeTintColor: '#5F968E',
+            showIcon: true,
+	        style: {
+		        backgroundColor: 'white',
+            }
+        },
+        tabBarPosition: "bottom",
+        swipeEnabled: true,
+        lazy: true
     },
 )
 
@@ -100,12 +102,11 @@ export const Router = StackNavigator(
         Home: { screen: HomeTab },
         CardiacArrest: { screen: CardiacArrestStack },
         Drowning: { screen: DrowningStack },
-	Signin: {screen: SigninScreen},
-	UserInfo: { screen: UserInfoScreen },
+	    Signin: {screen: SigninScreen},
+	    UserInfo: { screen: UserInfoScreen },
     },   
     {
         headerMode: 'none',
-	
         transitionConfig: () => ({
             transitionSpec: {
                 duration: 0,
@@ -116,19 +117,19 @@ export const Router = StackNavigator(
 
 class AppWithNavigationState extends Component {
     static propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	nav: PropTypes.object.isRequired,
+	    dispatch: PropTypes.func.isRequired,
+	    nav: PropTypes.object.isRequired,
     };
 
     render() {
 	const { dispatch, nav } = this.props;
 	return (
 	    <Router
-		navigation={addNavigationHelpers({
-		    dispatch,
-		    state: nav,
-		    addListener,
-		})}
+		    navigation={addNavigationHelpers({
+		        dispatch,
+		        state: nav,
+		        addListener,
+		    })}
 	    />
 	);
     }

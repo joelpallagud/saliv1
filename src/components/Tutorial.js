@@ -15,22 +15,22 @@ class TutorialComponent extends Component {
     }
 
     closeTutorial = () =>{
-	this.props.tutorialViewed();
-	this.setState({renderTutorial: false});
+		this.props.tutorialViewed();
+		this.setState({renderTutorial: false});
     }
 
     nextSlide = () => {
-	if(this.state.currentMsg == 1)
-	{
-	    this.closeTutorial();
-	}
-	else
-	{
-	    this.setState({currentMsg: this.state.currentMsg +1})
-	}	
+		if(this.state.currentMsg == 1)
+			{
+			    this.closeTutorial();
+			}
+		else
+			{
+			    this.setState({currentMsg: this.state.currentMsg +1})
+			}	
     }
     onMessage= (n) => {
-	return this.state.currentMsg == n
+		return this.state.currentMsg == n
     }
 
     render(){
@@ -42,20 +42,32 @@ class TutorialComponent extends Component {
 		    onRequestClose= {() => this.closeTutorial()}
 		>
 		    <View style = {styles.overlay}>
-			<TouchableHighlight onPress = {() => {this.closeTutorial()}}>
-			    <Text>Close</Text>
-			</TouchableHighlight>
+				<TouchableHighlight 
+					onPress = {() => {this.closeTutorial()}}
+				>
+				    <Text>
+						Close
+					</Text>
+				</TouchableHighlight>
 			<View style = {styles.tutorial}>
-			    <TutorialMessage message = "Tap to learn more about CPR and Sudden Cardiac Arrest Emergencies."
-				isVisible= { this.onMessage(1) }/>
+				<TutorialMessage 
+					message = "Tap to learn more about CPR and Sudden Cardiac Arrest Emergencies."
+					isVisible= { this.onMessage(1) }
+				/>
 
 			    <TutorialMessage 
-				message = "This is the Emergency Tab. Look at the illustration on each emergency card. Click on the emergency card you think you need." 
-			    isVisible = {this.onMessage(0)} />
+					message = "This is the Emergency Tab. Look at the illustration on each emergency card. Click on the emergency card you think you need." 
+			    	isVisible = {this.onMessage(0)} 
+				/>
 
 			</View>
-			<TouchableHighlight style= {styles.nextButton} onPress = {() => {this.nextSlide()}}>
-			    <Text style={styles.buttonText}>Next</Text>
+			<TouchableHighlight 
+				style= {styles.nextButton} 
+				onPress = {() => {this.nextSlide()}}
+			>
+			    <Text style={styles.buttonText}>
+					Next
+				</Text>
 			</TouchableHighlight>
 		    </View>
 		</Modal>

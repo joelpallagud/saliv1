@@ -3,6 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { chooseLanguage } from '../actions';
 import Button from '../components/Button';
+import Background from '../components/Background';
 import { LOGO } from '../img';
 
 class LanguageScreen extends Component {
@@ -20,19 +21,9 @@ class LanguageScreen extends Component {
 
         return (
             <View style={ containerStyle } >
-		<Image
-		    style={{
-		      backgroundColor: '#fff',
-		      flex: 1,
-		      resizeMode: 'cover',
-		      position: 'absolute',
-		      width: '100%',
-		      height: '100%',
-		      justifyContent: 'center',
-		    }}
-		    source={ require('../img/asset3.png') }
-		  >
-		</Image>
+		        <Background
+		            source={ require('../img/asset3.png') }
+		        />
                 <Image
                     style={ logoStyle }
                     source={ LOGO }

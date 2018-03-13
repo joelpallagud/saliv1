@@ -18,51 +18,48 @@ class ProfileScreen extends Component {
     ),
     }
     
-
+	constructor(props) {
+		super(props)
+		this.state = {
+			user: null,
+		}
+	}
     
     renderInfo = () => {
-	console.log(this.props.profile)
-	if(this.state.user){
-	    return(
-		<View>
-		    <Text> {this.props.name} </Text>
-		    <Text> {this.state.user.email} </Text>
+		console.log(this.props.profile)
+		if(this.state.user) {
+		    return (
+				<View>
+				    <Text> {this.props.name} </Text>
+				    <Text> {this.state.user.email} </Text>
 
-		    <Button 
-			title= "Logout"
-			onPress = {this.props.logout}
-		    />
-		    <Button 
-			title = "Update info"
-			onPress = { this.redirectProfile }
-		    />
-		</View>
-	    )
-	}
+				    <Button 
+						title= "Logout"
+						onPress = {this.props.logout}
+				    />
+				    <Button 
+						title = "Update info"
+						onPress = { this.redirectProfile }
+				    />
+				</View>
+			)
+		}
     }
     redirectLogin = () => {
-	this.props.navigation.navigate("Signin")
+		this.props.navigation.navigate("Signin")
     }
 
     redirectProfile = () => {
-	this.props.navigation.navigate("UserInfo")
+		this.props.navigation.navigate("UserInfo")
     }
     
-
-    constructor(props) {
-	super(props)
-	this.state = {
-	    user: null,
-	}
-    }
-    componentWillMount()
-    {
-	firebase.auth().onAuthStateChanged((user) => {
-	    if (user != null) {
-		this.setState({user})
-		//this.props.userFetch();
-	  }
-	});
+    componentWillMount() {
+		firebase.auth().onAuthStateChanged((user) => {
+		    if (user != null) {
+				this.setState({user})
+				//this.props.userFetch();
+			}
+		});
     }
     render() {
         return (
@@ -70,13 +67,13 @@ class ProfileScreen extends Component {
                 <Text style={ styles.headerStyle } >
                     My Profile
                 </Text>
-		{ !this.state.user &&
-			<Button 
-			    title = "Login"
-			    onPress = {this.redirectLogin}
-			/>
-		}	
-		{ this.renderInfo() }
+				{ !this.state.user &&
+					<Button 
+					    title = "Login"
+					    onPress = {this.redirectLogin}
+					/>
+				}	
+				{ this.renderInfo() }
             </View>
         )
     }

@@ -36,7 +36,7 @@ const styles = {
     questionStyle: {
         textAlign: 'center',
         width: 120,
-	fontSize: 25,
+	    fontSize: 25,
     }
 };
 

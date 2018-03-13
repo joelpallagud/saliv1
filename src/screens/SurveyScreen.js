@@ -1,23 +1,24 @@
-import React, { Component } from 'react'; import { View, Text, TouchableWithoutFeedback, Image, StyleSheet } from 'react-native'; import { NavigationActions } from 'react-navigation';
+import React, { Component } from 'react'; import { View, Text, TouchableWithoutFeedback, Image } from 'react-native'; import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import Video from '../components/Video';
+import Background from '../components/Background';
 import Controller from '../components/Controller';
 import Overlay from '../components/Overlay';
+import Subtitle from '../components/Subtitle';
+import Video from '../components/Video';
 import { SURVEY_VID } from '../data';
 import { loadAudio} from '../helpers/audio';
-import Subtitle from "../components/Subtitle";
 import { Audio } from 'expo';
 import { showSubtitles } from '../actions';
 
 class SurveyScreen extends Component {
     backClick = () => {
-	const resetAction = NavigationActions.reset({
-	    index: 0,
-	    key: null,
-	    actions: [
-		NavigationActions.navigate({ routeName: 'Home' })
-	    ]
-	})	
+	    const resetAction = NavigationActions.reset({
+	        index: 0,
+	        key: null,
+	        actions: [
+	    	NavigationActions.navigate({ routeName: 'Home' })
+	        ]
+	    })	
         this.props.navigation.dispatch(resetAction)
     }
 
@@ -31,88 +32,70 @@ class SurveyScreen extends Component {
     }
     
     playAudio = async () => {
-	this.audio = new Expo.Audio.Sound();
-	await this.audio.loadAsync(require("../data/audio/survey.m4a"));
-	await this.audio.playAsync();
-	if(this.audio != null)
-	{
-	    this.audio.playAsync();
-	}
-	else
-	{
-	    console.log("Error playing audio");
-	}
-
+	    this.audio = new Expo.Audio.Sound();
+	    await this.audio.loadAsync(require("../data/audio/survey.m4a"));
+	    await this.audio.playAsync();
+	    if(this.audio != null) {
+	        this.audio.playAsync();
+        } else {
+	        console.log("Error playing audio");
+	    }
     }
 
     constructor(props){
-	super(props);
-	this.state= {
-	    subtitles: null,
-	    isLoaded: false,
-	}
+	    super(props);
+	    this.state = {
+	        subtitles: null,
+	        isLoaded: false,
+	    }
     }
 
-    componentDidMount()
-    {
-	this.playAudio()
+    componentDidMount() {
+	    this.playAudio()
     }
 
-    componentWillMount()
-    {
-	this._getSubtitles();
+    componentWillMount() {
+	    this._getSubtitles();
     }
 
     _getSubtitles = async () => {
-	await this.props.showSubtitles('Survey', 'English');
-	console.log(this.props.subtitles.survey.overlay);
-	this.setState({
-	    isLoaded: true,
-	})
-	
+	    await this.props.showSubtitles('Survey', 'English');
+	    console.log(this.props.subtitles.survey.overlay);
+	    this.setState({
+	        isLoaded: true,
+	    })
     }
 
-    componentWillUnmount()
-    {
-	clearInterval(this.interval);
-	this.audio.unloadAsync();
+    componentWillUnmount() {
+	    clearInterval(this.interval);
+	    this.audio.unloadAsync();
     } 
 
     render() {
         const { survey } = this.props.text;
+        const { containerStyle, controllerStyle, overlayStyle, subtitleStyle, videoStyle } = styles
 
         return (
-            <View style={styles.container}>
-		<Image
-		    style={{
-		      backgroundColor: '#fff',
-		      flex: 1,
-		      resizeMode: 'cover',
-		      position: 'absolute',
-		      width: '100%',
-		      height: '100%',
-		      justifyContent: 'center',
-		    }}
-		    source={ require('../img/asset3.png') }
-		  >
-		</Image>
-                <View style={styles.overlay} pointerEvents='none'>
-		    { this.state.isLoaded &&
-		    <Overlay title='Survey the Area' subtitles = {this.props.subtitles.survey.overlay} />
-		    }
+            <View style={ containerStyle }>
+		        <Background
+		            source={ require('../img/asset3.png') }
+		        />
+                <View style={overlayStyle} pointerEvents='none'>
+		            { this.state.isLoaded &&
+		                <Overlay title='Survey the Area' subtitles = {this.props.subtitles.survey.overlay} />
+		            }
                 </View>
-                <View style={{ flex: 80, paddingRight: 10, paddingLeft:10 }}>
+                <View style={ videoStyle }>
                     <Video 
                         source={ SURVEY_VID }
                     />
                 </View>
-		<View style = {{flex:10}}>
-
+		<View style={ subtitleStyle }>
 		    { this.state.isLoaded &&
 		    <Subtitle subtitles= {this.props.subtitles.survey.repeat}></Subtitle>
 		    }
 		</View>
-                <View style={{ flex: 20 }}>
+                <View style={ controllerStyle }>
                     <Controller 
                         backOnPress={ this.backClick }  
                         nextOnPress={ this.nextClick } 
@@ -124,21 +107,32 @@ class SurveyScreen extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
+const styles = {
+    containerStyle: {
         flex: 1,
         backgroundColor: 'white',
         marginTop: 20
     },
-    overlay: {
+    controllerStyle: {
+        flex: 20
+    },
+    overlayStyle: {
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
         zIndex: 1
+    },
+    subtitleStyle: {
+        flex:10
+    },
+    videoStyle: {
+        flex: 80, 
+        paddingRight: 10, 
+        paddingLeft:10
     }
-})
+}
 
 const mapStateToProps = (state) => {
     return {

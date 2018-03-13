@@ -13,9 +13,9 @@ const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitali
                 style={inputStyle}
                 value={value}
                 onChangeText={onChangeText}
-		underlineColorAndroid='transparent'
-		autoCapitalize ={autoCapitalize}
-		keyboardType = {keyboardType}
+		        underlineColorAndroid='transparent'
+		        autoCapitalize ={autoCapitalize}
+                keyboardType = {keyboardType}
             />
         </View>
     );
@@ -31,7 +31,7 @@ const styles = {
         textAlign: 'center',
     },
     containerStyle: {
-	backgroundColor:'white',
+	    backgroundColor:'white',
         height: 40,
         borderWidth: 1,
         borderRadius: 10,
