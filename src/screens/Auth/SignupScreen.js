@@ -28,6 +28,7 @@ class SignupScreen extends Component {
 		    ]
 		)
 	}
+	console.log(this.props.error);
     }
 
     constructor(props)

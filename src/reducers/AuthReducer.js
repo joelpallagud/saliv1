@@ -47,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
 	case SIGNUP: 
 	    return { ...state, loading: true, error: '' };
 	case SIGNUP_FAIL: 
-	    return { ...state, error: 'Signup failed', password: '', loading: false };
+	    return { ...state, error: action.payload, password: '', loading: false };
 	case SIGNUP_SUCCESS:
 	    return INITIAL_STATE;
 	case LOGOUT: 
