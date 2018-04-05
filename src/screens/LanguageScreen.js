@@ -18,6 +18,7 @@ class LanguageScreen extends Component {
 
     render() {
         const { containerStyle, logoStyle, headerStyle, textContainerStyle, imageContainerStyle } = styles;
+        
         return (
             <View style={ containerStyle } >
 		        <Background
@@ -68,6 +69,7 @@ const styles = {
     textContainerStyle: {
         backgroundColor: 'rgba( 0, 0, 0, 0)',
         flex: 7,
+        alignItems: 'center', 
     },
     imageContainerStyle: {
         flex: 4,

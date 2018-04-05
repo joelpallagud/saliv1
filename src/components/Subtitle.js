@@ -2,38 +2,35 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 
 class SubtitleComponent extends Component {
-    constructor(props){
-		super(props);
-		this.state = {
+		state = {
 		    line: "",
 		    length:1000,
 		    count: 0,
 		}
-    }
 
     getNewLine = () => {
-		return this.props.subtitles[this.state.count].text
+			return this.props.subtitles[this.state.count].text
     }
     getNewLength = () => {
-		return this.props.subtitles[this.state.count].duration
+			return this.props.subtitles[this.state.count].duration
     }
 
     incrementCount = () => {
-		return this.state.count + 1
+			return this.state.count + 1
     }
 
     repeatSubs = () => {
-		if(this.props.subtitles.length > this.state.count) {
-		    this.setState({
-				line: this.getNewLine(),
-				count: this.incrementCount(),
-				length: this.getNewLength(),
-		    })
-		}	
-		else {
-		    this.setState({
-				count: 0,
-		    })
+			if(this.props.subtitles.length > this.state.count) {
+			    this.setState({
+					line: this.getNewLine(),
+					count: this.incrementCount(),
+					length: this.getNewLength(),
+			    })
+			}	
+			else {
+			    this.setState({
+					count: 0,
+			    })
 		}
     }
 
@@ -44,8 +41,8 @@ class SubtitleComponent extends Component {
     }
     
 
-    componentWillUnmount(){
-		clearInterval(this.interval);
+    componentWillUnmount() {
+			clearInterval(this.interval);
 	}
 	
     render() {

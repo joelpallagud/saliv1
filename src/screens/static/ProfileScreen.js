@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
+import Background from '../../components/Background';
+import Logo from '../../components/Logo';
+import UserInfo from '../../components/UserInfo';
 import {connect} from 'react-redux';
 import { LOGO } from '../../img';
 import firebase from '../../firebase';
@@ -13,26 +16,26 @@ class ProfileScreen extends Component {
 	tabBarIcon: () => (
 	  <Image
 	      source={require('../../img/asset11.png')}
-	      style = {{resizeMode: 'contain', width: 26, height: 26}}
+	      style = {{resizeMode: 'contain', width: 25, height: 25}}
 	  />
     ),
     }
     
-	constructor(props) {
-		super(props)
-		this.state = {
-			user: null,
-		}
+	state = {
+		user: null,
 	}
-    
+
     renderInfo = () => {
-		console.log(this.props.profile)
+		console.log(this.props)
 		if(this.state.user) {
 		    return (
 				<View>
-				    <Text> {this.props.name} </Text>
-				    <Text> {this.state.user.email} </Text>
-
+					{/* <UserInfo 
+						name="Kyla Relucio" 
+						city="Quezon City"
+						email="sali@yahoo.com"
+						number="09178909876" 
+					/> */}
 				    <Button 
 						title= "Logout"
 						onPress = {this.props.logout}
@@ -62,11 +65,22 @@ class ProfileScreen extends Component {
 		});
     }
     render() {
+		const { containerStyle, headerContainerStyle } = styles;
+
         return (
-            <View style={ styles.containerStyle }>
-                <Text style={ styles.headerStyle } >
-                    My Profile
-                </Text>
+            <View style={ containerStyle }>
+				{/* <Background
+		            source={ require('../../img/asset3.png') }
+		        /> */}
+				<View style={headerContainerStyle} >
+					<Logo />
+                	<UserInfo 
+						name="Kyla Relucio" 
+						city="Quezon City"
+						email="sali@yahoo.com"
+						number="09178909876" 
+					/>
+				</View>
 				{ !this.state.user &&
 					<Button 
 					    title = "Login"
@@ -85,10 +99,10 @@ const styles = {
         alignItems: 'center', 
         backgroundColor: 'white'
     },
-    headerStyle: {
-        textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+    headerContainerStyle: {
+		height: '50%',
+		alignItems: 'center', 
+		justifyContent: 'space-around'
     }
 }
 

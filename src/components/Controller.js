@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import Button from './Button';
+import ButtonSmall from './ButtonSmall';
 import { LOGO } from '../img';
 
 const Controller = ({ nextOnPress, backOnPress, question }) => {
@@ -14,13 +14,13 @@ const Controller = ({ nextOnPress, backOnPress, question }) => {
                     </Text>
                 </View>
                 <View style={ ButtonContainerStyle }>
-                    <Button 
+                    <ButtonSmall 
                         title='NO'
                         onPress={ backOnPress }
                         style={ [buttonStyle, { borderColor: '#E05858', backgroundColor: '#E05858' }] }
                         fontStyle={ buttonTextStyle }
                     />
-                    <Button 
+                    <ButtonSmall 
                         title='YES'
                         onPress={ nextOnPress }
                         style={ [buttonStyle, { borderColor: '#5F968E', backgroundColor: '#5F968E' }] }

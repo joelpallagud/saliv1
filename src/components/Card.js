@@ -1,40 +1,36 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { LOGO } from '../img';
+import { deviceHeight, deviceWidth } from '../utils/dimensions';
 
-const Card = ({ onPress, title }) => {
+const Card = ({ title }) => {
     const { containerStyle, backgroundImageStyle, titleStyle, buttonStyle } = styles;
 
     return (
-        <TouchableOpacity onPress={ onPress }>
-                <View style={ containerStyle }>
-                    <Image 
-                        style={ backgroundImageStyle }
-                        source={ LOGO }
-                    />
-                    <TouchableOpacity>
-                        <Text style={ buttonStyle }>
-                            Learn More
-                        </Text>
-                    </TouchableOpacity>
-                    <Text style={ titleStyle }>
-                        { title }
-                    </Text>
-                </View>
+        <View style={ containerStyle }>
+            <Image 
+                style={ backgroundImageStyle }
+                source={ LOGO }
+            />
+            <TouchableOpacity>
+                <Text style={ buttonStyle }>
+                    Learn More
+                </Text>
             </TouchableOpacity>
+            <Text style={ titleStyle }>
+                { title }
+            </Text>
+        </View>
     );
 };
 
 const styles = {
     containerStyle: {
-        height: 200,
-        marginTop: 15,
-        marginBottom: 15,
-        marginLeft: 10,
-        marginRight: 10,
+        height: deviceHeight*0.3,
+        width: deviceWidth*0.9,
         borderWidth: 1,
         justifyContent: 'space-between',
-	backgroundColor: 'white',
+	    backgroundColor: 'white',
         borderRadius: 10,
     },
     backgroundImageStyle: {

@@ -1,8 +1,8 @@
-Row,Script,Duration
-1,Call for help,203
-2,Ito ang mga pinakamalapit na ambulansya sa lugar mo,357
-3,Pumili ng ambulansyang gusto mo ,312
-4,at mabilis na tawagin mo sila.,272
-5,Kung kilala mo ang taong na aksidente,311
-6,"sabihin sa amulansya ang sakit ng tao, ang kangyang mga gamot",411
-7,at kung papaano nangyari ang aksidente. ,365
+text,duration
+Call for help,203
+Ito ang mga pinakamalapit na ambulansya sa lugar mo,357
+Pumili ng ambulansyang gusto mo ,312
+at mabilis na tawagin mo sila.,272
+Kung kilala mo ang taong na aksidente,311
+sabihin sa amulansya ang sakit ng tao, ang kangyang mga gamot,411
+at kung papaano nangyari ang aksidente. ,365

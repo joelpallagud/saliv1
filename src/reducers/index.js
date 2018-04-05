@@ -6,6 +6,7 @@ import HotlineReducer from './HotlineReducer';
 import TutorialReducer from './TutorialReducer';
 import SubtitleReducer from './SubtitleReducer';
 import ProfileReducer from "./ProfileReducer";
+import EmergencyReducer from "./EmergencyReducer";
 import {firebaseStateReducer as firebase} from 'react-redux-firebase';
 
 export default combineReducers({
@@ -18,4 +19,5 @@ export default combineReducers({
     subtitles: SubtitleReducer,
     user: null,
     profile: ProfileReducer,
+    emergency: EmergencyReducer
 });

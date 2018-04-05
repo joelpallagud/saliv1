@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
+import { deviceWidth } from '../utils/dimensions';
 
 const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitalize, keyboardType }) => {
     const { inputStyle, containerStyle } = styles;
@@ -25,10 +26,10 @@ const styles = {
     inputStyle: {
         color: '#000',
         paddingRight: 5,
-        paddingLeft: 5,
+        paddingLeft: deviceWidth*0.05,
         lineHeight: 23,
         flex: 1,
-        textAlign: 'center',
+        backgroundColor: 'rgba( 0, 0, 0 , 0)'
     },
     containerStyle: {
 	    backgroundColor:'white',
@@ -36,7 +37,6 @@ const styles = {
         borderWidth: 1,
         borderRadius: 10,
         flexDirection: 'row',
-        alignItems: 'center'
     }
 };
 

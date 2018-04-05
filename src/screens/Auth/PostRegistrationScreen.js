@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
 import Button from '../../components/Button';
+import Background from '../../components/Background';
+import HeaderText from '../../components/HeaderText';
 import { LOGO } from '../../img';
+import { deviceWidth, deviceHeight } from '../../utils/dimensions';
 
 
 class PostRegistrationScreen extends Component {
@@ -18,30 +21,19 @@ class PostRegistrationScreen extends Component {
 
     render() {
         const { postReg, postRegButton } = this.props.text;
+        const { containerStyle, bodyContainerStyle, headerStyle, logoStyle } = styles;
 
         return (
-            <View style={ styles.containerStyle } >
-		<Image
-		    style={{
-		      backgroundColor: '#fff',
-		      flex: 1,
-		      resizeMode: 'cover',
-		      position: 'absolute',
-		      width: '100%',
-		      height: '100%',
-		      justifyContent: 'center',
-		    }}
-		    source={ require('../../img/asset3.png') }
-		  >
-		</Image>
+            <View style={ containerStyle } >
+		        <Background
+		            source={ require('../../img/asset3.png') }
+		        />
                 <Image
-                    style={ styles.logoStyle }
+                    style={ logoStyle }
                     source={ LOGO }
                 />
-                <View>
-                    <Text style={ styles.headerStyle } >
-                        { postReg }
-                    </Text>
+                <View style={ bodyContainerStyle }>
+                    <HeaderText text={ postReg } />
                     <Button 
                         title={ postRegButton }
                         onPress={ this.handleClick }
@@ -60,15 +52,14 @@ const styles = {
         backgroundColor: 'white'
     },
     logoStyle: {
-        width: 50,
-        height: 50,
+        width: deviceHeight*0.1,
+        height: deviceHeight*0.1,
         position: 'absolute',
-        top: 30
+        top: deviceHeight*0.075
     },
-    headerStyle: {
-        textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+    bodyContainerStyle: {
+        alignItems: 'center', 
+        width: deviceWidth*0.8
     }
 }
 const mapStateToProps = ( state ) => {

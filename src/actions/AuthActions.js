@@ -56,7 +56,11 @@ const loginUserSuccess = (dispatch, user) => {
         type: LOGIN_USER_SUCCESS,
         payload: user,
     });
-    dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+    dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [
+            NavigationActions.navigate({ routeName: 'Home'})
+        ]}));
 };
 
 export const signUp = (email, password) => {
@@ -95,11 +99,10 @@ export const logout = () => {
 const logoutSuccess = (dispatch) => {
     dispatch({ type: LOGOUT_SUCCESS });
     dispatch(NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({ routeName: 'Home'})
-            ]})
-);
+        index: 0,
+        actions: [
+            NavigationActions.navigate({ routeName: 'Home'})
+        ]}));
 }
 
 const logoutFail = (dispatch, error) => {

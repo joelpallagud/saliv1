@@ -1,34 +1,33 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, Alert } from 'react-native';
-import {Video} from 'expo';
+import { View, Alert } from 'react-native';
+import { Video } from 'expo';
 
 class VideoComponent extends Component {
-    state = { isVideoPaused: true, isVideoMuted: false};
+    state = { shouldPlay: false, isVideoMuted: false};
 
     playVideo = () => {
-        this.setState({ isVideoPaused: false })
+        this.setState({ shouldPlay: true })
     }
     pauseVideo = () => {
-        this.setState({ isVideoPaused: true })
+        this.setState({ shouldPlay: false })
     }
 
     videoError = () => {
-	Alert.alert(
-	    'Video playback error',
-	    'There was an error playing the video',
-	    [
-		{text: 'Ok', style: 'default'}
-	    ]
-	)
-	console.log("Error loading video")
+		Alert.alert (
+		    'Video playback error',
+		    'There was an error playing the video',
+		    	[
+					{text: 'Ok', style: 'default'}
+		    	]
+			)
+		console.log("Error loading video")
     }
     componentDidMount() {
         this.timeout = setTimeout(this.playVideo, 3000);
-        
     }
     componentWillUnmount() {
-        this.pauseVideo
-	clearTimeout(this.timeout)
+		this.pauseVideo;
+		clearTimeout(this.timeout)
     }
 
 
@@ -38,15 +37,14 @@ class VideoComponent extends Component {
         return (
 		    <Video
 			    source={ this.props.source }
-			    volume={1.0 }
+			    volume={ 1.0 }
 			    resizeMode= {'cover'}
 			    style={ videoStyle }
 			    isLooping
 			    isMuted
-			    shouldPlay
+				shouldPlay
+				isLoaded
 			    onError = { this.videoError }
-			    onLoadStart={(el)=>console.log("video is being loaded",el)}
-			    onLoad={(el)=>console.log("video is loaded",el)}
 			/>
         )
     }

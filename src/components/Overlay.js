@@ -6,54 +6,54 @@ class Overlay extends Component {
     constructor() {
         super();
 	    this.easingValue = new Animated.Value(0)
-	    this.state = {
-	        line: "",
-	        length: 0,
-	        count: 0,
-            totLen: 0,
-        }
+	    // this.state = {
+	    //     line: "",
+	    //     length: 0,
+	    //     count: 0,
+        //     totLen: 0,
+        // }
     }
-    getNewLine = () => {
-	    return this.props.subtitles[this.state.count].text
-    }
-    getNewLength =() =>{
-	    return this.props.subtitles[this.state.count].duration
-    }
+    // getNewLine = () => {
+	//     return this.props.subtitles[this.state.count].text
+    // }
+    // getNewLength =() =>{
+	//     return this.props.subtitles[this.state.count].duration
+    // }
 
-    getTotalLength = () => {
-	    var tot = 0;
-	    for (i = 0; i < this.props.subtitles.length; i++) {
-            tot = tot + this.props.subtitles[i].duration
-        }
-	    return tot
-    }
+    // getTotalLength = () => {
+	//     var tot = 0;
+	//     for (i = 0; i < this.props.subtitles.length; i++) {
+    //         tot = tot + this.props.subtitles[i].duration
+    //     }
+	//     return tot
+    // }
 
-    incrementCount = () =>{
-	    return this.state.count + 1
-    }
+    // incrementCount = () =>{
+	//     return this.state.count + 1
+    // }
 
-    repeatSubs = () =>{
-	    if(this.props.subtitles.length > this.state.count) {
-	        this.setState({
-		        line: this.getNewLine(),
-		        count: this.incrementCount(),
-                length: this.getNewLength(),
-            })
-	    }	
-    }
+    // repeatSubs = () =>{
+	//     if(this.props.subtitles.length > this.state.count) {
+	//         this.setState({
+	// 	        line: this.getNewLine(),
+	// 	        count: this.incrementCount(),
+    //             length: this.getNewLength(),
+    //         })
+	//     }	
+    // }
 
     componentWillMount() {
-	    this.setState({
-	        line: this.getNewLine(),
-	        count: this.incrementCount(),
-	        totLen: this.getTotalLength(),
-	        length: this.getNewLength(),
-	    })
+	    // this.setState({
+	    //     line: this.getNewLine(),
+	    //     count: this.incrementCount(),
+	    //     totLen: this.getTotalLength(),
+	    //     length: this.getNewLength(),
+	    // })
     }
 
     componentDidMount() {
         this.ease()
-	    this.interval = setInterval( () => {this.repeatSubs()}, this.state.length)
+	    // this.interval = setInterval( () => {this.repeatSubs()}, this.state.length)
     }
 
     ease() {
@@ -61,13 +61,14 @@ class Overlay extends Component {
             this.easingValue,
                 {
                     toValue: 1,
-                    duration: this.state.totLen,
+                    duration: 2000
+                    // duration: this.state.totLen,
                 }
             ).start(() => this.ease())
     }
 
     componentWillUnmount(){
-	    clearInterval(this.interval);
+	    // clearInterval(this.interval);
     }
 
     render() {
@@ -93,22 +94,15 @@ class Overlay extends Component {
                 <Text style={ titleStyle }>
                     { this.props.title }
                 </Text>
-		<Text style= { subsStyle }>
-		    { this.state.line }
-		</Text>
+		        {/* <Text style= { subsStyle }>
+		            { this.state.line }
+		        </Text> */}
             </Animated.View>
         )
     }
 }
 
 const styles = {
-    containerStyle: {
-        flex: 1,
-	flexDirection: "column",
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    },
     subsStyle: {
 	    fontSize: 30,
 	    color: 'white',

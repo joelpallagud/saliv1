@@ -25,4 +25,9 @@ export const SIGNUP_SUCCESS = "signup_success";
 export const LOGOUT = "logout";
 export const LOGOUT_SUCCESS = "logout_success";
 export const LOGOUT_FAIL = "logout_fail";
-
+export const INFANT_CHOOSE = 'infant_choose';
+export const CHILD_CHOOSE = 'child_choose';
+export const DROWNING_CHOOSE = 'drowning_choose';
+export const BREATHING_CHOOSE = 'breathing_choose';
+export const PULSE_CHOOSE = 'pulse_choose';
+export const CONSCIOUS_CHOOSE = 'conscious_choose';

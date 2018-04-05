@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
-import Button from '../../components/Button';
+import ButtonLarge from '../../components/ButtonLarge';
+import Background from '../../components/Background';
+import HeaderText from '../../components/HeaderText';
 import { LOGO } from '../../img';
+import { deviceHeight } from '../../utils/dimensions';
 
 
 class LoginScreen extends Component {
-    handleClick = () => {
+    signUpClick = () => {
         this.props.navigation.navigate('Signup');
+    }
+    
+    regLoginClick = () => {
+        this.props.navigation.navigate('Signin');
     }
 
     fbClick = () => {
@@ -15,21 +22,12 @@ class LoginScreen extends Component {
     }
 
     render() {
-        const { login, fbLogin, regLogin } = this.props.text;
+        const { login, fbLogin, regLogin, signUp } = this.props.text;
         const { containerStyle, logoStyle, headerStyle, textContainerStyle } = styles;
         
         return (
             <View style={ containerStyle } >
-                <Image
-                    style={{
-                        backgroundColor: '#fff',
-                        flex: 1,
-                        resizeMode: 'cover',
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                        justifyContent: 'center',
-                    }}
+                <Background
                     source={ require('../../img/asset4.png') }
                 />
                 <Image
@@ -37,16 +35,18 @@ class LoginScreen extends Component {
                     source={ LOGO }
                 />
                 <View style={ textContainerStyle }>
-                    <Text style={ headerStyle } >
-                        { login }
-                    </Text>
-                    <Button 
+                    <HeaderText text={ login } />
+                    <ButtonLarge 
+                        title={ signUp }
+                        onPress={ this.signUpClick }
+                    />
+                    <ButtonLarge 
+                        title={ regLogin }
+                        onPress={ this.regLoginClick }
+                    />
+                    <ButtonLarge 
                         title={ fbLogin }
                         onPress={ this.fbClick }
-                    />
-                    <Button 
-                        title={ regLogin }
-                        onPress={ this.handleClick }
                     />
                 </View>
             </View>
@@ -62,18 +62,20 @@ const styles = {
         backgroundColor: 'white'
     },
     logoStyle: {
-        width: 50,
-        height: 50,
+        width: deviceHeight*0.1,
+        height: deviceHeight*0.1,
         position: 'absolute',
-        top: 30
+        top: deviceHeight*0.075
     },
     headerStyle: {
         textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+        color: '#5F968E',
+        fontSize: 30,
+        fontFamily: 'comfortaa',
     },
     textContainerStyle: {
-        backgroundColor: 'rgba( 0, 0, 0, 0)'
+        backgroundColor: 'rgba( 0, 0, 0, 0)',
+        alignItems: 'center', 
     }
 }
 

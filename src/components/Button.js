@@ -1,6 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { Button } from 'react-native-elements';
+
+const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 const ButtonComponent = ({ title, onPress, style, fontStyle }) => {
     const { buttonContainerStyle, buttonStyle, textStyle } = styles;
@@ -23,21 +26,22 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        marginTop: 10
+        marginTop: deviceWidth*.05,
+        width: deviceWidth*.5,
     },
     buttonStyle: {
         borderRadius: 30,
-        width: 250,
         borderWidth: 3,
+        width: deviceWidth*.5,
         borderColor: '#BFDCCF',
         backgroundColor: 'white',
         shadowColor: 'black',
         shadowOpacity: 0.2,
         shadowRadius: 30,
-        shadowOffset: { width: -1, height: 20 }
+        shadowOffset: { width: -1, height: deviceWidth*.05 }
     },
     textStyle: {
-        fontSize: 24, 
+        fontSize: deviceWidth*.045, 
         fontFamily: 'comfortaa'
     }
 }
