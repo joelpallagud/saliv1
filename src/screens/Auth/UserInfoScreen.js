@@ -83,6 +83,12 @@ class UserInfoScreen extends Component {
 			    onPress = { this.submit }
 			/>
 		    </View>
+		    <View style = {styles.input}>
+			<Button 
+			    title = "Cancel"
+			    onPress = { this.backClick }
+			/>
+		    </View>
 		</View>
 	    </View>
 	)

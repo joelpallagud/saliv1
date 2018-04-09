@@ -25,7 +25,6 @@ class ProfileScreen extends Component {
 	if(this.state.user){
 	    return(
 		<View>
-		    <Text> {this.props.name} </Text>
 		    <Text> {this.state.user.email} </Text>
 
 		    <Button 
@@ -60,7 +59,7 @@ class ProfileScreen extends Component {
 	firebase.auth().onAuthStateChanged((user) => {
 	    if (user != null) {
 		this.setState({user})
-		//this.props.userFetch();
+		this.props.userFetch();
 	  }
 	});
     }
@@ -99,7 +98,9 @@ const mapStateToProps = (state) => {
     return {
 	text: state.auth,
 	user: state.auth.user,
-	name: state.profile.name,
+	//name: state.profile.name,
+	profile: state.profile,
+	details: state.profile.data
     }
 }
 export default connect(mapStateToProps, {logout, userFetch})(ProfileScreen);
