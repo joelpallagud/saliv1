@@ -14,11 +14,11 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case BREATHING_CHOOSE:
             return { ...state, isBreathing: action.payload };
-	    case PULSE_CHOOSE: 
+        case PULSE_CHOOSE: 
             return { ...state, hasPulse: action.payload };
         case CONSCIOUS_CHOOSE: 
             return { ...state, isConscious: action.payload };       
-	    default:
-	        return state;
+        default:
+            return state;
     }
-}
+};

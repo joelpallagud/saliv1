@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import Background from '../../components/Background';
 import { LOGO } from '../../img';
 import strings from '../../data/strings';
+import { deviceWidth } from '../../utils/dimensions';
 
 class GreetingsScreen extends Component {
     handleClick = () => {
@@ -59,9 +60,7 @@ class GreetingsScreen extends Component {
 const styles = {
     containerStyle: {
         flex: 1,
-        justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundColor: 'white'
     },
     logoStyle: {
         width: 200,
@@ -75,8 +74,8 @@ const styles = {
     textStyle: {
         textAlign: 'center',
         color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold'
+        fontSize: deviceWidth*0.045,
+        fontFamily: 'robotoslab',
     },
     contentContainerStyle: {
         flex: 1,

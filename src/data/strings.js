@@ -27,6 +27,7 @@ export default strings = {
         practiceHeader: "Practice CPR",
         practiceBody: "The goal of this game is for you to\nlearn how to properly do chest\n compressions.\n\n You just have to push hard and\nconsistently while following the\nbeat of the sound.\n\nDo it as long as you can.",
         practiceButton: "Start",
+        ambulanceHeader: "Wait for the ambulance",
 
     },
     tagalog: {
@@ -57,6 +58,7 @@ export default strings = {
         practiceHeader: "Practice CPR",
         practiceBody: "The goal of this game is for you to\nlearn how to properly do chest\n compressions.\n\n You just have to push hard and\nconsistently while following the\nbeat of the sound.\n\nDo it as long as you can.",
         practiceButton: "Magsimula",
+        ambulanceHeader: "Maghintay ng ambulansya",
 
     },
 };

@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import Button from './Button.js';
-import { deviceHeight, deviceWidth } from '../utils/dimensions.js';
+import { deviceWidth } from '../utils/dimensions.js';
 
-const HeaderText = ({text}) => {
+const HeaderText = ({ text, style }) => {
     const { containerStyle, headerStyle } = styles;
 
     return (
-        <View style={ containerStyle }>
-            <Text style={ headerStyle }>
+        <View style={containerStyle}>
+            <Text style={[headerStyle, style]}>
                 { text }
             </Text>
         </View>
@@ -20,7 +19,7 @@ const styles = {
         alignItems: 'center',
     },
     headerStyle: {
-        fontSize: deviceWidth*0.08,
+        fontSize: deviceWidth * 0.08,
         color: '#5F968E',
         textAlign: 'center',
         fontFamily: 'comfortaa',

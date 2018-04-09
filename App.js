@@ -8,6 +8,7 @@ import Router from './src/Router';
 import reducers from './src/reducers';
 import firebase from './src/firebase';
 import cacheAssetsAsync from './src/utils/cacheAssetsAsync';
+import { View } from 'react-native-animatable';
 
 
 const AppWithoutNav = ({ dispatch, nav }) => {
@@ -40,6 +41,26 @@ export default class App extends Component {
 	async _loadAssetsAsync() {
 		try {
 			await cacheAssetsAsync({
+				images: [
+					require('./src/img/asset2.png'),
+					require('./src/img/asset3.png'),
+					require('./src/img/asset4.png'),
+					require('./src/img/asset5.png'),
+					require('./src/img/asset6.png'),
+					require('./src/img/asset7.png'),
+					require('./src/img/asset8.png'),
+					require('./src/img/asset9.png'),
+					require('./src/img/asset10.png'),
+					require('./src/img/asset11.png'),
+					require('./src/img/asset12.png'),
+					require('./src/img/asset13.png'),
+					require('./src/img/asset14.png'),
+					require('./src/img/asset15.png'),
+					require('./src/img/asset16.png'),
+					require('./src/img/logo-name.png'),
+					require('./src/img/logo-white.png'),
+					require('./src/img/logo.png'),
+				],
 				fonts: [
 					{ 'comfortaa': require('./src/data/fonts/Comfortaa-Bold.ttf') },
 					{ 'quicksand': require('./src/data/fonts/Quicksand-Regular.otf') },
@@ -76,8 +97,10 @@ export default class App extends Component {
 		if (this.state.appIsReady) {
 			return (
 				<Provider store={ store }>
-					<SafeAreaView style={{ flex: 1,backgroundColor: '#ddd' }}>
-						<AppWithNav />
+					<SafeAreaView style={{ flex: 1, backgroundColor: '#ddd' }}>
+						<View style={{ flex: 1, backgroundColor: (Platform.OS === "ios") ? '#ddd' : 'black', paddingTop: (Platform.OS === "ios") ? 0 : 25 }}>
+							<AppWithNav />
+						</View>
 					</SafeAreaView>
 			  	</Provider>
 			); 

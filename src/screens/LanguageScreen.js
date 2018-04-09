@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { chooseLanguage } from '../actions';
 import Button from '../components/Button';
 import Background from '../components/Background';
-import { LOGO } from '../img';
+import HeaderText from '../components/HeaderText';
+import Logo from '../components/Logo';
+import { deviceHeight, deviceWidth } from '../utils/dimensions';
 
 class LanguageScreen extends Component {
     englishHandleClick = (language) => {
@@ -25,15 +27,12 @@ class LanguageScreen extends Component {
 		            source={ require('../img/asset3.png') }
 		        />
                  <View style={ imageContainerStyle }>
-                    <Image
-                        style={ logoStyle }
-                        source={ LOGO }
-                    />
+                    <Logo />
                 </View>
                 <View style={ textContainerStyle }>
-                    <Text style={ headerStyle } >
-                        Select Language
-                    </Text>
+                    <HeaderText
+                        text="Select Language"
+                    />        
                     <Button 
                         title='English'
                         onPress={ this.englishHandleClick }
@@ -53,28 +52,21 @@ const styles = {
         flex: 1,
         justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundColor: 'white'
     },
     logoStyle: {
         width: 100,
         height: 100,
     },
-    headerStyle: {
-        textAlign: 'center',
-        color: '#5F968E',
-        fontSize: 30,
-        fontFamily: 'comfortaa',
-        marginBottom: 20
-    },
     textContainerStyle: {
         backgroundColor: 'rgba( 0, 0, 0, 0)',
-        flex: 7,
-        alignItems: 'center', 
+        height: deviceHeight*0.5,
+        width: deviceWidth,
+        alignItems: 'center',
+        justifyContent: 'center', 
     },
     imageContainerStyle: {
-        flex: 4,
-        justifyContent: 'center',
-        alignItems: 'center'
+        position: 'absolute',
+        top: deviceHeight*0.1,
     }
 }
 

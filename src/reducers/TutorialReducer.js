@@ -10,24 +10,24 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    switch(action.type) {
+    switch (action.type) {
 	case FETCH_TUTORIAL_SUCCESS:
-	    return {
-		...state,
-		viewed: data.viewed
-	    };
+		return {
+			...state,
+			viewed: data.viewed
+		};
 	case FETCH_TUTORIAL_ERROR:
-	    return {
-		...state,
-		error: true,
-	    };
+		return {
+			...state,
+			error: true,
+		};
 	case TUTORIAL_VIEWED:
-	    return {
-		...state,
-		viewed: true,
-	    };
+		return {
+			...state,
+			viewed: true,
+		};
 	default:
-	    return state;
+		return state;
     }
-}
+};
 

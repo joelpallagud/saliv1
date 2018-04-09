@@ -14,12 +14,12 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-	case USER_CREATE:
-	    return INITIAL_STATE; 
-	case USER_FETCH_SUCCESS:
-	    return action.payload;
+    case USER_CREATE:
+        return INITIAL_STATE; 
+    case USER_FETCH_SUCCESS:
+        return action.payload;
 	
-	default:
-	    return state;
+    default:
+        return state;
     }
-}
+};

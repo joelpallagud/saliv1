@@ -1,14 +1,50 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
+import { Facebook } from 'expo';
+
 import ButtonLarge from '../../components/ButtonLarge';
 import Background from '../../components/Background';
 import HeaderText from '../../components/HeaderText';
 import { LOGO } from '../../img';
 import { deviceHeight } from '../../utils/dimensions';
 
+import { signInWithFacebook } from '../../actions';
+import * as c from '../../constants';
+
 
 class LoginScreen extends Component {
+    constructor() {
+        super();
+        this.state = {};
+
+
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onError = this.onError.bind(this);
+        this.onSignInWithFacebook = this.onSignInWithFacebook.bind(this);
+    }
+
+    async onSignInWithFacebook() {
+        const options = { permissions: ['public_profile', 'email'] };
+        const { type, token } = await Facebook.logInWithReadPermissionsAsync(c.FACEBOOK_APP_ID, options);
+
+        if (type === 'success') {
+            this.props.signInWithFacebook(token, this.onSuccess, this.onError);
+        }
+    }
+
+    onSuccess({ exists, user }) {
+        if (exists) {
+            console.log('Success');
+            this.props.navigation.navigate('PostRegistration');
+        } else console.log('Unsuccessful');
+    }
+
+    onError(error) {
+        console.log(`Error${error}`);
+    }
+
+
     signUpClick = () => {
         this.props.navigation.navigate('Signup');
     }
@@ -23,34 +59,34 @@ class LoginScreen extends Component {
 
     render() {
         const { login, fbLogin, regLogin, signUp } = this.props.text;
-        const { containerStyle, logoStyle, headerStyle, textContainerStyle } = styles;
+        const { containerStyle, logoStyle, textContainerStyle } = styles;
         
         return (
-            <View style={ containerStyle } >
+            <View style={containerStyle} >
                 <Background
-                    source={ require('../../img/asset4.png') }
+                    source={require('../../img/asset4.png')}
                 />
                 <Image
-                    style={ logoStyle }
-                    source={ LOGO }
+                    style={logoStyle}
+                    source={LOGO}
                 />
-                <View style={ textContainerStyle }>
-                    <HeaderText text={ login } />
+                <View style={textContainerStyle}>
+                    <HeaderText text={login} />
                     <ButtonLarge 
-                        title={ signUp }
-                        onPress={ this.signUpClick }
+                        title={signUp}
+                        onPress={this.signUpClick}
                     />
                     <ButtonLarge 
-                        title={ regLogin }
-                        onPress={ this.regLoginClick }
+                        title={regLogin}
+                        onPress={this.regLoginClick}
                     />
                     <ButtonLarge 
-                        title={ fbLogin }
-                        onPress={ this.fbClick }
+                        title={fbLogin}
+                        onPress={this.fbClick}
                     />
                 </View>
             </View>
-        )
+        );
     }
 }
 
@@ -62,27 +98,21 @@ const styles = {
         backgroundColor: 'white'
     },
     logoStyle: {
-        width: deviceHeight*0.1,
-        height: deviceHeight*0.1,
+        width: deviceHeight * 0.1,
+        height: deviceHeight * 0.1,
         position: 'absolute',
-        top: deviceHeight*0.075
-    },
-    headerStyle: {
-        textAlign: 'center',
-        color: '#5F968E',
-        fontSize: 30,
-        fontFamily: 'comfortaa',
+        top: deviceHeight * 0.075
     },
     textContainerStyle: {
         backgroundColor: 'rgba( 0, 0, 0, 0)',
         alignItems: 'center', 
     }
-}
+};
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = (state) => {
     const { text } = state;
 
     return { text };
-}
+};
 
-export default connect( mapStateToProps )( LoginScreen );
+export default connect(mapStateToProps, { signInWithFacebook })(LoginScreen);

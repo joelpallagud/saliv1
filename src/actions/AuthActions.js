@@ -17,6 +17,7 @@ import {
 } from './types';
 import { NavigationActions } from 'react-navigation';
 import firebase from '../firebase'
+import api from '../api';
 
 export const registerUser = ({ prop, value }) => {
     return {
@@ -72,6 +73,40 @@ export const signUp = (email, password) => {
 		.catch((err) => signupFail(dispatch, err))
     
     }
+}
+
+// export const signUp = (number) => {
+//     const recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+//         'size': 'invisible',
+//         'callback': function(response) {
+//           onSignInSubmit();
+//         }
+//       });
+//     const phoneNumber = number;
+//     return (dispatch) => {
+//         dispatch({ type: SIGNUP});
+// 	    console.log("Signing in");
+// 	    firebase.auth().signInWithPhoneNumber(phoneNumber)
+//             .then(function (confirmationResult) {
+//             // SMS sent. Prompt user to type the code from the message, then sign the
+//             // user in with confirmationResult.confirm(code).
+//             //   window.confirmationResult = confirmationResult;
+//             }).catch(function (error) {
+//             // Error; SMS not sent
+//             // ...
+//         });
+//     }
+// }
+
+export function signInWithFacebook(facebookToken, successCB, errorCB) {
+    return (dispatch) => {
+        api.signInWithFacebook(facebookToken, function (success, data, error) {
+            if (success) {
+                if (data.exists) dispatch({type: t.LOGGED_IN, data: data.user});
+                successCB(data);
+            }else if (error) errorCB(error)
+        });
+    };
 }
 
 const signupFail= (dispatch, error) => {

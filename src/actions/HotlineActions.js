@@ -13,7 +13,13 @@ export const showHotlines= (location) => {
                     payload: hotlines.quezon_city,
                 });
                 break;
-	    default:
+            case 'Lungsod Quezon':
+                dispatch ({
+                    type: SHOW_HOTLINES,
+                    payload: hotlines.quezon_city,
+                });
+                break;
+	        default:
                 dispatch ({
                     type: SHOW_HOTLINES,
                     payload: hotlines.metro_manila, 

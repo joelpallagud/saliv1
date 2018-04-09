@@ -34,12 +34,6 @@ class EmergencyScreen extends Component {
 	<Card onPress = { this.handleClick } title = { card.title } key = "card${i}"/>
     }
 
-
-    
-  
-    
-
-
     render() {
         const { emergencyHeader, practiceButton } = this.props.text;
         const { viewed, error}  = this.props.tutorial;
@@ -49,7 +43,7 @@ class EmergencyScreen extends Component {
                 {/* <Background 
                     source={ require('../img/asset3.png') }
                 /> */}
-                { !viewed && <Tutorial /> }
+                {/* { !viewed && <Tutorial /> } */}
                 <View style={ styles.containerStyle }>
                     <Logo />
                     <HeaderText text={ emergencyHeader } />
@@ -66,6 +60,7 @@ const styles = {
         flex: 1, 
         alignItems: 'center',
         justifyContent: 'space-around',
+        backgroundColor: 'white'
     },
 }
 const mapStateToProps = (state) => {
