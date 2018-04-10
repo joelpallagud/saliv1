@@ -1,13 +1,56 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
-import Button from '../../components/Button';
+import { Facebook } from 'expo';
+
+import ButtonLarge from '../../components/ButtonLarge';
+import Background from '../../components/Background';
+import HeaderText from '../../components/HeaderText';
 import { LOGO } from '../../img';
+import { deviceHeight } from '../../utils/dimensions';
+
+import { signInWithFacebook } from '../../actions';
+import * as c from '../../constants';
 
 
 class LoginScreen extends Component {
-    handleClick = () => {
+    constructor() {
+        super();
+        this.state = {};
+
+
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onError = this.onError.bind(this);
+        this.onSignInWithFacebook = this.onSignInWithFacebook.bind(this);
+    }
+
+    async onSignInWithFacebook() {
+        const options = { permissions: ['public_profile', 'email'] };
+        const { type, token } = await Facebook.logInWithReadPermissionsAsync(c.FACEBOOK_APP_ID, options);
+
+        if (type === 'success') {
+            this.props.signInWithFacebook(token, this.onSuccess, this.onError);
+        }
+    }
+
+    onSuccess({ exists, user }) {
+        if (exists) {
+            console.log('Success');
+            this.props.navigation.navigate('PostRegistration');
+        } else console.log('Unsuccessful');
+    }
+
+    onError(error) {
+        console.log(`Error${error}`);
+    }
+
+
+    signUpClick = () => {
         this.props.navigation.navigate('Signup');
+    }
+    
+    regLoginClick = () => {
+        this.props.navigation.navigate('Signin');
     }
 
     fbClick = () => {
@@ -15,42 +58,35 @@ class LoginScreen extends Component {
     }
 
     render() {
-        const { login, fbLogin, regLogin } = this.props.text;
-        const { containerStyle, logoStyle, headerStyle, textContainerStyle } = styles;
+        const { login, fbLogin, regLogin, signUp } = this.props.text;
+        const { containerStyle, logoStyle, textContainerStyle } = styles;
         
         return (
-            <View style={ containerStyle } >
-                <Image
-                    style={{
-                        backgroundColor: '#fff',
-                        flex: 1,
-                        resizeMode: 'cover',
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                        justifyContent: 'center',
-                    }}
-                    source={ require('../../img/asset4.png') }
+            <View style={containerStyle} >
+                <Background
+                    source={require('../../img/asset4.png')}
                 />
                 <Image
-                    style={ logoStyle }
-                    source={ LOGO }
+                    style={logoStyle}
+                    source={LOGO}
                 />
-                <View style={ textContainerStyle }>
-                    <Text style={ headerStyle } >
-                        { login }
-                    </Text>
-                    <Button 
-                        title={ fbLogin }
-                        onPress={ this.fbClick }
+                <View style={textContainerStyle}>
+                    <HeaderText text={login} />
+                    <ButtonLarge 
+                        title={signUp}
+                        onPress={this.signUpClick}
                     />
-                    <Button 
-                        title={ regLogin }
-                        onPress={ this.handleClick }
+                    <ButtonLarge 
+                        title={regLogin}
+                        onPress={this.regLoginClick}
+                    />
+                    <ButtonLarge 
+                        title={fbLogin}
+                        onPress={this.fbClick}
                     />
                 </View>
             </View>
-        )
+        );
     }
 }
 
@@ -62,25 +98,21 @@ const styles = {
         backgroundColor: 'white'
     },
     logoStyle: {
-        width: 50,
-        height: 50,
+        width: deviceHeight * 0.1,
+        height: deviceHeight * 0.1,
         position: 'absolute',
-        top: 30
-    },
-    headerStyle: {
-        textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+        top: deviceHeight * 0.075
     },
     textContainerStyle: {
-        backgroundColor: 'rgba( 0, 0, 0, 0)'
+        backgroundColor: 'rgba( 0, 0, 0, 0)',
+        alignItems: 'center', 
     }
-}
+};
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = (state) => {
     const { text } = state;
 
     return { text };
-}
+};
 
-export default connect( mapStateToProps )( LoginScreen );
+export default connect(mapStateToProps, { signInWithFacebook })(LoginScreen);

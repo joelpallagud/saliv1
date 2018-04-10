@@ -34,7 +34,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, [action.payload.prop]: action.payload.value };
         case CHOOSE_LANGUAGE:
             return { ...state, language: action.payload };
-	case EMAIL_CHANGED: 
+        case EMAIL_CHANGED: 
             return { ...state, email: action.payload };
         case PASSWORD_CHANGED: 
             return { ...state, password: action.payload };

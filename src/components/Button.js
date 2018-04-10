@@ -1,36 +1,50 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
+import { deviceHeight, deviceWidth } from '../utils/dimensions.js';
 
-const ButtonComponent = ({ title, onPress, style }) => {
-    const { buttonContainerStyle, buttonStyle } = styles;
+const ButtonComponent = ({ title, onPress, style, fontStyle }) => {
+    const { buttonContainerStyle, buttonStyle, textStyle } = styles;
 
     return (
-        <View style={ buttonContainerStyle }>
+        <View style={buttonContainerStyle}>
             <Button
-                title={ title }
-                buttonStyle={ [buttonStyle, style] } 
-                color={ 'gray' }
-                onPress={ onPress }
+                title={title}
+                buttonStyle={[buttonStyle, style]} 
+                color={'#262626'}
+                onPress={onPress}
+                textStyle={[textStyle, fontStyle]}
             />
         </View>
     );
 };
 
 const styles = {
-    buttonContainerStyle : {
+    buttonContainerStyle: {
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        marginTop: 10
+        marginTop: deviceWidth * 0.05,
+        width: deviceWidth * 0.5,
+        height: deviceHeight * 0.08
     },
     buttonStyle: {
         borderRadius: 30,
-        width: 250,
-        borderWidth: 1,
-        borderColor: 'gray',
-        backgroundColor: 'white'
+        borderWidth: 3,
+        width: deviceWidth * 0.5,
+        height: deviceHeight * 0.08,
+        borderColor: '#BFDCCF',
+        backgroundColor: 'white',
+        shadowColor: 'black',
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        shadowOffset: { width: -1, height: 5 },
+        elevation: 3
+    },
+    textStyle: {
+        fontSize: deviceWidth * 0.045, 
+        fontFamily: 'comfortaa'
     }
-}
+};
 
 export default ButtonComponent;

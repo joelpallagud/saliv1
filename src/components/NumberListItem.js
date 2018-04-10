@@ -1,39 +1,53 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Text, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, TouchableHighlight, Text } from 'react-native';
 
 class NumberListItem extends Component {
     render() {
-        const { containerStyle, buttonContainerStyle, buttonStyle, placeContainerStyle, numberContainerStyle } = styles;
+        const {
+            containerStyle,
+            buttonContainerStyle,
+            buttonStyle,
+            placeContainerStyle,
+            numberContainerStyle,
+            textStyle
+        } = styles;
         const { item, onPress } = this.props;
 
         return (
-            <View style={ containerStyle }>
-                <View style={ buttonContainerStyle }>
-                    <TouchableHighlight onPress={ onPress } style={ buttonStyle }>
-                        <Text>Call</Text>
+            <View style={containerStyle}>
+                <View style={placeContainerStyle}>
+                    <Text style={textStyle}>
+                        { item.place }
+                    </Text>
+                </View>
+                <View style={numberContainerStyle}>
+                    <Text style={textStyle}>
+                        { item.number }
+                    </Text>
+                </View>
+                <View style={buttonContainerStyle}>
+                    <TouchableHighlight onPress={onPress} style={buttonStyle}>
+                        <Text style={textStyle}>
+                            Call
+                        </Text>
                     </TouchableHighlight>
                 </View>
-                <View style={ placeContainerStyle }>
-                    <Text>{ item.place }</Text>
-                </View>
-                <View style={ numberContainerStyle }>
-                    <Text>{ item.number }</Text>
-                </View>
+                
             </View>
-        )
+        );
     }
 }
 
 const styles = {
-    containerStyle : {
+    containerStyle: {
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingLeft: 10
     },
     buttonContainerStyle: {
         width: '20%',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonStyle: {
         borderWidth: 1,
@@ -44,11 +58,16 @@ const styles = {
         alignItems: 'center'
     },
     placeContainerStyle: {
-        width: '40%'
+        width: '45%',
     },
      numberContainerStyle: {
-        width: '40%'
+        width: '35%',
+        alignItems: 'center'
     },
-}
+    textStyle: {
+        fontFamily: 'robotoslab',
+        fontSize: 16
+    }
+};
 
 export default NumberListItem;

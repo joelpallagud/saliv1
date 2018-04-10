@@ -1,41 +1,50 @@
-import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, Image } from 'react-native';
 import { LOGO } from '../img';
+import { deviceHeight, deviceWidth } from '../utils/dimensions';
 
-const Card = ({ onPress, title }) => {
-    const { containerStyle, backgroundImageStyle, titleStyle, buttonStyle } = styles;
+const Card = ({ title }) => {
+    const {
+        containerStyle,
+        backgroundImageStyle,
+        titleStyle,
+        // buttonStyle,
+        titleContainerStyle
+    } = styles;
 
     return (
-        <TouchableOpacity onPress={ onPress }>
-                <View style={ containerStyle }>
-                    <Image 
-                        style={ backgroundImageStyle }
-                        source={ LOGO }
-                    />
-                    <TouchableOpacity>
-                        <Text style={ buttonStyle }>
-                            Learn More
-                        </Text>
-                    </TouchableOpacity>
-                    <Text style={ titleStyle }>
-                        { title }
-                    </Text>
-                </View>
-            </TouchableOpacity>
+        <View style={containerStyle}>
+            <Image 
+                style={backgroundImageStyle}
+                source={LOGO}
+            />
+            {/* <TouchableOpacity>
+                <Text style={ buttonStyle }>
+                    Learn More
+                </Text>
+            </TouchableOpacity> */}
+            <View style={titleContainerStyle}>
+                <Text style={titleStyle}>
+                    { title }
+                </Text>
+            </View>
+        </View>
     );
 };
 
 const styles = {
     containerStyle: {
-        height: 200,
-        marginTop: 15,
-        marginBottom: 15,
-        marginLeft: 10,
-        marginRight: 10,
-        borderWidth: 1,
-        justifyContent: 'space-between',
-	backgroundColor: 'white',
+        height: deviceHeight * 0.3,
+        width: deviceWidth * 0.9,
+        borderWidth: 2,
+        borderColor: 'gray',
+        justifyContent: 'flex-end',
+        backgroundColor: 'white',
         borderRadius: 10,
+        shadowColor: 'gray',
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        shadowOffset: { width: -1, height: 10 }
     },
     backgroundImageStyle: {
         position: 'absolute',
@@ -45,12 +54,23 @@ const styles = {
         width: '100%',
     },
     titleStyle: {
-        height: '10%',
+        fontFamily: 'comfortaa',
+        fontSize: deviceWidth * 0.08
     },
-    buttonStyle: {
-        height: 30,
-        alignSelf: 'flex-end',
-    }
+    titleContainerStyle: {
+        borderTopWidth: 2,
+        borderColor: 'gray',
+        height: '25%',
+        backgroundColor: 'white',
+        borderBottomEndRadius: 20,
+        borderBottomStartRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    // buttonStyle: {
+    //     height: 30,
+    //     alignSelf: 'flex-end',
+    // }
 };
 
 export default Card;

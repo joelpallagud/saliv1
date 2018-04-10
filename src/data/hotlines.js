@@ -1,25 +1,30 @@
 export default hotlines = {
     quezon_city:  [
-	{
-	    place: "QC1",
-	    number: "123-4567",
-	},
-	{
-	    place: "QC2",
-	    number: "789-3123"
-	}
-    ]
-    ,
+		{
+			place: "National Hotline",
+			number: "911"
+		},
+		{
+		    place: "QC Emergency Hotline",
+		    number: "122",
+		},
+		{
+		    place: "QC Red Cross",
+		    number: "4332151",
+		},
+		{
+		    place: "QC Red Cross 2",
+		    number: "4332152",
+		}
+	],
     metro_manila:  [
 	{
-	    place: "Metro Manila1",
-	    number: "441-3124",
+	    place: "National Hotline",
+	    number: "911",
 	},
 	{
-	    place: "Metro Manila2",
-	    number: "134-5123",
+	    place: "Red Cross",
+	    number: "143",
 	}
     ]
-
-    
 };

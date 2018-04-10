@@ -3,7 +3,10 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { chooseLanguage } from '../actions';
 import Button from '../components/Button';
-import { LOGO } from '../img';
+import Background from '../components/Background';
+import HeaderText from '../components/HeaderText';
+import Logo from '../components/Logo';
+import { deviceHeight, deviceWidth } from '../utils/dimensions';
 
 class LanguageScreen extends Component {
     englishHandleClick = (language) => {
@@ -16,31 +19,20 @@ class LanguageScreen extends Component {
     }
 
     render() {
-        const { containerStyle, logoStyle, headerStyle, textContainerStyle } = styles;
-
+        const { containerStyle, logoStyle, headerStyle, textContainerStyle, imageContainerStyle } = styles;
+        
         return (
             <View style={ containerStyle } >
-		<Image
-		    style={{
-		      backgroundColor: '#fff',
-		      flex: 1,
-		      resizeMode: 'cover',
-		      position: 'absolute',
-		      width: '100%',
-		      height: '100%',
-		      justifyContent: 'center',
-		    }}
-		    source={ require('../img/asset3.png') }
-		  >
-		</Image>
-                <Image
-                    style={ logoStyle }
-                    source={ LOGO }
-                />
+		        <Background
+		            source={ require('../img/asset3.png') }
+		        />
+                 <View style={ imageContainerStyle }>
+                    <Logo />
+                </View>
                 <View style={ textContainerStyle }>
-                    <Text style={ headerStyle } >
-                        Select Language
-                    </Text>
+                    <HeaderText
+                        text="Select Language"
+                    />        
                     <Button 
                         title='English'
                         onPress={ this.englishHandleClick }
@@ -60,21 +52,21 @@ const styles = {
         flex: 1,
         justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundColor: 'white'
     },
     logoStyle: {
-        width: 50,
-        height: 50,
-        position: 'absolute',
-        top: 30
-    },
-    headerStyle: {
-        textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+        width: 100,
+        height: 100,
     },
     textContainerStyle: {
-        backgroundColor: 'rgba( 0, 0, 0, 0)'
+        backgroundColor: 'rgba( 0, 0, 0, 0)',
+        height: deviceHeight*0.5,
+        width: deviceWidth,
+        alignItems: 'center',
+        justifyContent: 'center', 
+    },
+    imageContainerStyle: {
+        position: 'absolute',
+        top: deviceHeight*0.1,
     }
 }
 

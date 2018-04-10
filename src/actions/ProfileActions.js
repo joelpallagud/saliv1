@@ -44,3 +44,7 @@ export const userFetch = () => {
     }
 }
 
+export const setDefaultDetails = () => {
+    userCreate("", "", "", "")
+}
+

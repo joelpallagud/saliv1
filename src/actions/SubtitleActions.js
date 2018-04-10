@@ -44,20 +44,39 @@ export const showSubtitles= (page, language) => {
 		    }
 	    case 'Tagalog':
 		switch(page){
-			default: 
-			    dispatch ({
+			case 'Call':
+			dispatch ({
 				type: SHOW_SUBTITLES,
-				payload: subtitles.english, 
-			    });
+				payload: subtitles.tagalog.call,
+			});
 			break;
-		    }
-		break;
-	    default: 
-		dispatch ({
-		    type: SHOW_SUBTITLES,
-		    payload: subtitles
-		})
-		break;
+			case 'Survey':
+			dispatch ({
+				type: SHOW_SUBTITLES,
+				payload: subtitles.tagalog.survey,
+			});
+			break;
+			case 'Check':
+			dispatch ({
+				type: SHOW_SUBTITLES,
+				payload: subtitles.tagalog.check,
+			});
+			break;
+			case 'Compress':
+			dispatch ({
+				type: SHOW_SUBTITLES,
+				payload: subtitles.tagalog.compressions,
+			});
+			break;
+			default:
+			console.log("default")
+			dispatch ({
+				type: SHOW_SUBTITLES,
+				payload: subtitles.tagalog, 
+			});
+			break;
+			break;
+			}
 	}
     }
     

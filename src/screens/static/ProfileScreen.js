@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
+import Background from '../../components/Background';
+import Logo from '../../components/Logo';
+import UserInfo from '../../components/UserInfo';
 import {connect} from 'react-redux';
 import { LOGO } from '../../img';
 import firebase from '../../firebase';
@@ -13,38 +16,44 @@ class ProfileScreen extends Component {
 	tabBarIcon: () => (
 	  <Image
 	      source={require('../../img/asset11.png')}
-	      style = {{resizeMode: 'contain', width: 26, height: 26}}
+	      style = {{resizeMode: 'contain', width: 25, height: 25}}
 	  />
     ),
     }
     
-
-    
-    renderInfo = () => {
-	console.log(this.props.profile)
-	if(this.state.user){
-	    return(
-		<View>
-		    <Text> {this.state.user.email} </Text>
-
-		    <Button 
-			title= "Logout"
-			onPress = {this.props.logout}
-		    />
-		    <Button 
-			title = "Update info"
-			onPress = { this.redirectProfile }
-		    />
-		</View>
-	    )
+	state = {
+		user: null,
 	}
+
+    renderInfo = () => {
+		console.log(this.props)
+		if(this.state.user) {
+		    return (
+				<View>
+					{/* <UserInfo 
+						name="Kyla Relucio" 
+						city="Quezon City"
+						email="sali@yahoo.com"
+						number="09178909876" 
+					/> */}
+				    <Button 
+						title= "Logout"
+						onPress = {this.props.logout}
+				    />
+				    <Button 
+						title = "Update info"
+						onPress = { this.redirectProfile }
+				    />
+				</View>
+			)
+		}
     }
     redirectLogin = () => {
-	this.props.navigation.navigate("Signin")
+		this.props.navigation.navigate("Signin")
     }
 
     redirectProfile = () => {
-	this.props.navigation.navigate("UserInfo")
+		this.props.navigation.navigate("UserInfo")
     }
     
 
@@ -62,20 +71,33 @@ class ProfileScreen extends Component {
 		this.props.userFetch();
 	  }
 	});
+	console.log(this.props.profile)
+	console.log(this.props.state)
     }
     render() {
+		const { containerStyle, headerContainerStyle } = styles;
+
         return (
-            <View style={ styles.containerStyle }>
-                <Text style={ styles.headerStyle } >
-                    My Profile
-                </Text>
-		{ !this.state.user &&
-			<Button 
-			    title = "Login"
-			    onPress = {this.redirectLogin}
-			/>
-		}	
-		{ this.renderInfo() }
+            <View style={ containerStyle }>
+				{/* <Background
+		            source={ require('../../img/asset3.png') }
+		        /> */}
+				<View style={headerContainerStyle} >
+					<Logo />
+                	<UserInfo 
+						name= ""
+						city= ""
+						email= ""
+						number= ""
+					/>
+				</View>
+				{ !this.state.user &&
+					<Button 
+					    title = "Login"
+					    onPress = {this.redirectLogin}
+					/>
+				}	
+				{ this.renderInfo() }
             </View>
         )
     }
@@ -87,10 +109,10 @@ const styles = {
         alignItems: 'center', 
         backgroundColor: 'white'
     },
-    headerStyle: {
-        textAlign: 'center',
-        color: 'gray',
-        fontSize: 24
+    headerContainerStyle: {
+		height: '50%',
+		alignItems: 'center', 
+		justifyContent: 'space-around'
     }
 }
 
@@ -98,9 +120,9 @@ const mapStateToProps = (state) => {
     return {
 	text: state.auth,
 	user: state.auth.user,
-	//name: state.profile.name,
 	profile: state.profile,
-	details: state.profile.data
+	details: state.profile.data,
+	state: state
     }
 }
 export default connect(mapStateToProps, {logout, userFetch})(ProfileScreen);
