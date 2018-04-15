@@ -18,6 +18,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import firebase from '../firebase'
 import api from '../api';
+import { setDefaultDetails } from "./ProfileActions";
 
 export const registerUser = ({ prop, value }) => {
     return {
@@ -35,11 +36,18 @@ export const chooseLanguage = (language) => {
 
 export const loginUser = ( email, password ) => {
     return (dispatch) => {
-        dispatch({ type: LOGIN_USER });
+	if(email && password)
+	{
+	    dispatch({ type: LOGIN_USER });
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(user => loginUserSuccess(dispatch, user))
-            .catch((err) => loginUserFail(dispatch,err));
+	    firebase.auth().signInWithEmailAndPassword(email, password)
+		.then(user => loginUserSuccess(dispatch, user))
+		.catch((err) => loginUserFail(dispatch,err));
+	}	
+	else
+	{
+	    loginUserFail(dispatch, {message: "You must fill up all the inputs"} );
+	}
 
     };
 };
@@ -66,11 +74,18 @@ const loginUserSuccess = (dispatch, user) => {
 
 export const signUp = (email, password) => {
     return (dispatch) => {
-        dispatch({ type: SIGNUP});
-	console.log("Signing in");
-	firebase.auth().createUserWithEmailAndPassword(email, password)
-		.then(() => signupSuccess(dispatch, email, password))
-		.catch((err) => signupFail(dispatch, err))
+	if(email && password)
+	{
+	    dispatch({ type: SIGNUP});
+	    console.log("Signing in");
+	    firebase.auth().createUserWithEmailAndPassword(email, password)
+		    .then(() => signupSuccess(dispatch, email, password))
+		    .catch((err) => signupFail(dispatch, err))
+	}	
+	else
+	{
+	    signupFail(dispatch,{ message:  "You must fill up all the inputs"});
+	}
     
     }
 }
@@ -112,12 +127,15 @@ export function signInWithFacebook(facebookToken, successCB, errorCB) {
 const signupFail= (dispatch, error) => {
     console.log("Signup failed");
     console.log(error);
-    dispatch({ type: SIGNUP_FAIL });
+    dispatch({ type: SIGNUP_FAIL, 
+	payload: error 
+    });
 }
 
 const signupSuccess = (dispatch, email,password) => {
     console.log("SignUp success");
     dispatch({ type: SIGNUP_SUCCESS });
+    setDefaultDetails();
     dispatch(loginUser(email,password))
 
 }

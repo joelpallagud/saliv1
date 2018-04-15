@@ -1,25 +1,34 @@
 import {
     USER_CREATE,
-    USER_FETCH_SUCCESS
+    USER_CREATE_SUCCESS,
+    USER_FETCH,
+    USER_FETCH_SUCCESS,
+    USER_FETCH_FAILURE,
+    USER_CREATE_FAILURE
+
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    name: '',
-    birthday: '',
-    phone: '',
-    address: '',
     loading: false,
     error: '',
+    data: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-    case USER_CREATE:
-        return INITIAL_STATE; 
-    case USER_FETCH_SUCCESS:
-        return action.payload;
-	
-    default:
-        return state;
+	case USER_CREATE:
+	    return {...state, loading: true}
+	case USER_CREATE_SUCCESS:
+	    return {...state, data: action.payload, loading: false}; 
+	case USER_FETCH:
+	    return {...state, loading: true}
+	case USER_FETCH_SUCCESS:
+	    return {...state, data: action.payload, loading: false};
+	case USER_CREATE_FAILURE:
+	    return {...state, error: action.payload, loading: false }
+	case USER_FETCH_FAILURE:
+	    return {...state, error: action.payload, loading: false }
+	default:
+	    return state;
     }
 };

@@ -27,42 +27,54 @@ class ProfileScreen extends Component {
 
     renderInfo = () => {
 		console.log(this.props)
-		if(this.state.user) {
+		
+		if(this.state.user && this.props.details) {
 		    return (
-				<View>
-					{/* <UserInfo 
-						name="Kyla Relucio" 
-						city="Quezon City"
-						email="sali@yahoo.com"
-						number="09178909876" 
-					/> */}
-				    <Button 
-						title= "Logout"
-						onPress = {this.props.logout}
-				    />
-				    <Button 
-						title = "Update info"
-						onPress = { this.redirectProfile }
-				    />
-				</View>
+				<UserInfo 
+					name= {this.props.details.name}
+					city= {this.props.details.address}
+					email= {this.state.user.email}
+					number= { this.props.details.phone }
+				/>
 			)
 		}
-    }
-    redirectLogin = () => {
-		this.props.navigation.navigate("Signin")
-    }
+		else if(!this.props.details && this.state.user)
+		{
+		    return (
+				<UserInfo 
+					name= "Not set"
+					city= "Not set"
+					email= {this.state.user.email}
+					number= "Not set"
+				/>
+		    )
+	    }
+	
+}
+redirectLogin = () => {
+	    this.props.navigation.navigate("Signin")
+}
 
-    redirectProfile = () => {
-		this.props.navigation.navigate("UserInfo")
+redirectProfile = () => {
+	    this.props.navigation.navigate("UserInfo")
+}
+
+
+constructor(props) {
+    super(props)
+    this.state = {
+	user: null,
     }
-    
-    componentWillMount() {
-		firebase.auth().onAuthStateChanged((user) => {
-		    if (user != null) {
-				this.setState({user})
-				//this.props.userFetch();
-			}
-		});
+}
+componentWillMount()
+{
+    firebase.auth().onAuthStateChanged((user) => {
+	if (user != null) {
+	    this.setState({user})
+		this.props.userFetch();
+	  }
+	});
+	console.log(this.props.profile)
     }
     render() {
 		const { containerStyle, headerContainerStyle } = styles;
@@ -74,11 +86,14 @@ class ProfileScreen extends Component {
 		        /> */}
 				<View style={headerContainerStyle} >
 					<Logo />
-                	<UserInfo 
-						name="Kyla Relucio" 
-						city="Quezon City"
-						email="sali@yahoo.com"
-						number="09178909876" 
+					{this.renderInfo() }
+					<Button 
+						    title= "Logout"
+						    onPress = {this.props.logout}
+					/>
+					<Button 
+						    title = "Update info"
+						    onPress = { this.redirectProfile }
 					/>
 				</View>
 				{ !this.state.user &&
@@ -87,7 +102,6 @@ class ProfileScreen extends Component {
 					    onPress = {this.redirectLogin}
 					/>
 				}	
-				{ this.renderInfo() }
             </View>
         )
     }
@@ -110,7 +124,8 @@ const mapStateToProps = (state) => {
     return {
 	text: state.auth,
 	user: state.auth.user,
-	name: state.profile.name,
+	profile: state.profile,
+	details: state.profile.data
     }
 }
 export default connect(mapStateToProps, {logout, userFetch})(ProfileScreen);
