@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
 import Button from '../components/Button';
 import HeaderText from '../components/HeaderText';
-import BodyText from '../components/BodyText';
 import Logo from '../components/Logo';
 
 
@@ -14,25 +13,31 @@ class AmbulanceScreen extends Component {
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({ routeName: 'Home'})
-            ]});
-        this.props.navigation.dispatch(resetAction)
+                NavigationActions.navigate({
+                    routeName: 'Home',
+                    params: {
+                        isNotSafe: false
+                    }
+                })
+            ]
+        });
+        this.props.navigation.dispatch(resetAction);
     }
 
     render() {
-        const { containerStyle, headerStyle } = styles;
+        const { containerStyle } = styles;
         const { ambulanceHeader, practiceButton } = this.props.text;
 
         return (
-            <View style={ containerStyle }>
+            <View style={containerStyle}>
                 <Logo />
-                <HeaderText text={ ambulanceHeader }/>
+                <HeaderText text={ambulanceHeader} />
                 <Button 
-                    title={ practiceButton } 
-                    onPress={ this.nextClick }
+                    title={practiceButton} 
+                    onPress={this.nextClick}
                 />
             </View>
-        )
+        );
     }
 }
 
@@ -46,12 +51,12 @@ const styles = {
     headerStyle: {
         justifyContent: 'space-around'
     }
-}
+};
 
 const mapStateToProps = (state) => {
     const { text } = state;
 
     return { text };
-}
+};
 
-export default connect( mapStateToProps )( AmbulanceScreen );
+export default connect(mapStateToProps)(AmbulanceScreen);

@@ -10,19 +10,28 @@ class ConsciousCheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'CPRSurvey'
+                    routeName: 'CPRCall',
+                    params: {
+                        isNotSafe: false
+                    }
                 })
             ]
-        });	
-            this.props.navigation.dispatch(resetAction);
+        });
+        this.props.navigation.dispatch(resetAction);
     }
 
     nextClick = () => {
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({ routeName: 'PulseCheck' })
-            ] });
+                NavigationActions.navigate({
+                    routeName: 'CPRCall',
+                    params: {
+                        isNotSafe: true
+                    }
+                })
+            ]
+        });
         this.props.navigation.dispatch(resetAction);
     }
     

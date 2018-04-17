@@ -4,38 +4,55 @@ import { connect } from 'react-redux';
 import VideoScreen from '../../components/VideoScreen';
 import { COMPRESS_VID, COMPRESS_AUDIO } from '../../data';
 
-class CPRCompressScreen extends Component {
-    backClick = () => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'CPRCall' 
-                })
-            ]
-        });	
+class CompressScreen extends Component {
+    resetNavigate = (route, noParams, params) => {
+        if (noParams) {
+            const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: route,
+                        params
+                    })
+                ]
+            });
             this.props.navigation.dispatch(resetAction);
+        } else {
+            const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: route
+                    })
+                ]
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
+    }
+
+    backClick = () => {
+        this.resetNavigate('CPRCall');
     }
 
     nextClick = () => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'Breathing'
-                })
-            ]
-        });
-        this.props.navigation.dispatch(resetAction);
+        const { params } = this.props.navigation.state;
+        const { noBreath, noPulse } = params;
+
+        if (noBreath) {
+            this.resetNavigate('Breathing', true, { index: params.index, noBreath, noPulse });
+        } else {
+            this.resetNavigate('Ambulance');
+        }
     }
     
     
     render() {
-        const { compress } = this.props.text;
+        const { compress, CPRcompress } = this.props.text;
+        const { noBreath } = this.props.navigation.state.params;
         
         return (
             <VideoScreen 
-                text={compress}
+                text={(noBreath) ? CPRcompress : compress}
                 backClick={this.backClick}
                 nextClick={this.nextClick}
                 video={COMPRESS_VID}
@@ -47,7 +64,7 @@ class CPRCompressScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	text: state.text,
+    text: state.text,
 });
 
-export default connect(mapStateToProps)(CPRCompressScreen);
+export default connect(mapStateToProps)(CompressScreen);

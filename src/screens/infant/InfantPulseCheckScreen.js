@@ -9,8 +9,11 @@ class InfantPulseCheckScreen extends Component {
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({ 
-                    routeName: 'InfantConsciousCheck'
+                NavigationActions.navigate({
+                    routeName: 'InfantAirCheck',
+                    params: {
+                        noPulse: true
+                    }
                 })
             ]
         });
@@ -22,7 +25,10 @@ class InfantPulseCheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'InfantAirCheck'
+                    routeName: 'InfantAirCheck',
+                    params: {
+                        noPulse: false
+                    }
                 })
             ]
         });
@@ -31,11 +37,11 @@ class InfantPulseCheckScreen extends Component {
     
     
     render() {
-        const { check } = this.props.text;
+        const { pulseCheck } = this.props.text;
         
         return (
             <VideoScreen 
-                text={check}
+                text={pulseCheck}
                 backClick={this.backClick}
                 nextClick={this.nextClick}
                 video={INFANT_CHECKPULSE_VID}

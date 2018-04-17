@@ -10,9 +10,12 @@ class CPRSurveyScreen extends Component {
             index: 0,
             key: null,
             actions: [
-                NavigationActions.navigate({ routeName: 'CPRCall', params: { isNotSafe: true } })
+                NavigationActions.navigate({
+                    routeName: 'CPRCall',
+                    params: { isNotSafe: true } 
+                })
             ]
-        });	
+        });
         this.props.navigation.dispatch(resetAction);
     }
 
@@ -20,8 +23,11 @@ class CPRSurveyScreen extends Component {
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({ routeName: 'ConsciousCheck' })
-            ] 
+                NavigationActions.navigate({
+                    routeName: 'ConsciousCheck',
+                    params: { isNotSafe: false } 
+                })
+            ]
         });
         this.props.navigation.dispatch(resetAction);
     }
@@ -43,7 +49,7 @@ class CPRSurveyScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        text: state.text,
-    });
+    text: state.text,
+});
 
 export default connect(mapStateToProps)(CPRSurveyScreen);

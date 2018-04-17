@@ -10,11 +10,14 @@ class PulseCheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'ConsciousCheck'
+                    routeName: 'AirCheck',
+                    params: {
+                        noPulse: true
+                    }
                 })
             ]
-        });	
-            this.props.navigation.dispatch(resetAction);
+        });
+        this.props.navigation.dispatch(resetAction);
     }
 
     nextClick = () => {
@@ -22,20 +25,23 @@ class PulseCheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'AirCheck'
+                    routeName: 'AirCheck',
+                    params: {
+                        noPulse: false
+                    }
                 })
-            ] 
+            ]
         });
         this.props.navigation.dispatch(resetAction);
     }
     
     
     render() {
-        const { check } = this.props.text;
+        const { pulseCheck } = this.props.text;
         
         return (
             <VideoScreen 
-                text={check}
+                text={pulseCheck}
                 backClick={this.backClick}
                 nextClick={this.nextClick}
                 video={CHECKPULSE_VID}

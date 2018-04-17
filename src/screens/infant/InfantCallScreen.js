@@ -5,26 +5,14 @@ import NumberListScreen from '../../components/NumberListScreen';
 
 
 class InfantCallScreen extends Component {
-    backClick = () => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'InfantAirCheck'
-                })
-            ]
-        });
-        this.props.navigation.dispatch(resetAction);
-    }
-
-    nextClick = () => {
-        const { isNotSafe } = this.props.navigation.state.params;
-        if (isNotSafe) {
+    resetNavigate = (route, noParams, params) => {
+        if (noParams) {
             const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [
                     NavigationActions.navigate({
-                        routeName: 'Ambulance'
+                        routeName: route,
+                        params
                     })
                 ]
             });
@@ -34,7 +22,7 @@ class InfantCallScreen extends Component {
                 index: 0,
                 actions: [
                     NavigationActions.navigate({
-                        routeName: 'InfantCompress'
+                        routeName: route
                     })
                 ]
             });
@@ -42,8 +30,22 @@ class InfantCallScreen extends Component {
         }
     }
 
+    backClick = () => {
+        this.resetNavigate('Home');
+    }
+
+    nextClick = () => {
+        const { isNotSafe } = this.props.navigation.state.params;
+        if (isNotSafe) {
+            this.resetNavigate('Ambulance');
+        } else {
+            this.resetNavigate('InfantPulseCheck');
+        }
+    }
+
     render() {
-	const { call } = this.props.text;
+    const { call } = this.props.text;
+    console.log(this.props.navigation.state.params);
 
 	return (
 		<NumberListScreen 

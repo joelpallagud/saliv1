@@ -10,7 +10,10 @@ class InfantConsciousCheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'InfantSurvey' 
+                    routeName: 'InfantCall',
+                    params: {
+                        isNotSafe: false
+                    }
                 })
             ]
         });
@@ -22,7 +25,10 @@ class InfantConsciousCheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'InfantPulseCheck'
+                    routeName: 'InfantCall',
+                    params: {
+                        isNotSafe: true
+                    }
                 })
             ]
         });

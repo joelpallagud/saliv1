@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Image } from 'react-native';
+import { connect } from 'react-redux';
+
 import Button from '../../components/Button';
 import Background from '../../components/Background';
 import Logo from '../../components/Logo';
 import UserInfo from '../../components/UserInfo';
-import {connect} from 'react-redux';
+
 import { LOGO } from '../../img';
 import firebase from '../../firebase';
 import { logout, userFetch } from '../../actions';
@@ -16,7 +18,7 @@ class ProfileScreen extends Component {
 	tabBarIcon: () => (
 	  <Image
 	      source={require('../../img/asset11.png')}
-	      style = {{resizeMode: 'contain', width: 25, height: 25}}
+	      style ={{ resizeMode: 'contain', width: 25, height: 25 }}
 	  />
     ),
     }
@@ -26,61 +28,57 @@ class ProfileScreen extends Component {
 	}
 
     renderInfo = () => {
-		console.log(this.props)
+		console.log(this.props);
 		
-		if(this.state.user && this.props.details) {
+		if (this.state.user && this.props.details) {
 		    return (
 				<UserInfo 
-					name= {this.props.details.name}
-					city= {this.props.details.address}
-					email= {this.state.user.email}
-					number= { this.props.details.phone }
+					name={this.props.details.name}
+					city={this.props.details.address}
+					email={this.state.user.email}
+					number={this.props.details.phone}
 				/>
-			)
-		}
-		else if(!this.props.details && this.state.user)
-		{
+			);
+		} else if (!this.props.details && this.state.user) {
 		    return (
 				<UserInfo 
-					name= "Not set"
-					city= "Not set"
-					email= {this.state.user.email}
-					number= "Not set"
+					name="Not set"
+					city="Not set"
+					email={this.state.user.email}
+					number="Not set"
 				/>
-		    )
+		    );
 	    }
-	
 }
 redirectLogin = () => {
-	    this.props.navigation.navigate("Signin")
+	    this.props.navigation.navigate('Signin');
 }
 
 redirectProfile = () => {
-	    this.props.navigation.navigate("UserInfo")
+	    this.props.navigation.navigate('UserInfo');
 }
 
 
 constructor(props) {
-    super(props)
+    super(props);
     this.state = {
 	user: null,
-    }
+    };
 }
-componentWillMount()
-{
+componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
 	if (user != null) {
-	    this.setState({user})
+	    this.setState({ user });
 		this.props.userFetch();
 	  }
 	});
-	console.log(this.props.profile)
+	console.log(this.props.profile);
     }
     render() {
 		const { containerStyle, headerContainerStyle } = styles;
 
         return (
-            <View style={ containerStyle }>
+            <View style={containerStyle}>
 				{/* <Background
 		            source={ require('../../img/asset3.png') }
 		        /> */}
@@ -88,22 +86,22 @@ componentWillMount()
 					<Logo />
 					{this.renderInfo() }
 					<Button 
-						    title= "Logout"
-						    onPress = {this.props.logout}
+						    title="Logout"
+						    onPress= {this.props.logout}
 					/>
 					<Button 
-						    title = "Update info"
-						    onPress = { this.redirectProfile }
+						    title= "Update info"
+						    onPress ={this.redirectProfile}
 					/>
 				</View>
 				{ !this.state.user &&
 					<Button 
-					    title = "Login"
-					    onPress = {this.redirectLogin}
+					    title ="Login"
+					    onPress= {this.redirectLogin}
 					/>
 				}	
             </View>
-        )
+        );
     }
 }
 
@@ -118,14 +116,13 @@ const styles = {
 		alignItems: 'center', 
 		justifyContent: 'space-around'
     }
-}
+};
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = (state) => ({
 	text: state.auth,
 	user: state.auth.user,
 	profile: state.profile,
 	details: state.profile.data
-    }
-}
-export default connect(mapStateToProps, {logout, userFetch})(ProfileScreen);
+	});
+	
+export default connect(mapStateToProps, { logout, userFetch })(ProfileScreen);

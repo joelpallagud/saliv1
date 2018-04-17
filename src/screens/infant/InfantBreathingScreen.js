@@ -5,38 +5,59 @@ import VideoScreen from '../../components/VideoScreen';
 import { INFANT_BREATH_VID, INFANT_BREATH_AUDIO } from '../../data';
 
 class InfantBreathingScreen extends Component {
+    resetNavigate = (route, noParams, params) => {
+        if (noParams) {
+            const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: route,
+                        params
+                    })
+                ]
+            });
+            this.props.navigation.dispatch(resetAction);
+        } else {
+            const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: route
+                    })
+                ]
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
+    }
+    
     backClick = () => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            key: null,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'InfantCompress' 
-                })
-            ]
-        });	
-        this.props.navigation.dispatch(resetAction);
+        this.resetNavigate('Home');
     }
 
     nextClick = () => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'Home',
-                    params: { isNotSafe: false }
-                })
-            ] 
-        });
-        this.props.navigation.dispatch(resetAction);
+        const { params } = this.props.navigation.state;
+        const { noPulse, noBreath } = params;
+        
+        if (params.index === 5) {
+            this.resetNavigate('InfantPulseCheck');
+        } else if (noPulse) {
+            this.resetNavigate(
+                'InfantCompress',
+                true,
+                { index: params.index + 1, noPulse, noBreath }
+            );
+        } else {
+            this.resetNavigate('Ambulance');
+        }
     }
 
     render() {
-        const { survey } = this.props.text;
+        const { breathing, justBreathing } = this.props.text;
+        const { noPulse } = this.props.navigation.state.params;
 
         return (
             <VideoScreen 
-                text={survey}
+                text={(noPulse) ? breathing : justBreathing}
                 backClick={this.backClick}
                 nextClick={this.nextClick}
                 video={INFANT_BREATH_VID}

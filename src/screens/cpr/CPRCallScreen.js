@@ -5,26 +5,14 @@ import NumberListScreen from '../../components/NumberListScreen';
 
 
 class CPRCallScreen extends Component {
-    backClick = () => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'AirCheck' 
-                })
-            ] 
-        });
-        this.props.navigation.dispatch(resetAction);
-    }
-
-    nextClick = () => {
-        const { isNotSafe } = this.props.navigation.state.params;
-        if (isNotSafe) {
+    resetNavigate = (route, noParams, params) => {
+        if (noParams) {
             const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [
                     NavigationActions.navigate({
-                        routeName: 'Ambulance'
+                        routeName: route,
+                        params
                     })
                 ]
             });
@@ -34,16 +22,30 @@ class CPRCallScreen extends Component {
                 index: 0,
                 actions: [
                     NavigationActions.navigate({
-                        routeName: 'CPRCompress' 
+                        routeName: route
                     })
-                ] 
+                ]
             });
             this.props.navigation.dispatch(resetAction);
         }
     }
 
+    backClick = () => {
+        this.resetNavigate('Home');
+    }
+
+    nextClick = () => {
+        const { isNotSafe } = this.props.navigation.state.params;
+        if (isNotSafe) {
+            this.resetNavigate('Ambulance');
+        } else {
+            this.resetNavigate('PulseCheck');
+        }
+    }
+
     render() {
-	const { call } = this.props.text;
+    const { call } = this.props.text;
+    console.log(this.props.navigation.state.params);
 
 	return (
 		<NumberListScreen 
@@ -62,4 +64,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(CPRCallScreen);
-

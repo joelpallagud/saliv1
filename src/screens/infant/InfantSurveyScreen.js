@@ -24,7 +24,8 @@ class InfantSurveyScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'InfantConsciousCheck'
+                    routeName: 'InfantConsciousCheck',
+                    params: { isNotSafe: false } 
                 })
             ]
         });

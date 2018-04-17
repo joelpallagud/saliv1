@@ -12,48 +12,35 @@ import {
     LOGOUT,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL
-
-
 } from './types';
 import { NavigationActions } from 'react-navigation';
-import firebase from '../firebase'
+import firebase from '../firebase';
 import api from '../api';
-import { setDefaultDetails } from "./ProfileActions";
+import { setDefaultDetails } from './ProfileActions';
 
-export const registerUser = ({ prop, value }) => {
-    return {
+export const registerUser = ({ prop, value }) => ({
         type: REGISTER_USER,
         payload: { prop, value }
-    };
-};
+    });
 
-export const chooseLanguage = (language) => {
-    return {
+export const chooseLanguage = (language) => ({
         type: CHOOSE_LANGUAGE,
         payload: language
+    });
+
+export const loginUser = (email, password) => (dispatch) => {
+        if (email && password) {
+            dispatch({ type: LOGIN_USER });
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(user => loginUserSuccess(dispatch, user))
+                .catch((err) => loginUserFail(dispatch, err));
+        } else {
+            loginUserFail(dispatch, { message: 'You must fill up all the inputs' });
+        }
     };
-};
 
-export const loginUser = ( email, password ) => {
-    return (dispatch) => {
-	if(email && password)
-	{
-	    dispatch({ type: LOGIN_USER });
-
-	    firebase.auth().signInWithEmailAndPassword(email, password)
-		.then(user => loginUserSuccess(dispatch, user))
-		.catch((err) => loginUserFail(dispatch,err));
-	}	
-	else
-	{
-	    loginUserFail(dispatch, {message: "You must fill up all the inputs"} );
-	}
-
-    };
-};
-
-const loginUserFail = (dispatch,error) => {
-    console.log("Login failed")
+const loginUserFail = (dispatch, error) => {
+    console.log('Login failed');
     console.log(error);
     dispatch({ type: LOGIN_USER_FAIL,
 	payload: error
@@ -68,27 +55,21 @@ const loginUserSuccess = (dispatch, user) => {
     dispatch(NavigationActions.reset({
         index: 0,
         actions: [
-            NavigationActions.navigate({ routeName: 'Home'})
-        ]}));
+            NavigationActions.navigate({ routeName: 'Home' })
+        ] }));
 };
 
-export const signUp = (email, password) => {
-    return (dispatch) => {
-	if(email && password)
-	{
-	    dispatch({ type: SIGNUP});
-	    console.log("Signing in");
-	    firebase.auth().createUserWithEmailAndPassword(email, password)
-		    .then(() => signupSuccess(dispatch, email, password))
-		    .catch((err) => signupFail(dispatch, err))
-	}	
-	else
-	{
-	    signupFail(dispatch,{ message:  "You must fill up all the inputs"});
+export const signUp = (email, password) => (dispatch) => {
+	if (email && password) {
+        dispatch({ type: SIGNUP });
+        console.log('Signing in');
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => signupSuccess(dispatch, email, password))
+            .catch((err) => signupFail(dispatch, err));
+	} else {
+        signupFail(dispatch, { message: 'You must fill up all the inputs' });
 	}
-    
-    }
-}
+    };
 
 // export const signUp = (number) => {
 //     const recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
@@ -115,51 +96,48 @@ export const signUp = (email, password) => {
 
 export function signInWithFacebook(facebookToken, successCB, errorCB) {
     return (dispatch) => {
-        api.signInWithFacebook(facebookToken, function (success, data, error) {
+        api.signInWithFacebook(facebookToken, (success, data, error) => {
             if (success) {
-                if (data.exists) dispatch({type: t.LOGGED_IN, data: data.user});
+                if (data.exists) dispatch({ type: t.LOGGED_IN, data: data.user });
                 successCB(data);
-            }else if (error) errorCB(error)
+            } else if (error) errorCB(error);
         });
     };
 }
 
-const signupFail= (dispatch, error) => {
-    console.log("Signup failed");
+const signupFail = (dispatch, error) => {
+    console.log('Signup failed');
     console.log(error);
     dispatch({ type: SIGNUP_FAIL, 
 	payload: error 
     });
-}
+};
 
-const signupSuccess = (dispatch, email,password) => {
-    console.log("SignUp success");
+const signupSuccess = (dispatch, email, password) => {
+    console.log('SignUp success');
     dispatch({ type: SIGNUP_SUCCESS });
     setDefaultDetails();
-    dispatch(loginUser(email,password))
+    dispatch(loginUser(email, password));
+};
 
-}
-
-export const logout = () => {
-    return (dispatch) => {
-	dispatch ({ type: LOGOUT});
-	firebase.auth().signOut()
-	    .then(() =>  logoutSuccess(dispatch))
-	    .catch((err) => logoutFail(dispatch, error))
-    }
-}
+export const logout = () => (dispatch) => {
+	dispatch({ type: LOGOUT });
+    firebase.auth().signOut()
+        .then(() => logoutSuccess(dispatch))
+        .catch((err) => logoutFail(dispatch, error));
+    };
 
 const logoutSuccess = (dispatch) => {
     dispatch({ type: LOGOUT_SUCCESS });
     dispatch(NavigationActions.reset({
         index: 0,
         actions: [
-            NavigationActions.navigate({ routeName: 'Home'})
-        ]}));
-}
+            NavigationActions.navigate({ routeName: 'Home' })
+        ] }));
+};
 
 const logoutFail = (dispatch, error) => {
-    console.log("Logout failed");
+    console.log('Logout failed');
     console.log(error);
-    dispatch({ type: LOGOUT_FAIL, payload: error});
-}
+    dispatch({ type: LOGOUT_FAIL, payload: error });
+};
