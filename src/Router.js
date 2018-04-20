@@ -9,6 +9,7 @@ import LanguageScreen from './screens/LanguageScreen';
 import GreetingsScreen from './screens/static/GreetingsScreen';
 import LoginScreen from './screens/Auth/LoginScreen';
 import SignupScreen from './screens/Auth/SignupScreen';
+import UserCreateScreen from './screens/Auth/UserCreateScreen';
 import SigninScreen from './screens/Auth/SigninScreen';
 import UserInfoScreen from './screens/Auth/UserInfoScreen';
 import PostRegistrationScreen from './screens/Auth/PostRegistrationScreen';
@@ -51,6 +52,7 @@ const RegistrationStack = StackNavigator(
         Greetings: { screen: GreetingsScreen },
         Login: { screen: LoginScreen },
         Signup: { screen: SignupScreen },
+        UserCreate: { screen: UserCreateScreen },
     },
     {
         headerMode: 'none',
@@ -141,6 +143,8 @@ export const Router = StackNavigator(
         Home: { screen: HomeTab },
         Signin: { screen: SigninScreen },
         UserInfo: { screen: UserInfoScreen },
+
+
         Infant: { screen: InfantScreen },
         Child: { screen: ChildScreen },
         Drowning: { screen: DrowningScreen },

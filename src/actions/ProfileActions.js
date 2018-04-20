@@ -18,7 +18,6 @@ export const userCreate = (name, birthday, phone, address) => {
 	    .set({name, birthday, phone, address})
 	    .then(() => {
 		dispatch({ type: USER_CREATE_SUCCESS });
-		dispatch(NavigationActions.navigate({ routeName: 'Home' }));
 	    })
 	    .catch((err) => {
 		dispatch({ type: USER_CREATE_FAILURE, payload: err })

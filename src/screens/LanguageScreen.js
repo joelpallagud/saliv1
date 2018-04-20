@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { chooseLanguage } from '../actions';
 import Button from '../components/Button';
@@ -9,41 +9,43 @@ import Logo from '../components/Logo';
 import { deviceHeight, deviceWidth } from '../utils/dimensions';
 
 class LanguageScreen extends Component {
-    englishHandleClick = (language) => {
-        this.props.chooseLanguage('English')
-        this.props.navigation.navigate('Greetings')
+    englishHandleClick = () => {
+        this.props.chooseLanguage('English');
+        this.props.navigation.navigate('Greetings');
     }
-    tagalogHandleClick = (language) => {
-        this.props.chooseLanguage('Tagalog')
-        this.props.navigation.navigate('Greetings')
+    tagalogHandleClick = () => {
+        this.props.chooseLanguage('Tagalog');
+        this.props.navigation.navigate('Greetings');
     }
 
     render() {
-        const { containerStyle, logoStyle, headerStyle, textContainerStyle, imageContainerStyle } = styles;
+        const { containerStyle, textContainerStyle, imageContainerStyle } = styles;
+        console.log(deviceHeight);
+        console.log(deviceWidth);
         
         return (
-            <View style={ containerStyle } >
-		        <Background
-		            source={ require('../img/asset3.png') }
-		        />
-                 <View style={ imageContainerStyle }>
+            <View style={containerStyle} >
+                <Background
+                    source={require('../img/asset3.png')}
+                />
+                 <View style={imageContainerStyle}>
                     <Logo />
                 </View>
-                <View style={ textContainerStyle }>
+                <View style={textContainerStyle}>
                     <HeaderText
                         text="Select Language"
                     />        
                     <Button 
                         title='English'
-                        onPress={ this.englishHandleClick }
+                        onPress={this.englishHandleClick}
                     />
                     <Button 
                         title='Tagalog'
-                        onPress={ this.tagalogHandleClick }
+                        onPress={this.tagalogHandleClick}
                     />
                 </View>
             </View>
-        )
+        );
     }
 }
 
@@ -59,21 +61,21 @@ const styles = {
     },
     textContainerStyle: {
         backgroundColor: 'rgba( 0, 0, 0, 0)',
-        height: deviceHeight*0.5,
+        height: deviceHeight * 0.5,
         width: deviceWidth,
         alignItems: 'center',
         justifyContent: 'center', 
     },
     imageContainerStyle: {
         position: 'absolute',
-        top: deviceHeight*0.1,
+        top: deviceHeight * 0.1,
     }
-}
+};
 
 const mapStateToProps = (state) => {
     const { language } = state.auth;
 
     return { language };
-}
+};
 
-export default connect(mapStateToProps, { chooseLanguage })( LanguageScreen );
+export default connect(mapStateToProps, { chooseLanguage })(LanguageScreen);

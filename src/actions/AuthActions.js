@@ -55,7 +55,7 @@ const loginUserSuccess = (dispatch, user) => {
     dispatch(NavigationActions.reset({
         index: 0,
         actions: [
-            NavigationActions.navigate({ routeName: 'Home' })
+            NavigationActions.navigate({ routeName: 'UserCreate' })
         ] }));
 };
 
