@@ -2,17 +2,17 @@ import firebase from "../firebase";
 import {
     USER_CREATE,
     USER_CREATE_SUCCESS,
+    USER_CREATE_FAILURE,
     USER_FETCH,
     USER_FETCH_SUCCESS,
     USER_FETCH_FAILURE,
-    USER_CREATE_FAILURE,
 } from './types';
 import { NavigationActions } from 'react-navigation';
 
-export const userCreate = (name, birthday, phone, address) => {
-    var uid = firebase.auth().currentUser.uid;
-    var path = '/users/' + uid;
-    return (dispatch) => {
+export const userCreate = (name, birthday, phone, address) => (dispatch) => {
+    if(name && birthday && phone && address){ 
+	var uid = firebase.auth().currentUser.uid;
+	var path = '/users/' + uid;
 	dispatch({ type:USER_CREATE })
 	firebase.database().ref(path)
 	    .set({name, birthday, phone, address})
@@ -20,11 +20,22 @@ export const userCreate = (name, birthday, phone, address) => {
 		dispatch({ type: USER_CREATE_SUCCESS });
 	    })
 	    .catch((err) => {
-		dispatch({ type: USER_CREATE_FAILURE, payload: err })
+		userCreateFail(dispatch, err);
 	    })
-    };
+    } else {
+	userCreateFailure(dispatch, "You must fill out all the fields");
+    }
+
 };
 
+const userCreateFail = (dispatch, error) => {
+    console.log("User create fail");
+    console.log(error);
+    dispatch({
+	type: USER_CREATE_FAILURE,
+	payload: error
+    });
+}
 export const userFetch = () => {
     var uid = firebase.auth().currentUser.uid;
     var path = '/users/' + uid;

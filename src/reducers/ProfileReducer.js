@@ -20,12 +20,12 @@ export default (state = INITIAL_STATE, action) => {
 	    return {...state, loading: true}
 	case USER_CREATE_SUCCESS:
 	    return {...state, data: action.payload, loading: false}; 
+	case USER_CREATE_FAILURE:
+	    return {...state, error: action.payload, loading: false }
 	case USER_FETCH:
 	    return {...state, loading: true}
 	case USER_FETCH_SUCCESS:
 	    return {...state, data: action.payload, loading: false};
-	case USER_CREATE_FAILURE:
-	    return {...state, error: action.payload, loading: false }
 	case USER_FETCH_FAILURE:
 	    return {...state, error: action.payload, loading: false }
 	default:
