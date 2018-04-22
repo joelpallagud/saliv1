@@ -20,7 +20,7 @@ export const userCreate = (name, birthday, phone, address) => (dispatch) => {
 		dispatch({ type: USER_CREATE_SUCCESS });
 	    })
 	    .catch((err) => {
-		userCreateFail(dispatch, err);
+		userCreateFailure(dispatch, err);
 	    })
     } else {
 	userCreateFailure(dispatch, "You must fill out all the fields");
@@ -28,7 +28,7 @@ export const userCreate = (name, birthday, phone, address) => (dispatch) => {
 
 };
 
-const userCreateFail = (dispatch, error) => {
+const userCreateFailure = (dispatch, error) => {
     console.log("User create fail");
     console.log(error);
     dispatch({

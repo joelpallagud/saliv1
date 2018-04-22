@@ -34,19 +34,22 @@ class UserCreateScreen extends Component {
 
     submit = () => {
 		const { name, birthday, phone, address } = this.state;
-		
 		this.props.userCreate(name, birthday, phone, address);
-		this._toggleModal();
+	    this._toggleModal();
 	}
 
 	onModalButtonPress = () => {
-		this._toggleModal();
+	    
+	    this._toggleModal();
+	    if(!this.props.error)
+	    {
 		const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                this.props.navigation.navigate('PostRegistration')
-            ] });
-        this.props.navigation.dispatch(resetAction);
+		    index: 0,
+		    actions: [
+			this.props.navigation.navigate('PostRegistration')
+		    ] });
+		this.props.navigation.dispatch(resetAction);
+	    }
 	}
 
     render() {
@@ -195,8 +198,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
-		error: state.auth.error,
-		loading: state.auth.loading,
+		error: state.profile.error,
+		loading: state.profile.loading,
 		text: state.text,
     });
 
