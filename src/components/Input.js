@@ -19,6 +19,7 @@ const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitali
                 autoCapitalize={autoCapitalize}
                 keyboardType={keyboardType}
             />
+	    props.error ? <Text> {props.error} </Text> : null
             <Image
                 style={iconStyle}
                 source={src}
