@@ -21,8 +21,11 @@ import validation from '../../validation';
 class SignupScreen extends Component {
     state = {
 	email: null,
+	emailError: null,
 	password: null,
+	passwordError:null,
 	confirmPassword: null,
+	confirmPasswordError: null,
     }
 
     backClick = () => {
@@ -31,8 +34,18 @@ class SignupScreen extends Component {
 
     submit = () => {
 	const emailError = validate("email", this.state.email)
+	const passwordError = validate("password", this.state.password)
+	const confirmPasswordError = validate("confirmPassword", this.state.confirmPassword)
+
+	this.setState ({
+	    emailError: emailError,
+	    passwordError:passwordError,
+	    confirmPasswordError: confirmPasswordError
+	})
 	if (this.state.password === this.state.confirmPassword) {
-	    this.props.signUp(this.state.email, this.state.password);
+	    if(!emailError && !passwordError ){
+		this.props.signUp(this.state.email, this.state.password);
+	    }
 	} else if (this.state.password !== this.state.confirmPassword) {
 	    this.setState({ loading: false });
 	    Alert.alert(
@@ -80,6 +93,12 @@ class SignupScreen extends Component {
 				    autoCapitalize='none'
 				    onChangeText= {(email) => this.setState({ email })}
 				    src={require('../../img/date_icon.png')}
+				    onBlur={() => {
+				    this.setState({
+				      emailError: validate('email', this.state.email)
+				    })
+				  }}
+				  error={this.state.emailError}
 				/>
 			    </View>
 			    <View style={input}>
@@ -89,6 +108,12 @@ class SignupScreen extends Component {
 				    secureTextEntry   
 				    onChangeText={(password) => this.setState({ password })}
 				    src={require('../../img/date_icon.png')}
+				    onBlur={() => {
+				    this.setState({
+				      emailError: validate('password', this.state.password)
+				    })
+				  }}
+				  error={this.state.passwordError}
 				/>
 			    </View>
 			    <View style={input}>
@@ -98,6 +123,12 @@ class SignupScreen extends Component {
 				    secureTextEntry
 				    onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
 				    src={require('../../img/date_icon.png')}
+				    onBlur = {() => {
+					this.setState({
+					   confirmPasswordError: validate("confirmPassword", this.state.confirmPassword) 
+					})
+				    }}
+				    error = {this.state.confirmPasswordError}
 				/>
 			    </View>
 			</ScrollView>

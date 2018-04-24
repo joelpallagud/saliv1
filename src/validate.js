@@ -1,14 +1,15 @@
-import validation from "/validation"
+import validation from "validate.js"
+import constraints from "./validation"
 
-export default function validate(fieldName, value) {
+export default function validate(field, value) {
     var formValues = {}
 
-    formValues[fieldName] = value
+    formValues[field] = value
 
     var formFields = {}
-    formFields[fieldName] = validation[field]
+    formFields[field] = constraints[field]
 
-    const result = validatejs(formValues, formFields)
+    const result = validation(formValues, formFields)
 
     if (result) {
 	    return result[field][0]
