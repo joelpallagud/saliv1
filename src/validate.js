@@ -18,4 +18,15 @@ export default function validate(field, value) {
     return null
 }
 
+export function confirmPassword(value1, value2)
+{
+    const result = validation({password: value1, confirmPassword: value2}, {confirmPassword: {equality: "password"}} )
+
+    if (result) {
+	    return result["confirmPassword"][0]
+    }
+
+    return null
+}
+
 

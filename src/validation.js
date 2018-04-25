@@ -18,6 +18,7 @@ const constraints = {
 	}
     },
     confirmPassword: {
+	equality: "password"
     },
 
     phone: {

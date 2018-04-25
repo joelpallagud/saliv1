@@ -17,6 +17,7 @@ import { deviceWidth, deviceHeight } from '../../utils/dimensions';
 import { signUp } from '../../actions';
 import validate from "../../validate";
 import validation from '../../validation';
+import {confirmPassword} from "../../validate"
 
 class SignupScreen extends Component {
     state = {
@@ -35,28 +36,16 @@ class SignupScreen extends Component {
     submit = () => {
 	const emailError = validate("email", this.state.email)
 	const passwordError = validate("password", this.state.password)
-	const confirmPasswordError = validate("confirmPassword", this.state.confirmPassword)
+	const confirmPasswordError = confirmPassword(this.state.password, this.state.confirmPassword) 
 
 	this.setState ({
 	    emailError: emailError,
 	    passwordError:passwordError,
 	    confirmPasswordError: confirmPasswordError
 	})
-	if (this.state.password === this.state.confirmPassword) {
-	    if(!emailError && !passwordError ){
-		this.props.signUp(this.state.email, this.state.password);
-	    }
-	} else if (this.state.password !== this.state.confirmPassword) {
-	    this.setState({ loading: false });
-	    Alert.alert(
-		'Error signing up',
-		"Passwords don't match",
-		[
-		    { text: 'Ok', style: 'default' }
-		]
-	    );
+	if(!emailError && !passwordError && !confirmPasswordError ){
+	    this.props.signUp(this.state.email, this.state.password);
 	}
-
     }
 
     onModalButtonPress = () => {
@@ -125,7 +114,8 @@ class SignupScreen extends Component {
 				    src={require('../../img/date_icon.png')}
 				    onBlur = {() => {
 					this.setState({
-					   confirmPasswordError: validate("confirmPassword", this.state.confirmPassword) 
+					   confirmPasswordError: confirmPassword(this.state.password, this.state.confirmPassword)
+ 
 					})
 				    }}
 				    error = {this.state.confirmPasswordError}
