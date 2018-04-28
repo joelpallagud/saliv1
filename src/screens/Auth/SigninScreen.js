@@ -8,107 +8,109 @@ import Background from '../../components/Background';
 import { deviceWidth, deviceHeight } from '../../utils/dimensions';
 import { LOGO } from '../../img';
 import { loginUser } from '../../actions';
+import validate from "../../validate";
+import validation from '../../validation';
 
 class SigninScreen extends Component {
     backClick = () => {
-		this.props.navigation.navigate('Home');
+	this.props.navigation.navigate('Home');
     }
 
-	state = {
-	    email: null,
-	    password: null, 
-	    error: '',
-	}
+    state = {
+	email: null,
+	password: null, 
+	error: '',
+    }
 
     submit= () => {
-		this.props.loginUser(this.state.email, this.state.password);
-		console.log(this.props.error);
+	this.props.loginUser(this.state.email, this.state.password);
+	console.log(this.props.error);
     }
 
 
     render() {
-		const { container, logo, input, headerStyle } = styles;
-		const { loginHeader } = this.props.text;
+	const { container, logo, input, headerStyle } = styles;
+	const { loginHeader } = this.props.text;
 
-		return (
-		    <View style= {container}>
-				<Background
-				    source={require('../../img/asset8.png')}
-				/>
-    	        <Image
-    	            style={logo}
-    	            source={LOGO}
-    	        />
-				<KeyboardAvoidingView style ={container} behavior='padding'>
-					<View>
-							<Text style={headerStyle}>
-								{ loginHeader }
-							</Text>
-					</View>
-				    <View style={input}>
-						<Input
-							style={input}
-						    placeholder= 'Mobile number'
-						    onChangeText= {(email) => this.setState({ email })}
-							keyboardType ='e-mail'
-							autoCapitalize='none'
-						/>
-				    </View>
-				    <View style={input}>
-						<Input
-							style={input}
-						    placeholder='Password'
-						    autoCapitalize='none'
-						    secureTextEntry
-						    onChangeText={(password) => this.setState({ password })}
-						/>
-				    </View>
-				    <View style ={input}>
-						<Button 
-						    title= 'Enter'
-						    onPress= {this.submit}
-						/>
-						<ActivityIndicator size='small' color='#00ff00' animating ={this.props.loading} />
-				    	<Text> { this.props.error.message} </Text>
-				    </View>
-				</KeyboardAvoidingView>
+	return (
+	    <View style= {container}>
+		<Background
+		    source={require('../../img/asset8.png')}
+		/>
+		<Image
+		    style={logo}
+		    source={LOGO}
+		/>
+		<KeyboardAvoidingView style ={container} behavior='padding'>
+		    <View>
+			<Text style={headerStyle}>
+			    { loginHeader }
+			</Text>
 		    </View>
-		);
+		    <View style={input}>
+			<Input
+			    style={input}
+			    placeholder= 'Mobile number'
+			    onChangeText= {(email) => this.setState({ email })}
+			    keyboardType ='e-mail'
+			    autoCapitalize='none'
+			/>
+		    </View>
+		    <View style={input}>
+			<Input
+			    style={input}
+			    placeholder='Password'
+			    autoCapitalize='none'
+			    secureTextEntry
+			    onChangeText={(password) => this.setState({ password })}
+			/>
+		    </View>
+		    <View style ={input}>
+			<Button 
+			    title= 'Enter'
+			    onPress= {this.submit}
+			/>
+			<ActivityIndicator size='small' color='#00ff00' animating ={this.props.loading} />
+			<Text> { this.props.error.message} </Text>
+		    </View>
+		</KeyboardAvoidingView>
+	    </View>
+	);
     }
 }
 
 const styles = {
     container: {
-        flex: 1,
-        justifyContent: 'center', 
-        alignItems: 'center'
-	},
-	headerStyle: {
-        textAlign: 'center',
-        color: '#5F968E',
-        fontSize: 30,
-        fontFamily: 'comfortaa',
-        marginBottom: 20
+	flex: 1,
+	justifyContent: 'center', 
+	alignItems: 'center'
+    },
+    headerStyle: {
+	textAlign: 'center',
+	color: '#5F968E',
+	fontSize: 30,
+	fontFamily: 'comfortaa',
+	marginBottom: 20
     },
     logo: {
-        width: deviceHeight * 0.1,
-        height: deviceHeight * 0.1,
-        position: 'absolute',
-        top: deviceHeight * 0.075
+	width: deviceHeight * 0.1,
+	height: deviceHeight * 0.1,
+	position: 'absolute',
+	top: deviceHeight * 0.075
     },
     input: {
-		paddingBottom: 10,
-		width: deviceWidth * 0.8,
-		alignItems: 'center', 
+	paddingBottom: 10,
+	width: deviceWidth * 0.8,
+	alignItems: 'center', 
     },
 };
 
 const mapStateToProps = (state) => ({
-		email: state.auth,
-		error: state.auth.error,
-		loading: state.auth.loading,
-		text: state.text,
-    });
+    email: state.auth,
+    error: state.auth.error,
+    loading: state.auth.loading,
+    text: state.text,
+});
 
 
 export default connect(mapStateToProps, { loginUser })(SigninScreen);

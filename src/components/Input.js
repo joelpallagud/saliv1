@@ -1,8 +1,8 @@
 import React from 'react';
-import { TextInput, View, Image } from 'react-native';
+import { TextInput, View, Image, Text } from 'react-native';
 import { deviceWidth, deviceHeight } from '../utils/dimensions';
 
-const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitalize, keyboardType, src, error }) => {
+const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitalize, keyboardType, src, error, onBlur}) => {
     const { inputStyle, containerStyle, iconStyle, errorStyle, errorInputStyle } = styles;
     
     return (
@@ -18,11 +18,13 @@ const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitali
                 underlineColorAndroid='transparent'
                 autoCapitalize={autoCapitalize}
                 keyboardType={keyboardType}
+		onBlur={onBlur}
             />
             <Image
                 style={iconStyle}
                 source={src}
             />
+	    <Text> {error}</Text>
         </View>
     );
 };
