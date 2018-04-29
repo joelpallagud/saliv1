@@ -10,7 +10,8 @@ class CheckScreen extends Component {
             index: 0,
             actions: [
                 NavigationActions.navigate({
-                    routeName: 'Survey'
+                    routeName: 'Call',
+                    params: { isNotSafe: true } 
                 })
             ]
         });
