@@ -4,12 +4,29 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { addNavigationHelpers } from 'react-navigation';
-import Router from './src/Router';
-import reducers from './src/reducers';
-import firebase from './src/firebase';
-import cacheAssetsAsync from './src/utils/cacheAssetsAsync';
 import { View } from 'react-native-animatable';
 
+import Router from './src/Router';
+import reducers from './src/reducers';
+import cacheAssetsAsync from './src/utils/cacheAssetsAsync';
+import {
+	ICON_CALL,
+	ICON_EMERGENCY,
+	ICON_FB,
+	ICON_GIFT,
+	ICON_LOCATION,
+	ICON_EMAIL,
+	ICON_NAME,
+	ICON_NUMBER,
+	ICON_NUMBER_ERROR,
+	ICON_PASSWORD,
+	ICON_PASSWORD_ERROR,
+	ICON_PROFILE,
+	CARD_CPR,
+	LOGO,
+	LOGO_NAME,
+	LOGO_WHITE
+} from './src/img';
 
 const AppWithoutNav = ({ dispatch, nav }) => {
     return (
@@ -51,15 +68,26 @@ export default class App extends Component {
 					require('./src/img/asset8.png'),
 					require('./src/img/asset9.png'),
 					require('./src/img/asset10.png'),
-					require('./src/img/asset11.png'),
-					require('./src/img/asset12.png'),
 					require('./src/img/asset13.png'),
 					require('./src/img/asset14.png'),
 					require('./src/img/asset15.png'),
 					require('./src/img/asset16.png'),
-					require('./src/img/logo-name.png'),
-					require('./src/img/logo-white.png'),
-					require('./src/img/logo.png'),
+					LOGO,
+					LOGO_NAME,
+					LOGO_WHITE,
+					ICON_CALL,
+					ICON_EMERGENCY,
+					ICON_FB,
+					ICON_GIFT,
+					ICON_LOCATION,
+					ICON_EMAIL,
+					ICON_NAME,
+					ICON_NUMBER,
+					ICON_NUMBER_ERROR,
+					ICON_PASSWORD,
+					ICON_PASSWORD_ERROR,
+					ICON_PROFILE,
+					CARD_CPR
 				],
 				fonts: [
 					{ 'comfortaa': require('./src/data/fonts/Comfortaa-Bold.ttf') },

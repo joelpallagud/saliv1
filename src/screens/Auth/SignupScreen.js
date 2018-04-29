@@ -15,47 +15,50 @@ import Logo from '../../components/Logo';
 //import { signUp, doPasswordsMatch } from '../../helpers/firebase';
 import { deviceWidth, deviceHeight } from '../../utils/dimensions';
 import { signUp } from '../../actions';
-import validate from "../../validate";
-import validation from '../../validation';
-import {confirmPassword} from "../../validate"
+import validate, { confirmPassword } from '../../validate';
+
+import {
+	ICON_EMAIL,
+	ICON_PASSWORD
+} from '../../img';
 
 class SignupScreen extends Component {
     state = {
-	email: null,
-	emailError: null,
-	password: null,
-	passwordError:null,
-	confirmPassword: null,
-	confirmPasswordError: null,
+		email: null,
+		emailError: null,
+		password: null,
+		passwordError: null,
+		confirmPassword: null,
+		confirmPasswordError: null,
     }
 
     backClick = () => {
-	this.props.navigation.navigate('Home');
+		this.props.navigation.navigate('Home');
     }
 
     submit = () => {
-	const emailError = validate("email", this.state.email)
-	const passwordError = validate("password", this.state.password)
-	const confirmPasswordError = confirmPassword(this.state.password, this.state.confirmPassword) 
+	const emailError = validate('email', this.state.email);
+	const passwordError = validate('password', this.state.password);
+	const confirmPasswordError = confirmPassword(this.state.password, this.state.confirmPassword); 
 
-	this.setState ({
-	    emailError: emailError,
-	    passwordError:passwordError,
-	    confirmPasswordError: confirmPasswordError
-	})
-	if(!emailError && !passwordError && !confirmPasswordError ){
-	    this.props.signUp(this.state.email, this.state.password);
+	this.setState({
+		emailError,
+		passwordError,
+		confirmPasswordError
+	});
+	if (!emailError && !passwordError && !confirmPasswordError) {
+		this.props.signUp(this.state.email, this.state.password);
 	}
     }
 
     onModalButtonPress = () => {
 	this._toggleModal();
 	const resetAction = NavigationActions.reset({
-	    index: 0,
-	    actions: [
-		this.props.navigation.navigate('PostRegistration')
-	    ] });
-	this.props.navigation.dispatch(resetAction);
+		index: 0,
+		actions: [
+			this.props.navigation.navigate('PostRegistration')
+		] });
+		this.props.navigation.dispatch(resetAction);
     }
 
     render() {
@@ -64,30 +67,30 @@ class SignupScreen extends Component {
 	return (
 	    <View style={container}>
 		<Background
-		    source={require('../../img/asset8.png')}
+			source={require('../../img/asset8.png')}
 		/>
 		<KeyboardAvoidingView 
-		    style={avoidingContainer}
-		    behavior='padding'
+			style={avoidingContainer}
+			behavior='padding'
 		>
-		    <View>
+			<View>
 			<ScrollView contentContainerStyle={{ alignItems: 'center' }}>
 			    <Logo />
 			    <Text> { this.props.error.message} </Text>
-			    <ActivityIndicator size='small' color='#00ff00' animating ={this.props.loading} />
+			    <ActivityIndicator size='small' color='#00ff00' animating={this.props.loading} />
 			    <View style={input}>
 				<Input
-				    placeholder ='Email*'
-				    keyboardType= 'email-address'
+				    placeholder='Email*'
+				    keyboardType='email-address'
 				    autoCapitalize='none'
-				    onChangeText= {(email) => this.setState({ email })}
-				    src={require('../../img/date_icon.png')}
+				    onChangeText={(email) => this.setState({ email })}
+				    src={ICON_EMAIL}
 				    onBlur={() => {
-				    this.setState({
-				      emailError: validate('email', this.state.email)
-				    })
-				  }}
-				  error={this.state.emailError}
+				    	this.setState({
+				    	  emailError: validate('email', this.state.email)
+						});
+					}}
+				  	error={this.state.emailError}
 				/>
 			    </View>
 			    <View style={input}>
@@ -96,11 +99,11 @@ class SignupScreen extends Component {
 				    autoCapitalize='none'
 				    secureTextEntry   
 				    onChangeText={(password) => this.setState({ password })}
-				    src={require('../../img/date_icon.png')}
+				    src={ICON_PASSWORD}
 				    onBlur={() => {
 				    this.setState({
-				      emailError: validate('password', this.state.password)
-				    })
+				      passwordError: validate('password', this.state.password)
+				    });
 				  }}
 				  error={this.state.passwordError}
 				/>
@@ -111,14 +114,14 @@ class SignupScreen extends Component {
 				    autoCapitalize='none'
 				    secureTextEntry
 				    onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
-				    src={require('../../img/date_icon.png')}
-				    onBlur = {() => {
+				    src={ICON_PASSWORD}
+				    onBlur={() => {
 					this.setState({
 					   confirmPasswordError: confirmPassword(this.state.password, this.state.confirmPassword)
  
-					})
+					});
 				    }}
-				    error = {this.state.confirmPasswordError}
+				    error={this.state.confirmPasswordError}
 				/>
 			    </View>
 			</ScrollView>
@@ -127,8 +130,8 @@ class SignupScreen extends Component {
 		</KeyboardAvoidingView>
 		<View style={input}>
 		    <Button 
-			title ='Submit'
-			onPress= {this.submit}
+			title='Submit'
+			onPress={this.submit}
 		    />
 		</View>
 	    </View>

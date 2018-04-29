@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { LOGO } from '../img';
 import { deviceHeight, deviceWidth } from '../utils/dimensions';
 
-const Card = ({ title }) => {
+const Card = ({ title, src }) => {
     const {
         containerStyle,
         backgroundImageStyle,
@@ -16,18 +16,18 @@ const Card = ({ title }) => {
         <View style={containerStyle}>
             <Image 
                 style={backgroundImageStyle}
-                source={LOGO}
+                source={src}
             />
             {/* <TouchableOpacity>
                 <Text style={ buttonStyle }>
                     Learn More
                 </Text>
             </TouchableOpacity> */}
-            <View style={titleContainerStyle}>
+            {/* <View style={titleContainerStyle}>
                 <Text style={titleStyle}>
                     { title }
                 </Text>
-            </View>
+            </View> */}
         </View>
     );
 };
@@ -36,22 +36,19 @@ const styles = {
     containerStyle: {
         height: deviceHeight * 0.3,
         width: deviceWidth * 0.9,
-        borderWidth: 2,
-        borderColor: 'gray',
-        justifyContent: 'flex-end',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        shadowColor: 'gray',
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        shadowOffset: { width: -1, height: 10 }
+        // borderWidth: 2,
+        // borderColor: 'gray',
+        // justifyContent: 'flex-end',
+        // backgroundColor: 'white',
+        // borderRadius: 10,
+        // shadowColor: 'gray',
+        // shadowOpacity: 0.2,
+        // shadowRadius: 2,
+        // shadowOffset: { width: -1, height: 10 }
     },
     backgroundImageStyle: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        height: '90%',
-        width: '100%',
+        height: deviceHeight * 0.3,
+        width: deviceWidth * 0.9,
     },
     titleStyle: {
         fontFamily: 'comfortaa',

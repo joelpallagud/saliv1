@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import HeaderText from '../components/HeaderText';
 import Logo from '../components/Logo';
+import { CARD_CPR, ICON_EMERGENCY } from '../img';
 // import Background from '../components/Background';
 // import Tutorial from '../components/Tutorial';
 
@@ -14,7 +15,7 @@ class EmergencyScreen extends Component {
         tabBarLabel: 'Emergencies',
         tabBarIcon: () => (
           <Image
-              source={require('../img/asset12.png')}
+              source={ICON_EMERGENCY}
               style={{ resizeMode: 'contain', width: 25, height: 25 }}
           />
         ),
@@ -49,7 +50,7 @@ class EmergencyScreen extends Component {
                 <View style={styles.containerStyle}>
                     <Logo />
                     <HeaderText text={emergencyHeader} />
-                    <Card title='CPR' key="card-1" />
+                    <Card title='CPR' key="card-1" src={CARD_CPR} />
                     <Button title={practiceButton} onPress={this.handleClick} />
                 </View>
             </View>

@@ -14,11 +14,11 @@ import Logo from '../../components/Logo';
 
 import { deviceWidth, deviceHeight } from '../../utils/dimensions';
 import { userCreate } from '../../actions';
-import validate from "../../validate";
-import validation from '../../validation';
+import validate from '../../validate';
+import { ICON_LOCATION, ICON_NUMBER, ICON_NAME, ICON_GIFT } from '../../img';
 
 class UserCreateScreen extends Component {
-    state = {
+    state ={
 	phone: null,
 	phoneError: null,
 	address: null,
@@ -41,29 +41,27 @@ class UserCreateScreen extends Component {
     submit = () => {
 	const { name, birthday, phone, address } = this.state;
 
-	const nameError = validate("name", this.state.name)
-	const phoneError= validate("phone", this.state.phone)
-	const addressError= validate("address", this.state.address)
-	const birthdayError = validate("birthday", this.state.birthday)
+	const nameError = validate('name', this.state.name);
+	const phoneError = validate('phone', this.state.phone);
+	const addressError = validate('address', this.state.address);
+	const birthdayError = validate('birthday', this.state.birthday);
 
 	this.setState({
-	    nameError: nameError,
-	    phoneError: phoneError,
-	    addressError: addressError,
-	    birthdayError: birthdayError
-	})
+	    nameError,
+	    phoneError,
+	    addressError,
+	    birthdayError
+	});
 
-	if(!nameError && !phoneError && !addressError && !birthdayError){
+	if (!nameError && !phoneError && !addressError && !birthdayError) {
 	    this.props.userCreate(name, birthday, phone, address);
 	    this._toggleModal();
 	}
     }
 
     onModalButtonPress = () => {
-
 	this._toggleModal();
-	if(!this.props.error)
-	{
+	if (!this.props.error) {
 	    const resetAction = NavigationActions.reset({
 		index: 0,
 		actions: [
@@ -97,19 +95,19 @@ class UserCreateScreen extends Component {
 			<ScrollView contentContainerStyle={{ alignItems: 'center' }}>
 			    <Logo />
 			    <Text> { this.props.error.message} </Text>
-			    <ActivityIndicator size='small' color='#00ff00' animating ={this.props.loading} />
+			    <ActivityIndicator size='small' color='#00ff00' animating={this.props.loading} />
 			    <View style={input}>
 				<Input
 				    value={name}
 				    placeholder='Name'
 				    onChangeText={(name) => this.setState({ name })}
-				    src={require('../../img/date_icon.png')}
-				    onBlur = {() => {
+				    src={ICON_NAME}
+				    onBlur={() => {
 					this.setState({
-					   nameError: validate("name", this.state.name) 
-					})
+					   nameError: validate('name', this.state.name) 
+					});
 				    }}
-				    error = {this.state.nameError}
+				    error={this.state.nameError}
 				/>
 			    </View>
 			    <View style={input}>
@@ -130,7 +128,8 @@ class UserCreateScreen extends Component {
 				    confirmBtnText='Confirm'
 				    cancelBtnText='Cancel'
 				    placeholder='Birthday'
-				    androidMode='spinner'
+					androidMode='spinner'
+					iconSource={ICON_GIFT}
 				    customStyles={{
 					dateIcon: {
 					    position: 'absolute',
@@ -160,17 +159,17 @@ class UserCreateScreen extends Component {
 			    </View>
 			    <View style={input}>
 				<Input
-				    value ={phone}
+				    value={phone}
 				    placeholder='Mobile number'
 				    keyboardType='phone-pad'
 				    onChangeText={(phone) => this.setState({ phone })}
-				    src={require('../../img/date_icon.png')}
-				    onBlur = {() => {
+				    src={ICON_NUMBER}
+				    onBlur={() => {
 					this.setState({
-					   phoneError: validate("phone", this.state.phone) 
-					})
+					   phoneError: validate('phone', this.state.phone) 
+					});
 				    }}
-				    error = {this.state.phoneError}
+				    error={this.state.phoneError}
 				/>
 			    </View>
 			    <View style={input}>
@@ -178,13 +177,13 @@ class UserCreateScreen extends Component {
 				    value={address}
 				    placeholder='City'
 				    onChangeText={(address) => this.setState({ address })}
-				    src={require('../../img/date_icon.png')}
-				    onBlur = {() => {
+				    src={ICON_LOCATION}
+				    onBlur={() => {
 					this.setState({
-					   addressError: validate("addressError", this.state.address) 
-					})
+					   addressError: validate('addressError', this.state.address) 
+					});
 				    }}
-				    error = {this.state.addressError}
+				    error={this.state.addressError}
 				/>
 			    </View>
 			</ScrollView>
@@ -193,8 +192,8 @@ class UserCreateScreen extends Component {
 		</KeyboardAvoidingView>
 		<View style={input}>
 		    <Button 
-			title ='Submit'
-			onPress= {this.submit}
+			title='Submit'
+			onPress={this.submit}
 		    />
 		</View>
 	    </View>
@@ -202,7 +201,7 @@ class UserCreateScreen extends Component {
     }
 }
 
-const styles = {
+const styles ={
     container: {
 	flex: 1,
 	justifyContent: 'center', 

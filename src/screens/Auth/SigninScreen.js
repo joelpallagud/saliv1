@@ -6,9 +6,9 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Background from '../../components/Background';
 import { deviceWidth, deviceHeight } from '../../utils/dimensions';
-import { LOGO } from '../../img';
+import { LOGO, ICON_EMAIL, ICON_PASSWORD } from '../../img';
 import { loginUser } from '../../actions';
-import validate from "../../validate";
+import validate from '../../validate';
 import validation from '../../validation';
 
 class SigninScreen extends Component {
@@ -33,7 +33,7 @@ class SigninScreen extends Component {
 	const { loginHeader } = this.props.text;
 
 	return (
-	    <View style= {container}>
+	    <View style={container}>
 		<Background
 		    source={require('../../img/asset8.png')}
 		/>
@@ -41,7 +41,7 @@ class SigninScreen extends Component {
 		    style={logo}
 		    source={LOGO}
 		/>
-		<KeyboardAvoidingView style ={container} behavior='padding'>
+		<KeyboardAvoidingView style={container} behavior='padding'>
 		    <View>
 			<Text style={headerStyle}>
 			    { loginHeader }
@@ -50,9 +50,10 @@ class SigninScreen extends Component {
 		    <View style={input}>
 			<Input
 			    style={input}
-			    placeholder= 'Mobile number'
-			    onChangeText= {(email) => this.setState({ email })}
-			    keyboardType ='e-mail'
+			    placeholder='Email'
+				onChangeText={(email) => this.setState({ email })}
+				src={ICON_EMAIL}
+			    keyboardType='e-mail'
 			    autoCapitalize='none'
 			/>
 		    </View>
@@ -62,15 +63,16 @@ class SigninScreen extends Component {
 			    placeholder='Password'
 			    autoCapitalize='none'
 			    secureTextEntry
-			    onChangeText={(password) => this.setState({ password })}
+				onChangeText={(password) => this.setState({ password })}
+				src={ICON_PASSWORD}
 			/>
 		    </View>
-		    <View style ={input}>
+		    <View style={input}>
 			<Button 
-			    title= 'Enter'
-			    onPress= {this.submit}
+			    title='Enter'
+			    onPress={this.submit}
 			/>
-			<ActivityIndicator size='small' color='#00ff00' animating ={this.props.loading} />
+			<ActivityIndicator size='small' color='#00ff00' animating={this.props.loading} />
 			<Text> { this.props.error.message} </Text>
 		    </View>
 		</KeyboardAvoidingView>

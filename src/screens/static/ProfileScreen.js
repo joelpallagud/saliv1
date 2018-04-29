@@ -8,6 +8,7 @@ import UserInfo from '../../components/UserInfo';
 
 import firebase from '../../firebase';
 import { logout, userFetch } from '../../actions';
+import { ICON_PROFILE } from '../../img';
 
 
 class ProfileScreen extends Component {
@@ -15,7 +16,7 @@ class ProfileScreen extends Component {
 	tabBarLabel: 'Profile',
 		tabBarIcon: () => (
 			<Image
-				source={require('../../img/asset11.png')}
+				source={ICON_PROFILE}
 				style={{ resizeMode: 'contain', width: 25, height: 25 }}
 			/>
 		),

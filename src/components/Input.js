@@ -6,25 +6,27 @@ const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitali
     const { inputStyle, containerStyle, iconStyle, errorStyle, errorInputStyle } = styles;
     
     return (
-        <View style={(error) ? errorStyle : containerStyle}>
-            <TextInput
-                secureTextEntry={secureTextEntry}
-                placeholder={placeholder}
-                placeholderTextColor={(error) ? 'red' : 'gray'}
-                autoCorrect={false}
-                style={(error) ? errorInputStyle : inputStyle}
-                value={value}
-                onChangeText={onChangeText}
-                underlineColorAndroid='transparent'
-                autoCapitalize={autoCapitalize}
-                keyboardType={keyboardType}
-		onBlur={onBlur}
-            />
-            <Image
-                style={iconStyle}
-                source={src}
-            />
-	    <Text> {error}</Text>
+        <View style={{ height: deviceHeight * 0.075, width: deviceWidth * 0.75 }} >
+            <View style={(error) ? errorStyle : containerStyle}>
+                <TextInput
+                    secureTextEntry={secureTextEntry}
+                    placeholder={placeholder}
+                    placeholderTextColor={(error) ? 'red' : 'gray'}
+                    autoCorrect={false}
+                    style={(error) ? errorInputStyle : inputStyle}
+                    value={value}
+                    onChangeText={onChangeText}
+                    underlineColorAndroid='transparent'
+                    autoCapitalize={autoCapitalize}
+                    keyboardType={keyboardType}
+                    onBlur={onBlur}
+                />
+                <Image
+                    style={iconStyle}
+                    source={src}
+                />
+            </View>
+            <Text>{error}</Text>
         </View>
     );
 };
