@@ -6156,6 +6156,10 @@ react-native-scripts@1.11.1:
     rimraf "^2.6.1"
     xdl "48.0.2"
 
+react-native-size-matters@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.1.0.tgz#c41bea0999526955d599d9f8f3a6b2a07de5930a"
+
 react-native-sound@^0.10.4:
   version "0.10.9"
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.10.9.tgz#6b00b0f4afd017cde09fbb9d171df1b5d5b851a8"

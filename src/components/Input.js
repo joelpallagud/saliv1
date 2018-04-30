@@ -1,6 +1,8 @@
 import React from 'react';
 import { TextInput, View, Image, Text } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import { deviceWidth, deviceHeight } from '../utils/dimensions';
+
 
 const Input = ({ placeholder, value, onChangeText, secureTextEntry, autoCapitalize, keyboardType, src, error, onBlur}) => {
     const { inputStyle, containerStyle, iconStyle, errorStyle, errorInputStyle } = styles;
@@ -52,8 +54,8 @@ const styles = {
         position: 'absolute',
 		right: deviceWidth * 0.025,
         marginRight: 0,
-        width: 32,
-        height: 32,
+        width: moderateScale(20),
+        height: moderateScale(20),
     },
     containerStyle: {
         backgroundColor: 'white',
