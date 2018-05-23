@@ -19,10 +19,10 @@ class NumberList extends Component {
     }
 
     componentWillMount() {
-        this._getLocationAsync();
+        this.getLocationAsync();
     }
 
-    _getLocationAsync = async () => {
+    getLocationAsync = async () => {
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
             this.setState({

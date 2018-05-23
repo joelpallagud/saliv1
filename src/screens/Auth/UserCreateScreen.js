@@ -19,15 +19,15 @@ import { ICON_LOCATION, ICON_NUMBER, ICON_NAME, ICON_GIFT } from '../../img';
 
 class UserCreateScreen extends Component {
     state ={
-	phone: null,
-	phoneError: null,
-	address: null,
-	addressError: null,
-	name: null,
-	nameError: null,
-	birthday: null,
-	birthdayError: null,
-	isModalVisible: false
+		phone: null,
+		phoneError: null,
+		address: null,
+		addressError: null,
+		name: null,
+		nameError: null,
+		birthday: null,
+		birthdayError: null,
+		isModalVisible: false
     }
 
     onModalButtonPress = () => {
@@ -153,7 +153,7 @@ class UserCreateScreen extends Component {
 									}}
 									onDateChange={(date) => this.setState({ birthday: date })}
 								/>
-								<Text>{this.state.phoneError}</Text>
+								<Text>{this.state.birthdayError}</Text>
 							</View>
 						</View>
 						<View style={input}>

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import { Location, Permissions } from 'expo';
+
 import Button from '../components/Button';
 import Card from '../components/Card';
 import HeaderText from '../components/HeaderText';
 import Logo from '../components/Logo';
 import { CARD_CPR, ICON_EMERGENCY } from '../img';
+import { setLocation } from '../actions';
 // import Background from '../components/Background';
 // import Tutorial from '../components/Tutorial';
 
@@ -19,6 +22,34 @@ class EmergencyScreen extends Component {
               style={{ resizeMode: 'contain', width: 25, height: 25 }}
           />
         ),
+    };
+
+    state = {
+        location: null,
+        errorMessage: null,
+    };
+
+    componentWillMount() {
+        this.getLocationAsync();
+    }
+
+    getLocationAsync = async () => {
+        console.log('Getting Location');
+        
+        const { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            this.setState({
+                errorMessage: 'Permission to access location was denied',
+            });
+        } else {
+            const pos = await Location.getCurrentPositionAsync({});
+            const coords = { 
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude
+            };
+            this.setState({ location: coords });
+            this.props.setLocation(this.state.location);
+        }
     };
 
     handleClick = () => {
@@ -73,4 +104,4 @@ const mapStateToProps = (state) => {
     return { text, tutorial };
 };
 
-export default connect(mapStateToProps)(EmergencyScreen);
+export default connect(mapStateToProps, { setLocation })(EmergencyScreen);
