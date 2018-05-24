@@ -51,7 +51,6 @@ export const userFetch = () => {
 			.on('value', snapshot => {
 				dispatch({ type: USER_FETCH_SUCCESS, 
 					payload: snapshot.val() });
-					console.log(snapshot.val());
 				})
 			.catch((err) => {
 				dispatch({ type: USER_FETCH_FAILURE, payload: err });
@@ -66,12 +65,12 @@ export const setDefaultDetails = () => {
 export const setLocation = (location) => (dispatch) => {
     if (location) { 
 		const uid = firebase.auth().currentUser.uid;
-		const path = `/location/${uid}`;
+		const path = `/users/${uid}`;
 		
 		dispatch({ type: SET_LOCATION });
 
 		firebase.database().ref(path)
-			.set({ location })
+			.update(location)
 			.then(() => {
 				dispatch({ type: SET_LOCATION_SUCCESS });
 			})
@@ -79,7 +78,7 @@ export const setLocation = (location) => (dispatch) => {
 				setLocationFailure(dispatch, err);
 			});
     } else {
-		setLocationFailure(dispatch, 'You must fill out all the fields');
+		setLocationFailure(dispatch, 'Location not found');
     }
 };
 

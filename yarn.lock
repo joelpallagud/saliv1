@@ -5297,6 +5297,10 @@ next-tick@1, next-tick@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
+ngeohash@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/ngeohash/-/ngeohash-0.6.0.tgz#329713e9e73d1f1a46d92aab0b94adb94533f687"
+
 node-fetch@1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"

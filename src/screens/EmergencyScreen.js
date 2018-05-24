@@ -3,6 +3,9 @@ import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Location, Permissions } from 'expo';
+import g from 'ngeohash';
+
+import firebase from '../firebase';
 
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -29,28 +32,56 @@ class EmergencyScreen extends Component {
         errorMessage: null,
     };
 
-    componentWillMount() {
-        this.getLocationAsync();
+    componentWillMount = async () => {
+        await this.getLocationAsync();
+
+        await this.getNearbyUsers();
     }
 
     getLocationAsync = async () => {
+        const { status } = await Permissions.askAsync(Permissions.LOCATION);
         console.log('Getting Location');
         
-        const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
             this.setState({
                 errorMessage: 'Permission to access location was denied',
             });
         } else {
             const pos = await Location.getCurrentPositionAsync({});
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
             const coords = { 
-                latitude: pos.coords.latitude,
-                longitude: pos.coords.longitude
+                latitude: lat,
+                longitude: lng,
+                hash: g.encode(lat, lng),
+                g10: g.encode_int(lat, lng, 24),
+                g5: g.encode_int(lat, lng, 26),
+                g3: g.encode_int(lat, lng, 28),
+                g1: g.encode_int(lat, lng, 30)
             };
+
             this.setState({ location: coords });
             this.props.setLocation(this.state.location);
         }
     };
+
+    getNearbyUsers = () => {
+        const lat = this.state.location.latitude;
+        const lng = this.state.location.longitude;
+        const ref = firebase.database().ref('users')
+            .orderByChild('g5')
+            .startAt(g.neighbor_int(g.encode_int(lat, lng, 26), [-1, -1], 26))
+            .endAt(g.neighbor_int(g.encode_int(lat, lng, 26), [1, 1], 26));
+        
+        ref.once('value', (snapshot) => {
+            const nearbyUsers = [];
+            snapshot.forEach((childSnapshot) => {
+                nearbyUsers.push(childSnapshot.child('phone').val());
+            });
+            console.log(nearbyUsers);
+        })
+        .catch((err) => console.log(err));
+    }
 
     handleClick = () => {
         const resetAction = NavigationActions.reset({

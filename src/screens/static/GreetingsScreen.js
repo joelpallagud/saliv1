@@ -5,55 +5,53 @@ import { showLanguage } from '../../actions';
 import Button from '../../components/Button';
 import Background from '../../components/Background';
 import { LOGO } from '../../img';
-import strings from '../../data/strings';
 import { deviceWidth } from '../../utils/dimensions';
 
 class GreetingsScreen extends Component {
-    handleClick = () => {
-        this.props.navigation.navigate('Login')
+    componentWillMount() {
+        this.props.showLanguage(this.props.language);
     }
 
-    componentWillMount() {
-        console.log(this.props.language)
-        this.props.showLanguage(this.props.language)
+    handleClick = () => {
+        this.props.navigation.navigate('Login');
     }
 
     render() {
         const { greeting1, greeting2, greeting3, greeting4, next } = this.props.text;
 
         return (
-            <View style={ styles.containerStyle } >
-		        <Background
-		            source={ require('../../img/asset2.png') }
-		        />
-                <View style={ styles.logoContainerStyle }>
+            <View style={styles.containerStyle} >
+                <Background
+                    source={require('../../img/asset2.png')}
+                />
+                <View style={styles.logoContainerStyle}>
                     <Image
-                        style={ styles.logoStyle }
-                        source={ LOGO }
+                        style={styles.logoStyle}
+                        source={LOGO}
                     />
                 </View>
-                <View style={ styles.contentContainerStyle }>
-                    <View style={ styles.textContainerStyle }>
-                        <Text style={ styles.textStyle } >
+                <View style={styles.contentContainerStyle}>
+                    <View style={styles.textContainerStyle}>
+                        <Text style={styles.textStyle} >
                             {greeting1}
                         </Text>
-                        <Text style={ styles.textStyle } >
+                        <Text style={styles.textStyle} >
                             {greeting2} 
                         </Text>
-                        <Text style={ styles.textStyle } >
+                        <Text style={styles.textStyle} >
                             {greeting3}
                         </Text>
-                        <Text style={ styles.textStyle } >
+                        <Text style={styles.textStyle} >
                            {greeting4}
                         </Text>
                     </View>
                     <Button 
-                        title= {next}
-                        onPress={ this.handleClick }
+                        title={next}
+                        onPress={this.handleClick}
                     />
                 </View>
             </View>
-        )
+        );
     }
 }
 
@@ -74,7 +72,7 @@ const styles = {
     textStyle: {
         textAlign: 'center',
         color: 'white',
-        fontSize: deviceWidth*0.045,
+        fontSize: deviceWidth * 0.045,
         fontFamily: 'robotoslab',
     },
     contentContainerStyle: {
@@ -88,13 +86,13 @@ const styles = {
         width: '80%',
         backgroundColor: 'rgba( 0, 0, 0 , 0.3)'
     },
-}
+};
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = (state) => {
     const { language } = state.auth;
     const { text } = state;
     
     return { text, language };
 };
 
-export default connect( mapStateToProps, { showLanguage }) ( GreetingsScreen );
+export default connect(mapStateToProps, { showLanguage })(GreetingsScreen);

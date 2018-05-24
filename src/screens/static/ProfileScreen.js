@@ -40,7 +40,6 @@ class ProfileScreen extends Component {
 				this.props.userFetch();
 			}
 		});
-		console.log(this.props.profile);
 	}
 
 	redirectLogin = () => {
@@ -51,9 +50,7 @@ class ProfileScreen extends Component {
 		this.props.navigation.navigate('UserInfo');
 	}
 
-    renderInfo = () => {
-		console.log(this.props);
-		
+    renderInfo = () => {		
 		if (this.state.user && this.props.details) {
 			return (
 				<UserInfo 

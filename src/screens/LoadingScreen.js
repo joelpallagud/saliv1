@@ -6,17 +6,17 @@ class LoadingScreen extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         setTimeout(() => navigation.navigate('Language'), 2000);
-    };
+    }
 
     render() {
         return (
-            <View style={ styles.containerStyle } >
+            <View style={styles.containerStyle} >
                 <Image
-                    style={ styles.logoStyle }
-                    source={ LOGO }
+                    style={styles.logoStyle}
+                    source={LOGO}
                 />
             </View>
-        )
+        );
     }
 }
 
@@ -31,6 +31,6 @@ const styles = {
         width: 100,
         height: 100
     }
-}
+};
 
 export default LoadingScreen;

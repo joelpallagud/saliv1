@@ -1,37 +1,36 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
 import HeaderText from '../../components/HeaderText';
 import BodyText from '../../components/BodyText';
 import Logo from '../../components/Logo';
-import { LOGO } from '../../img';
 
 
 class PracticeScreen extends Component {
     static navigationOptions = {
 	tabBarLabel: 'Practice CPR',
 	tabBarIcon: () => (
-	  <Image
-	      source={require('../../img/asset13.png')}
-	      style = {{resizeMode: 'contain', width: 25, height: 25}}
-	  />
+        <Image
+            source={require('../../img/asset13.png')}
+            style={{ resizeMode: 'contain', width: 25, height: 25 }}
+        />
     ),
     };
     render() {
-        const { containerStyle, headerStyle } = styles;
+        const { containerStyle } = styles;
         const { practiceHeader, practiceBody, practiceButton } = this.props.text;
 
         return (
-            <View style={ containerStyle }>
+            <View style={containerStyle}>
                 <Logo />
-                <HeaderText text={ practiceHeader }/>
-                <BodyText text={ practiceBody }/>
+                <HeaderText text={practiceHeader} />
+                <BodyText text={practiceBody} />
                 <Button 
-                    title={ practiceButton } 
+                    title={practiceButton} 
                 />
             </View>
-        )
+        );
     }
 }
 
@@ -45,12 +44,12 @@ const styles = {
     headerStyle: {
         justifyContent: 'space-around'
     }
-}
+};
 
 const mapStateToProps = (state) => {
     const { text } = state;
 
     return { text };
-}
+};
 
-export default connect( mapStateToProps )( PracticeScreen );
+export default connect(mapStateToProps)(PracticeScreen);

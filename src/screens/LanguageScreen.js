@@ -20,8 +20,6 @@ class LanguageScreen extends Component {
 
     render() {
         const { containerStyle, textContainerStyle, imageContainerStyle } = styles;
-        console.log(deviceHeight);
-        console.log(deviceWidth);
         
         return (
             <View style={containerStyle} >
