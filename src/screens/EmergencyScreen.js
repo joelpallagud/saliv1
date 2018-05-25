@@ -39,7 +39,8 @@ class EmergencyScreen extends Component {
 
     componentWillMount = async () => {
         await this.getLocationAsync();
-        this.getNearbyUsers();
+        // this.getNearbyUsers();
+        this.sendTexts();
     }
 
     getLocationAsync = async () => {
@@ -73,33 +74,35 @@ class EmergencyScreen extends Component {
         }
     };
 
-    getNearbyUsers = () => {
-        const lat = this.state.location.latitude;
-        const lng = this.state.location.longitude;
-        const ref = firebase.database().ref('users')
-            .orderByChild('g5')
-            .startAt(g.neighbor_int(g.encode_int(lat, lng, 26), [-1, -1], 26))
-            .endAt(g.neighbor_int(g.encode_int(lat, lng, 26), [1, 1], 26));
+    // getNearbyUsers = () => {
+    //     const lat = this.state.location.latitude;
+    //     const lng = this.state.location.longitude;
+    //     const ref = firebase.database().ref('users')
+    //         .orderByChild('g5')
+    //         .startAt(g.neighbor_int(g.encode_int(lat, lng, 26), [-1, -1], 26))
+    //         .endAt(g.neighbor_int(g.encode_int(lat, lng, 26), [1, 1], 26));
         
-        ref.once('value', (snapshot) => {
-            let nearbyUsers = [];
-            snapshot.forEach((childSnapshot) => {
-                nearbyUsers.push(childSnapshot.child('phone').val());
-            });
-            nearbyUsers = _.uniq(nearbyUsers);
-            this.sendTexts(nearbyUsers);
-        })
-        .catch((err) => console.log(err));
-    }
+    //     ref.once('value', (snapshot) => {
+    //         let nearbyUsers = [];
+    //         snapshot.forEach((childSnapshot) => {
+    //             nearbyUsers.push(childSnapshot.child('phone').val());
+    //         });
+    //         nearbyUsers = _.uniq(nearbyUsers);
+    //         this.sendTexts(nearbyUsers);
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
 
-    sendTexts = async (nearbyUsers) => {
-        const nearbyUsersNumbers = nearbyUsers.join(',');
+    sendTexts = async (
+        // nearbyUsers
+    ) => {
+        // const nearbyUsersNumbers = nearbyUsers.join(',');
         const { city, name, region, street } = this.state.address[0];
         const lat = this.state.location.latitude;
         const lng = this.state.location.longitude;
         const place = `${name} ${street} St. ${city}, ${region}`;
         const data = {
-            numbers: nearbyUsersNumbers,
+            // numbers: nearbyUsersNumbers,
             place,
             lat, 
             lng
