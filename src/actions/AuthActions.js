@@ -94,16 +94,16 @@ export const signUp = (email, password) => (dispatch) => {
 //     }
 // }
 
-export function signInWithFacebook(facebookToken, successCB, errorCB) {
-    return (dispatch) => {
-        api.signInWithFacebook(facebookToken, (success, data, error) => {
-            if (success) {
-                if (data.exists) dispatch({ type: t.LOGGED_IN, data: data.user });
-                successCB(data);
-            } else if (error) errorCB(error);
-        });
-    };
-}
+// export function signInWithFacebook(facebookToken, successCB, errorCB) {
+//     return (dispatch) => {
+//         api.signInWithFacebook(facebookToken, (success, data, error) => {
+//             if (success) {
+//                 if (data.exists) dispatch({ type: t.LOGGED_IN, data: data.user });
+//                 successCB(data);
+//             } else if (error) errorCB(error);
+//         });
+//     };
+// }
 
 const signupFail = (dispatch, error) => {
     console.log('Signup failed');
@@ -124,7 +124,7 @@ export const logout = () => (dispatch) => {
 	dispatch({ type: LOGOUT });
     firebase.auth().signOut()
         .then(() => logoutSuccess(dispatch))
-        .catch((err) => logoutFail(dispatch, error));
+        .catch((err) => logoutFail(dispatch, err));
     };
 
 const logoutSuccess = (dispatch) => {

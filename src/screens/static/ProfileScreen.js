@@ -38,6 +38,8 @@ class ProfileScreen extends Component {
 			if (user != null) {
 				this.setState({ user });
 				this.props.userFetch();
+			} else {
+				console.log(user);
 			}
 		});
 	}

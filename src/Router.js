@@ -76,9 +76,6 @@ const HomeTab = TabNavigator(
             activeTintColor: '#5F968E',
             showIcon: true,
             showLabel: false,
-            indicatorStyle: {
-                color: 'red'
-            },
             style: {
 
                 backgroundColor: 'white',

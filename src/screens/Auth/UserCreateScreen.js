@@ -18,7 +18,7 @@ import validate from '../../validate';
 import { ICON_LOCATION, ICON_NUMBER, ICON_NAME, ICON_GIFT } from '../../img';
 
 class UserCreateScreen extends Component {
-    state ={
+    state = {
 		phone: null,
 		phoneError: null,
 		address: null,
@@ -30,8 +30,8 @@ class UserCreateScreen extends Component {
 		isModalVisible: false
     }
 
-    onModalButtonPress = () => {
-		this.toggleModal();
+    onModalButtonPress = async () => {
+		await this.toggleModal();
 		if (!this.props.error) {
 			const resetAction = NavigationActions.reset({
 				index: 0,
@@ -134,9 +134,8 @@ class UserCreateScreen extends Component {
 											marginRight: 0
 										},
 										dateInput: {
-											color: '#000',
 											paddingLeft: deviceWidth * 0.025,
-											lineHeight: deviceHeight * 0.045,
+											// lineHeight: deviceHeight * 0.045,
 											borderWidth: 0,
 											position: 'absolute',
 											left: 0,
@@ -148,7 +147,7 @@ class UserCreateScreen extends Component {
 										placeholderText: {
 											fontFamily: 'quicksand',
 											fontSize: deviceWidth * 0.04,
-											fontColor: 'gray'
+											color: 'gray'
 										}
 									}}
 									onDateChange={(date) => this.setState({ birthday: date })}

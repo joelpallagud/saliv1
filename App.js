@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { addNavigationHelpers } from 'react-navigation';
 import { View } from 'react-native-animatable';
+import ignoreWarnings from 'react-native-ignore-warnings';
 
 import Router from './src/Router';
 import reducers from './src/reducers';
@@ -28,23 +29,23 @@ import {
 	LOGO_WHITE
 } from './src/img';
 
-const AppWithoutNav = ({ dispatch, nav }) => {
-    return (
-	<Router 
-	    navigation={
-		addNavigationHelpers({
-		    dispatch,
-		    state: nav
-		})}
-	    />
-    )
-};
 
-const mapStateToProps = ( state ) => ({
+const AppWithoutNav = ({ dispatch, nav }) => (
+	<Router 
+		navigation={
+			addNavigationHelpers({
+				dispatch,
+				state: nav
+			})
+		}
+	/>
+    );
+
+const mapStateToProps = (state) => ({
     nav: state.nav
 });
 
-const AppWithNav = connect( mapStateToProps )( AppWithoutNav );
+const AppWithNav = connect(mapStateToProps)(AppWithoutNav);
 
 export default class App extends Component {
 	state = {
@@ -52,10 +53,11 @@ export default class App extends Component {
 	};
 	
 	componentWillMount() {
-		this._loadAssetsAsync();
+		this.loadAssetsAsync();
+		ignoreWarnings(['Setting a timer', 'Possible Unhandled Promise']);
 	}
 	
-	async _loadAssetsAsync() {
+	async loadAssetsAsync() {
 		try {
 			await cacheAssetsAsync({
 				images: [
@@ -90,11 +92,11 @@ export default class App extends Component {
 					CARD_CPR
 				],
 				fonts: [
-					{ 'comfortaa': require('./src/data/fonts/Comfortaa-Bold.ttf') },
-					{ 'quicksand': require('./src/data/fonts/Quicksand-Regular.otf') },
-					{ 'robotoslab': require('./src/data/fonts/RobotoSlab-Regular.ttf') },
+					{ comfortaa: require('./src/data/fonts/Comfortaa-Bold.ttf') },
+					{ quicksand: require('./src/data/fonts/Quicksand-Regular.otf') },
+					{ robotoslab: require('./src/data/fonts/RobotoSlab-Regular.ttf') },
 				],
-		  	});
+			});
 		} catch (e) {
 			console.warn(
 				'There was an error caching assets (see: main.js), perhaps due to a ' +
@@ -120,20 +122,19 @@ export default class App extends Component {
     */
 
     render() {
-		const store = createStore( reducers, {}, applyMiddleware( reduxThunk ));
+		const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 		if (this.state.appIsReady) {
 			return (
-				<Provider store={ store }>
+				<Provider store={store}>
 					<SafeAreaView style={{ flex: 1, backgroundColor: '#ddd' }}>
-						<View style={{ flex: 1, backgroundColor: (Platform.OS === "ios") ? '#ddd' : 'black', paddingTop: (Platform.OS === "ios") ? 0 : 25 }}>
+						<View style={{ flex: 1, backgroundColor: (Platform.OS === 'ios') ? '#ddd' : 'black', paddingTop: (Platform.OS === 'ios') ? 0 : 25 }}>
 							<AppWithNav />
 						</View>
 					</SafeAreaView>
-			  	</Provider>
+				</Provider>
 			); 
-		} else {
+		} 
 			return null;
-		}
 	}
-};
+}

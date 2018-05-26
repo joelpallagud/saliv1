@@ -38,7 +38,7 @@ const styles = {
         borderColor: '#BFDCCF',
         backgroundColor: 'white',
         shadowColor: 'black',
-        hadowOpacity: 0.2,
+        shadowOpacity: 0.2,
         shadowRadius: 2,
         shadowOffset: { width: -1, height: 5 },
         elevation: 3
